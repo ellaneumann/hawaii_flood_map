@@ -45,10 +45,45 @@ document.addEventListener('click',function(e){
 
 // ── TABS ───────────────────────────────────────────────────────────────────────
 function ST(name){
-  var names=['layers','event','islands','news','data'];
+  var names=['layers','event','stats','islands','news','data'];
   document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',names[i]===name);});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='tab-'+name);});
 }
+
+function renderStats(){
+  var totalEvacuated=ISLANDS.reduce(function(sum,i){return sum+(i.evacuated||0);},0);
+  var totalRescued=ISLANDS.reduce(function(sum,i){return sum+(i.rescued||0);},0);
+  var totalEvacZones=EVAC_ZONES.length;
+  var totalImpactZones=IMPACT_ZONES.length;
+  var totalFEMA=FEMA_AREAS.length;
+  var totalStreams=STREAMS.length;
+  var totalSoilAreas=Object.keys(SOIL_DATA).reduce(function(sum,k){return sum+SOIL_DATA[k].length;},0);
+  var totalAtmospheric=ATMOSPHERIC_RIVERS.length;
+  var totalCensus=CENSUS_DATA.length;
+  var totalImpervious=IMPERVIOUS_SURFACE.length;
+
+  var html = ''+
+    '<div class="lg-title">Event Summary</div>'+ 
+    '<div class="lrow" style="padding:6px 8px;margin:4px 0;background:#f8fafc;border:1px solid var(--g200);border-radius:6px;">'+
+      '<div class="linfo"><div class="lname">Total evacuated</div><div class="lsub">'+totalEvacuated.toLocaleString()+'</div></div>'+ 
+    '</div>'+ 
+    '<div class="lrow" style="padding:6px 8px;margin:4px 0;background:#fff3e0;border:1px solid var(--warn);border-radius:6px;">'+
+      '<div class="linfo"><div class="lname">Total rescued</div><div class="lsub">'+totalRescued.toLocaleString()+'</div></div>'+ 
+    '</div>'+ 
+    '<div class="lg-title">Data Snapshot</div>'+ 
+    '<div class="pop-stat"><b>'+totalEvacZones+'</b> evacuation zones</div>'+ 
+    '<div class="pop-stat"><b>'+totalImpactZones+'</b> impact zones</div>'+ 
+    '<div class="pop-stat"><b>'+totalFEMA+'</b> FEMA SFHA areas</div>'+ 
+    '<div class="pop-stat"><b>'+totalStreams+'</b> major stream segments</div>'+ 
+    '<div class="pop-stat"><b>'+totalSoilAreas+'</b> pineapple soil zones</div>'+ 
+    '<div class="pop-stat"><b>'+totalAtmospheric+'</b> atmospheric river event layers</div>'+ 
+    '<div class="pop-stat"><b>'+totalCensus+'</b> census exposure zones</div>'+ 
+    '<div class="pop-stat"><b>'+totalImpervious+'</b> impervious surface zones</div>';
+
+  document.getElementById('stats-content').innerHTML=html;
+}
+
+renderStats();
 
 // ── SIDEBAR TOGGLE ─────────────────────────────────────────────────────────────
 var sbOpen=window.innerWidth>768; // Auto-close on mobile/tablet
@@ -94,45 +129,15 @@ async function fetchNews(force){
   document.getElementById('news-label').textContent='Fetching&#8230;';
   try{
     var t=new Date().toISOString().slice(0,10);
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:'Search for 5 very recent news articles (2026) about Hawaii flooding recovery, the March 2026 Kona Low storms, Oahu North Shore flood damage, Waialua Haleiwa flooding, or Hawaii flood relief and FEMA response. Today is '+t+'. Return a JSON array. Each item: y (2026), title, src, tag (one of: Recovery/Damage/Infrastructure/Relief/Climate), tc (hex: Recovery=#004D40 Damage=#E65100 Infrastructure=#005F73 Relief=#7B2D8B Climate=#1E88E5), sum (2 sentences max), full (2-3 paragraphs), url. Return ONLY the JSON array, no markdown.'}]})});
-    var data=await r.json();
-    var txt=(data.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('');
-    var m=txt.match(/\[\s*\{[\s\S]*?\}\s*\]/);
-    if(!m)throw new Error('no JSON');
-    var ai=JSON.parse(m[0]);
-    localStorage.setItem(NK,JSON.stringify(ai));localStorage.setItem(ND,t);
-    renderNews(ai);setSt('NWS live · news updated today','#4CAF50');
-  }catch(e){
-    console.error(e);renderNews([]);
-    document.getElementById('news-label').textContent='Archived reports';
-    setSt('Archived news','#F9A825');
-  }finally{document.getElementById('rfbtn').disabled=false;}
-}
+    var promptMsg = [
+      'Search for 5 very recent news articles (2026) about Hawaii flooding recovery, the March 2026 Kona Low storms, Oahu North Shore flood damage, Waialua Haleiwa flooding, or Hawaii flood relief and FEMA response.',
+      'Today is ' + t + '.',
+      'Return a JSON array. Each item: y (2026), title, src, tag (one of: Recovery/Damage/Infrastructure/Relief/Climate), tc (hex: Recovery=#004D40 Damage=#E65100 Infrastructure=#005F73 Relief=#7B2D8B Climate=#1E88E5), sum (2 sentences max), full (2-3 paragraphs), url.',
+      'Return ONLY the JSON array, no markdown.'
+    ].join(' ');
 
-function renderNews(ai){
-  var box=document.getElementById('news-box');box.innerHTML='';
-  var all=ai.map(function(a){return Object.assign({},a,{isAI:true});}).concat(STATIC_NEWS.map(function(a){return Object.assign({},a,{isAI:false});}));
-  all.sort(function(a,b){return (b.y||0)-(a.y||0);});
-  document.getElementById('news-label').textContent=(ai.length>0?ai.length+' live + ':'')+STATIC_NEWS.length+' archived';
-  all.forEach(function(n,i){
-    var d=document.createElement('div');d.className='n-card';
-    var tc=n.tc||'#607D8B';
-    d.innerHTML='<div class="n-hdr" onclick="xNews('+i+')">'
-      +'<div class="n-meta"><span class="n-yr">'+(n.y||'2026')+'</span>'
-      +'<span class="n-tg" style="background:'+tc+'22;color:'+tc+'">'+(n.tag||'')+'</span>'
-      +(n.isAI?'<span class="ai-tg">Live</span>':'')+'</div>'
-      +'<div class="n-src">'+(n.src||'')+'</div>'
-      +'<div class="n-ttl">'+(n.title||'')+'</div>'
-      +'<div class="n-sum">'+(n.sum||n.summary||'')+'</div>'
-      +'<button class="n-xbtn" id="nb-'+i+'">Read more</button></div>'
-      +'<div class="n-body" id="nb-body-'+i+'"><div class="n-txt">'+(n.full||'')+'</div>'
-      +'<a class="n-link" href="'+(n.url||'#')+'" target="_blank">Open source</a></div>';
-    box.appendChild(d);
-  });
-}
-function xNews(i){var b=document.getElementById('nb-body-'+i),btn=document.getElementById('nb-'+i);var o=b.classList.toggle('open');btn.textContent=o?'Collapse':'Read more';}
-
-// ── INITIALIZATION ────────────────────────────────────────────────────────────
-fetchWeather();
-fetchNews(false);
-setInterval(fetchWeather,600000); // Refresh weather every 10 minutes
+    var payload = {
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      tools: [{type:'web_search_20250305', name:'web_search'}],
+      messages: [{role:'user', 

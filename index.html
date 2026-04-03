@@ -34,6 +34,7 @@
     <div class="tabs">
       <div class="tab active" onclick="ST('layers')">Layers</div>
       <div class="tab" onclick="ST('event')">Event</div>
+      <div class="tab" onclick="ST('stats')">Stats</div>
       <div class="tab" onclick="ST('islands')">By Island</div>
       <div class="tab" onclick="ST('news')">News</div>
       <div class="tab" onclick="ST('data')">Data Sources</div>
@@ -140,6 +141,13 @@
       </div>
     </div>
 
+    <!-- STATS -->
+    <div class="panel" id="tab-stats">
+      <div class="scroll" id="stats-content" style="padding:12px;">
+        <div style="font-size:10.5px;color:var(--g600);line-height:1.5">Loading stats&#8230;</div>
+      </div>
+    </div>
+
     <!-- BY ISLAND -->
     <div class="panel" id="tab-islands">
       <div class="scroll" id="island-scroll">
@@ -186,58 +194,4 @@
         <div class="ds-card">
           <h3>Hawaii DLNR — Watersheds &amp; Streams</h3>
           <p><span class="ds-badge" style="background:#004D40;color:#fff">DLNR</span> Division of Aquatic Resources watershed boundaries and stream network for all main Hawaiian Islands. Used for identifying drainage basins that overflowed during the Kona low events.</p>
-          <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::watersheds/about" target="_blank">geoportal.hawaii.gov — Watersheds</a> &nbsp;|&nbsp; <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::streams/about" target="_blank">Streams</a>
-        </div>
-        <div class="ds-card">
-          <h3>FEMA / Esri — Incident Response Mapping</h3>
-          <p><span class="ds-badge" style="background:#E65100;color:#fff">FEMA</span> FEMA Geospatial Resource Center activated for the Hawaii flooding incident. Provides situational awareness layers, shelter locations, damage assessments.</p>
-          <a href="https://gis-fema.hub.arcgis.com/pages/incident-page-hawaii-flooding-march2026" target="_blank">FEMA GIS — Hawaii Flooding March 2026</a>
-        </div>
-        <div class="ds-card">
-          <h3>Hawaii Emergency Management Agency</h3>
-          <p>Official situation reports, evacuation orders, rescue counts, and recovery updates. Disaster relief period in effect through April 13, 2026 per Governor Green's proclamation.</p>
-          <a href="https://dod.hawaii.gov/hiema/" target="_blank">dod.hawaii.gov/hiema</a>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- end .sidebar -->
-
-  <!-- MAP -->
-  <div class="map-area">
-    <div id="map"></div>
-    <div class="map-btns">
-      <button class="mbtn" id="btn-st" onclick="setBase('street')">Street</button>
-      <button class="mbtn active" id="btn-sa" onclick="setBase('sat')">Satellite</button>
-    </div>
-    <div class="zbtns">
-      <button class="zbtn" onclick="map.zoomIn()">+</button>
-      <button class="zbtn" onclick="map.zoomOut()">&#8722;</button>
-    </div>
-    <div class="map-legend">
-      <div class="leg-ttl">Legend — March 2026</div>
-      <div class="leg-sec"><div class="leg-sec-ttl">Event Impact</div>
-        <div class="leg-row"><div class="leg-sq" style="background:rgba(230,81,0,.55);border:2px solid #E65100"></div><span class="leg-lbl">Flood impact zone</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:rgba(123,45,139,.4);border:2px solid #7B2D8B"></div><span class="leg-lbl">Evacuation zone</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:rgba(30,136,229,.3);border:2px dashed #1E88E5"></div><span class="leg-lbl">Extreme rainfall area</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#D81B60;width:10px;height:10px;border-radius:50%"></div><span class="leg-lbl">Dam risk site</span></div>
-      </div>
-      <div class="leg-sec"><div class="leg-sec-ttl">FEMA / Hazard</div>
-        <div class="leg-row"><div class="leg-sq" style="background:rgba(0,95,115,.4);border:2px solid #005F73"></div><span class="leg-lbl">FEMA Special Flood Hazard</span></div>
-      </div>
-      <div class="leg-sec"><div class="leg-sec-ttl">Hydrology</div>
-        <div class="leg-row"><div class="leg-ln" style="background:#1E88E5"></div><span class="leg-lbl">Major stream / river</span></div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- end .main -->
-
-<!-- Load external scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="data.js"></script>
-<script src="map.js"></script>
-<script src="ui.js"></script>
-
-</body>
-</html>
+          <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::watersheds/about" target="_blank">geoportal.hawaii.gov — Watersheds</a> &nbsp;|&nbsp; <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::s
