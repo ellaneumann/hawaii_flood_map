@@ -157,4 +157,209 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
 /* DATA SOURCES */
 .ds-card{background:#fff;border:1px solid var(--g200);border-radius:7px;padding:10px;margin-bottom:7px}
 .ds-card h3{font-size:11px;font-weight:700;color:var(--g800);margin-bottom:4px}
-.ds-card p{font-size:10px;color:var(--g600);line-height:1.5;margin-
+.ds-card p{font-size:10px;color:var(--g600);line-height:1.5;margin-bottom:5px}
+.ds-badge{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:4px;margin-right:3px}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px}
+
+/* WATERWAY & ELEVATION STYLING */
+.waterway-tooltip{
+  background:#fff!important;
+  border:1px solid var(--g200)!important;
+  border-radius:4px!important;
+  padding:4px 8px!important;
+  font-size:9px!important;
+  color:var(--g800)!important;
+  box-shadow:0 2px 6px rgba(0,0,0,.15)!important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN — TABLET (768px and below)
+   ──────────────────────────────────────────────────────────────────────────────── */
+@media (max-width:768px){
+  .sidebar{width:0;border-right:none}
+  .sidebar.open{width:280px;box-shadow:2px 0 12px rgba(0,0,0,.2)}
+  .sidebar>*{display:none}
+  .sidebar.open>*{display:block}
+  .sb-toggle{right:0;width:40px;height:56px;background:#fff;border:1px solid var(--g200);z-index:600}
+  .sb-toggle:hover{background:var(--g50)}
+  
+  .main{flex-direction:column}
+  .map-area{flex:1;min-width:0}
+  header{flex-wrap:wrap;gap:8px;padding:8px 12px}
+  .hdr-title{font-size:14px}
+  .hdr-sub{font-size:8px}
+  .hdr-right{width:100%;order:3;margin-left:0;justify-content:space-between;gap:6px}
+  .wx-pill{font-size:9px;padding:4px 8px}
+  .wx-val{font-size:10px}
+  .hdr-badge{font-size:8px;padding:2px 6px}
+  
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tab{font-size:8px;padding:6px 3px}
+  
+  .scroll{padding:8px}
+  .lg-title{font-size:8px;margin:8px 0 4px}
+  .lrow{padding:4px 4px;gap:6px}
+  .lname{font-size:10px}
+  .lsub{font-size:8.5px}
+  
+  .pop{width:240px!important}
+  .pop-title{font-size:12px;margin-bottom:5px}
+  .pop-stat{font-size:9.5px}
+  
+  .mbtn{font-size:9px;padding:4px 8px}
+  .zbtn{width:28px;height:28px;font-size:15px}
+  .map-legend{max-width:160px;padding:7px 9px;font-size:9px}
+  .leg-ttl{font-size:9px}
+  .leg-row{font-size:8.5px}
+  
+  .event-card{padding:8px;margin-bottom:6px;border-left-width:3px}
+  .event-title{font-size:11px}
+  .event-body{font-size:10px}
+  
+  .island-card{padding:8px;margin-bottom:6px}
+  .island-name{font-size:11px}
+  .island-stats{grid-template-columns:repeat(2,1fr);gap:2px}
+  .istat-v{font-size:11px}
+  .istat-l{font-size:7.5px}
+  .island-desc{font-size:9.5px}
+  .actions-toggle{font-size:9px;padding:5px}
+  
+  .n-card{border-radius:6px;margin-bottom:5px}
+  .n-ttl{font-size:10.5px}
+  .n-sum{font-size:9px}
+  .n-src{font-size:8px}
+  
+  .ds-card{padding:8px;margin-bottom:5px}
+  .ds-card h3{font-size:10px}
+  .ds-card p{font-size:9px}
+  .ds-badge{font-size:7px}
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN — PHONE (480px and below)
+   ──────────────────────────────────────────────────────────────────────────────── */
+@media (max-width:480px){
+  body{font-size:14px}
+  header{gap:6px;padding:6px 8px}
+  .hdr-icon{font-size:20px}
+  .hdr-title{font-size:13px}
+  .hdr-sub{font-size:7.5px}
+  .hdr-badge{font-size:7px;padding:1px 5px}
+  .hdr-right{gap:4px}
+  .wx-pill{font-size:8px;padding:3px 6px}
+  .wx-val{font-size:9px}
+  .hdr-st{font-size:8px}
+  .sdot{width:5px;height:5px}
+  
+  .sidebar{width:0}
+  .sidebar.open{width:100vw;max-width:320px;height:100vh;position:fixed;top:48px;left:0;z-index:500;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .scroll{padding:6px;max-height:calc(100vh - 150px)}
+  
+  .sb-toggle{width:36px;height:48px;font-size:11px}
+  
+  .main{flex-direction:column;gap:0}
+  .map-area{flex:1}
+  
+  .tabs{flex-wrap:nowrap;overflow-x:auto;font-size:7px}
+  .tab{font-size:7px;padding:5px 2px}
+  
+  .lg-title{font-size:7.5px;margin:6px 0 3px}
+  .lrow{padding:3px 3px;gap:5px}
+  .lchk{width:16px;height:16px}
+  .lico{width:22px;height:14px}
+  .lname{font-size:9px}
+  .lsub{font-size:8px}
+  
+  .pop{width:200px!important}
+  .pop-title{font-size:11px;margin-bottom:4px}
+  .pop-badge{font-size:7.5px;padding:1px 6px}
+  .pop-stat{font-size:9px}
+  .pop-box{font-size:9px;padding:6px;margin:4px 0}
+  
+  .mbtn{font-size:8px;padding:3px 6px}
+  .zbtns{top:8px;right:8px;gap:2px}
+  .zbtn{width:26px;height:26px;font-size:13px;border-radius:4px}
+  
+  .map-btns{top:8px;left:8px;gap:3px}
+  .map-legend{bottom:8px;right:8px;max-width:140px;padding:6px 8px;font-size:8px;border-radius:6px}
+  .leg-ttl{font-size:8px;margin-bottom:4px}
+  .leg-sec{margin-bottom:4px}
+  .leg-sec-ttl{font-size:7px}
+  .leg-row{font-size:8px;margin-bottom:1px}
+  .leg-sq{width:10px;height:10px}
+  .leg-ln{width:14px;height:2px}
+  
+  .event-card{padding:6px;margin-bottom:5px}
+  .event-title{font-size:10px;line-height:1.3}
+  .event-body{font-size:9px;line-height:1.4}
+  .estate-v{font-size:11px}
+  .estat-l{font-size:7px}
+  
+  .island-card{padding:6px;margin-bottom:5px}
+  .island-name{font-size:10px}
+  .island-badge{font-size:8px}
+  .island-stats{grid-template-columns:repeat(2,1fr);gap:2px}
+  .istat{padding:3px}
+  .istat-v{font-size:10px}
+  .istat-l{font-size:7px}
+  .island-desc{font-size:9px;line-height:1.4}
+  .actions-toggle{font-size:8px;padding:4px}
+  .act-item{font-size:9px}
+  
+  .news-bar{font-size:8px;padding:5px 8px}
+  .rfbtn{font-size:8px;padding:3px 7px}
+  
+  .n-card{border-radius:5px;margin-bottom:4px}
+  .n-hdr{padding:6px 8px 5px}
+  .n-meta{gap:3px;margin-bottom:2px}
+  .n-yr{font-size:7.5px}
+  .n-tg{font-size:7.5px}
+  .ai-tg{font-size:7.5px}
+  .n-src{font-size:8px}
+  .n-ttl{font-size:10px;line-height:1.3;margin-bottom:2px}
+  .n-sum{font-size:9px;line-height:1.4}
+  .n-xbtn{font-size:9px}
+  .n-body{padding:0 8px 8px}
+  .n-txt{font-size:9px;line-height:1.6}
+  .n-link{font-size:9px;padding:3px 8px}
+  
+  .ds-card{padding:6px;margin-bottom:4px}
+  .ds-card h3{font-size:9.5px}
+  .ds-card p{font-size:8.5px}
+  .src-note{font-size:8.5px;padding:6px}
+  
+  .leaflet-popup-content-wrapper{border-radius:6px!important}
+  .leaflet-popup-content{width:200px!important}
+  .leaflet-popup-close-button{top:4px!important;right:6px!important;font-size:15px!important}
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN — SMALL PHONE (320px and below)
+   ──────────────────────────────────────────────────────────────────────────────── */
+@media (max-width:320px){
+  .hdr-title{font-size:12px;letter-spacing:-.5px}
+  .hdr-sub{display:none}
+  .hdr-badge{font-size:6px;padding:1px 4px}
+  
+  .sidebar.open{max-width:100vw}
+  .sb-toggle{width:32px}
+  .tabs{gap:0}
+  .tab{font-size:6.5px;padding:4px 2px}
+  
+  .lg-title{font-size:7px}
+  .lname{font-size:8.5px}
+  .lsub{font-size:7.5px}
+  
+  .pop{width:160px!important}
+  .pop-title{font-size:10px}
+  .pop-stat{font-size:8px;flex-wrap:wrap}
+  
+  .mbtn{font-size:7px;padding:2px 5px}
+  .zbtn{width:24px;height:24px;font-size:12px}
+  .map-legend{font-size:7px;max-width:120px;padding:5px 6px}
+  .leg-ttl{font-size:7px}
+  .leg-row{font-size:7px}
+}

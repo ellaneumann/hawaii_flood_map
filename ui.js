@@ -140,4 +140,52 @@ async function fetchNews(force){
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1000,
       tools: [{type:'web_search_20250305', name:'web_search'}],
-      messages: [{role:'user', 
+      messages: [{role:'user', content: promptMsg}]
+    };
+
+    var r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    var data = await r.json();
+    var txt=(data.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('');
+    var m=txt.match(/\[\s*\{[\s\S]*?\}\s*\]/);
+    if(!m)throw new Error('no JSON');
+    var ai=JSON.parse(m[0]);
+    localStorage.setItem(NK,JSON.stringify(ai));localStorage.setItem(ND,t);
+    renderNews(ai);setSt('NWS live - news updated today','#4CAF50');
+  }catch(e){
+    console.error(e);renderNews([]);
+    document.getElementById('news-label').textContent='Archived reports';
+    setSt('Archived news','#F9A825');
+  }finally{document.getElementById('rfbtn').disabled=false;}
+}
+
+function renderNews(ai){
+  var box=document.getElementById('news-box');box.innerHTML='';
+  var all=ai.map(function(a){return Object.assign({},a,{isAI:true});}).concat(STATIC_NEWS.map(function(a){return Object.assign({},a,{isAI:false});}));
+  all.sort(function(a,b){return (b.y||0)-(a.y||0);});
+  document.getElementById('news-label').textContent=(ai.length>0?ai.length+' live + ':'')+STATIC_NEWS.length+' archived';
+  all.forEach(function(n,i){
+    var d=document.createElement('div');d.className='n-card';
+    var tc=n.tc||'#607D8B';
+    d.innerHTML='<div class="n-hdr" onclick="xNews('+i+')">'
+      +'<div class="n-meta"><span class="n-yr">'+(n.y||'2026')+'</span>'
+      +'<span class="n-tg" style="background:'+tc+'22;color:'+tc+'">'+(n.tag||'')+'</span>'
+      +(n.isAI?'<span class="ai-tg">Live</span>':'')+'</div>'
+      +'<div class="n-src">'+(n.src||'')+'</div>'
+      +'<div class="n-ttl">'+(n.title||'')+'</div>'
+      +'<div class="n-sum">'+(n.sum||n.summary||'')+'</div>'
+      +'<button class="n-xbtn" id="nb-'+i+'">Read more</button></div>'
+      +'<div class="n-body" id="nb-body-'+i+'"><div class="n-txt">'+(n.full||'')+'</div>'
+      +'<a class="n-link" href="'+(n.url||'#')+'" target="_blank">Open source</a></div>';
+    box.appendChild(d);
+  });
+}
+function xNews(i){var b=document.getElementById('nb-body-'+i),btn=document.getElementById('nb-'+i);var o=b.classList.toggle('open');btn.textContent=o?'Collapse':'Read more';}
+
+// ── INITIALIZATION ────────────────────────────────────────────────────────────
+fetchWeather();
+fetchNews(false);
+setInterval(fetchWeather,600000); // Refresh weather every 10 minutes
