@@ -5,172 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hawaii FloodWatch — March 2026 Kona Low Event</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-html,body{margin:0;padding:0;height:100%}
-*,*::before,*::after{box-sizing:border-box}
-:root{
-  --ocean:#1E88E5;--flood:#E65100;--warn:#F9A825;--safe:#004D40;
-  --dam:#D81B60;--evac:#7B2D8B;--fema:#005F73;
-  --ink:#0a1628;--ink2:#162447;
-  --g50:#f8fafc;--g100:#f0f4f8;--g200:#dde3ea;
-  --g400:#8896a5;--g600:#4a5568;--g800:#1a202c;
-  --font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
-}
-body{font-family:var(--font);display:flex;flex-direction:column;overflow:hidden;background:#0a1628}
-a{color:var(--ocean);text-decoration:none}
-a:hover{text-decoration:underline}
- 
-/* HEADER */
-header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-shrink:0;z-index:1000;border-bottom:2px solid var(--flood)}
-.hdr-icon{font-size:24px;line-height:1}
-.hdr-title{font-size:16px;font-weight:700;letter-spacing:-.3px}
-.hdr-sub{font-size:9.5px;opacity:.6;margin-top:1px}
-.hdr-badge{background:var(--flood);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:10px;white-space:nowrap;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.wx-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 11px;border-radius:6px;font-size:11px}
-.wx-lbl{opacity:.55;font-size:9px;white-space:nowrap}
-.wx-val{font-weight:700;font-family:var(--mono)}
-.hdr-st{font-size:10px;opacity:.5;display:flex;align-items:center;gap:5px}
-.sdot{width:7px;height:7px;border-radius:50%;background:var(--g400);flex-shrink:0}
- 
-/* LAYOUT */
-.main{display:flex;flex-direction:row;flex:1;min-height:0;overflow:hidden}
- 
-/* SIDEBAR */
-.sidebar{width:330px;min-width:0;flex-shrink:0;background:#fff;border-right:1px solid var(--g200);display:flex;flex-direction:column;overflow:hidden;z-index:500;transition:width .25s ease;position:relative}
-.sidebar.collapsed{width:0;border-right:none}
-.sidebar.collapsed>*{opacity:0;pointer-events:none}
-.sb-toggle{position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:20px;height:48px;background:#fff;border:1px solid var(--g200);border-left:none;border-radius:0 6px 6px 0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--g400);box-shadow:2px 0 5px rgba(0,0,0,.1);z-index:600}
-.sb-toggle:hover{background:var(--g50);color:var(--g800)}
- 
-/* TABS */
-.tabs{display:flex;border-bottom:2px solid var(--g200);flex-shrink:0;overflow-x:auto}
-.tab{flex:1;padding:8px 4px;text-align:center;font-size:9px;font-weight:700;color:var(--g400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px;min-width:0}
-.tab.active{color:var(--flood);border-bottom-color:var(--flood);background:var(--g50)}
-.tab:hover:not(.active){color:var(--g800);background:var(--g50)}
-.panel{display:none;flex-direction:column;flex:1;overflow:hidden}
-.panel.active{display:flex}
-.scroll{flex:1;overflow-y:auto;padding:12px}
- 
-/* MAP */
-.map-area{flex:1;min-width:0;position:relative;overflow:hidden}
-#map{position:absolute;top:0;left:0;right:0;bottom:0;background:#1a3a5c}
-.map-btns{position:absolute;top:10px;left:10px;display:flex;gap:4px;z-index:400}
-.mbtn{background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:5px;padding:5px 11px;font-size:10.5px;font-weight:700;color:#374151;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.18);font-family:var(--font)}
-.mbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.zbtns{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:3px;z-index:400}
-.zbtn{width:30px;height:30px;background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:5px;font-size:17px;color:#374151;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.18);font-family:var(--font)}
-.leaflet-control-zoom{display:none!important}
-.map-legend{position:absolute;bottom:12px;right:10px;background:rgba(255,255,255,.97);border:1px solid var(--g200);border-radius:7px;padding:9px 11px;z-index:400;box-shadow:0 2px 8px rgba(0,0,0,.12);max-width:200px}
-.leg-ttl{font-size:10.5px;font-weight:700;color:var(--g800);margin-bottom:6px}
-.leg-sec{margin-bottom:6px}
-.leg-sec-ttl{font-size:8px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.leg-row{display:flex;align-items:center;gap:5px;margin-bottom:2px}
-.leg-sq{width:12px;height:12px;border-radius:2px;flex-shrink:0}
-.leg-ln{width:18px;height:3px;border-radius:2px;flex-shrink:0}
-.leg-lbl{font-size:9.5px;color:#374151}
- 
-/* POPUP */
-.leaflet-popup-content-wrapper{border-radius:8px!important;box-shadow:0 6px 28px rgba(0,0,0,.2)!important;font-family:var(--font)!important;padding:0!important;border:1px solid var(--g200)!important}
-.leaflet-popup-content{margin:0!important;width:270px!important}
-.leaflet-popup-close-button{top:6px!important;right:8px!important;font-size:17px!important;color:var(--g400)!important;z-index:10}
-.pop{width:270px;max-height:400px;overflow-y:auto;padding:11px 12px}
-.pop::-webkit-scrollbar{width:4px}
-.pop::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px}
-.pop-title{font-size:13px;font-weight:700;color:var(--g800);margin-bottom:6px;padding-right:18px;line-height:1.3}
-.pop-badge{display:inline-block;padding:2px 8px;border-radius:7px;font-size:8.5px;font-weight:700;color:#fff;margin:0 2px 4px 0}
-.pop-stat{display:flex;justify-content:space-between;font-size:10.5px;padding:2px 0;color:var(--g400);gap:8px}
-.pop-stat b{color:var(--g800);font-family:var(--mono)}
-.pop-box{border-radius:5px;padding:7px;margin:6px 0;font-size:10.5px;line-height:1.5}
-.pop-box.warn{background:#fff8e1;border:1px solid var(--warn);color:#5B3A00}
-.pop-box.danger{background:#fbe9e7;border:1px solid var(--flood);color:#7B1400}
-.pop-box.info{background:#e3f2fd;border:1px solid var(--ocean);color:#0D3060}
- 
-/* LAYER TAB */
-.lg-title{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--g400);margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--g100)}
-.lg-title:first-child{margin-top:0}
-.lrow{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;cursor:pointer;user-select:none}
-.lrow:hover{background:var(--g50)}
-.lchk{width:18px;height:18px;border:2px solid var(--g200);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:transparent}
-.lchk.on{border-color:var(--flood);background:var(--flood);color:#fff}
-.lico{width:26px;height:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.li-poly{width:20px;height:13px;border-radius:2px;opacity:.8}
-.li-line{height:3px;width:22px;border-radius:2px}
-.li-dot{width:10px;height:10px;border-radius:50%}
-.linfo{flex:1;min-width:0}
-.lname{font-size:11px;font-weight:600;color:var(--g800)}
-.lsub{font-size:9px;color:var(--g400);margin-top:1px}
-.src-note{margin-top:10px;background:var(--g50);border-radius:6px;padding:9px;font-size:9.5px;color:var(--g600);line-height:1.7}
-.src-note b{color:var(--g800)}
- 
-/* EVENT TIMELINE */
-.event-card{background:#fff;border:1px solid var(--g200);border-radius:8px;padding:10px;margin-bottom:8px;border-left:3px solid var(--flood)}
-.event-date{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;font-family:var(--mono)}
-.event-title{font-size:12px;font-weight:700;color:var(--g800);margin-bottom:4px;line-height:1.35}
-.event-body{font-size:10.5px;color:var(--g600);line-height:1.55}
-.event-stat-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.estat{background:var(--g50);border:1px solid var(--g200);border-radius:5px;padding:4px 8px;text-align:center}
-.estat-v{font-size:12px;font-weight:700;color:var(--g800);font-family:var(--mono)}
-.estat-l{font-size:8px;color:var(--g400)}
-.event-card.critical{border-left-color:var(--dam);background:#fff8f9}
-.event-card.warning{border-left-color:var(--warn);background:#fffbf0}
- 
-/* ISLAND CARDS */
-.island-card{background:#fff;border:1px solid var(--g200);border-radius:7px;padding:10px;margin-bottom:8px;cursor:pointer}
-.island-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.island-name{font-size:12px;font-weight:700;color:var(--g800);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
-.island-badge{font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:8px;color:#fff}
-.island-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:6px}
-.istat{background:var(--g50);border-radius:4px;padding:4px;text-align:center}
-.istat-v{font-size:11.5px;font-weight:700;color:var(--g800);font-family:var(--mono)}
-.istat-l{font-size:8px;color:var(--g400)}
-.island-desc{font-size:10.5px;color:var(--g600);line-height:1.5}
-.actions-toggle{width:100%;background:var(--ink);color:#fff;border:none;border-radius:5px;padding:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--font);margin-top:7px;display:flex;align-items:center;justify-content:space-between}
-.actions-toggle:hover{opacity:.88}
-.actions-body{display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:8px;margin-top:5px}
-.actions-body.open{display:block}
-.act-item{display:flex;gap:5px;align-items:flex-start;margin-bottom:5px;font-size:10px;color:var(--g800);line-height:1.4}
-.act-item:last-child{margin-bottom:0}
-.act-num{background:var(--ocean);color:#fff;border-radius:50%;width:14px;height:14px;min-width:14px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;margin-top:1px}
- 
-/* NEWS */
-.news-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;border-bottom:1px solid var(--g200);font-size:10px;color:var(--g400);flex-shrink:0}
-.rfbtn{background:var(--flood);color:#fff;border:none;border-radius:4px;padding:4px 9px;font-size:9.5px;font-weight:700;cursor:pointer;font-family:var(--font)}
-.rfbtn:disabled{opacity:.5;cursor:not-allowed}
-.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--g200);border-top-color:var(--flood);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:5px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.n-card{background:#fff;border:1px solid var(--g200);border-radius:7px;margin-bottom:6px;overflow:hidden}
-.n-hdr{padding:9px 10px 7px;cursor:pointer}
-.n-meta{display:flex;gap:4px;margin-bottom:3px;align-items:center;flex-wrap:wrap}
-.n-yr{background:var(--ink);color:#fff;font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:4px;font-family:var(--mono)}
-.n-tg{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px}
-.ai-tg{font-size:8.5px;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:3px;padding:1px 5px;font-weight:700}
-.n-src{font-size:9px;color:var(--g400)}
-.n-ttl{font-size:11.5px;font-weight:700;color:var(--g800);line-height:1.35;margin-bottom:2px}
-.n-sum{font-size:10px;color:var(--g600);line-height:1.5}
-.n-xbtn{font-size:10px;color:var(--ocean);font-weight:600;cursor:pointer;background:none;border:none;font-family:var(--font);padding:3px 0 0;display:block}
-.n-body{display:none;padding:0 10px 10px;border-top:1px solid var(--g100);margin-top:6px}
-.n-body.open{display:block}
-.n-txt{font-size:10px;color:var(--g600);line-height:1.7;margin:8px 0}
-.n-link{display:inline-block;font-size:10px;font-weight:700;color:var(--ocean);padding:4px 10px;border:1px solid #bfdbfe;border-radius:5px;background:#e8f4fd}
-.n-link:hover{background:var(--ocean);color:#fff;text-decoration:none}
- 
-/* DATA SOURCES */
-.ds-card{background:#fff;border:1px solid var(--g200);border-radius:7px;padding:10px;margin-bottom:7px}
-.ds-card h3{font-size:11px;font-weight:700;color:var(--g800);margin-bottom:4px}
-.ds-card p{font-size:10px;color:var(--g600);line-height:1.5;margin-bottom:5px}
-.ds-badge{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:4px;margin-right:3px}
- 
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
- 
+
 <header>
   <div class="hdr-icon"></div>
   <div>
@@ -185,13 +24,13 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
     <div class="hdr-st"><div class="sdot" id="sdot"></div><span id="stext">&#8230;</span></div>
   </div>
 </header>
- 
+
 <div class="main">
- 
+
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <button class="sb-toggle" id="sb-toggle" onclick="toggleSidebar()" title="Toggle sidebar">&#10094;</button>
- 
+
     <div class="tabs">
       <div class="tab active" onclick="ST('layers')">Layers</div>
       <div class="tab" onclick="ST('event')">Event</div>
@@ -199,37 +38,52 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
       <div class="tab" onclick="ST('news')">News</div>
       <div class="tab" onclick="ST('data')">Data Sources</div>
     </div>
- 
+
     <!-- LAYERS -->
     <div class="panel active" id="tab-layers">
       <div class="scroll">
         <div class="lg-title">March 2026 Event — Hardest-Hit Areas</div>
-        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">&#10003;</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div></div></div>
-        <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">&#10003;</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20–22)</div><div class="lsub">Areas under evacuation order or warning</div></div></div>
-        <div class="lrow" onclick="TL('dam')"><div class="lchk on" id="chk-dam">&#10003;</div><div class="lico"><div class="li-dot" style="background:var(--dam);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Dam risk site — Wahiawa</div><div class="lsub">120-year-old earthen dam, 5,500 evacuated</div></div></div>
-        <div class="lrow" onclick="TL('rescue')"><div class="lchk on" id="chk-rescue">&#10003;</div><div class="lico"><div class="li-dot" style="background:#fff;border:2px solid var(--flood);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Major rescue sites</div><div class="lsub">Locations of documented mass rescues</div></div></div>
-        <div class="lrow" onclick="TL('rain')"><div class="lchk on" id="chk-rain">&#10003;</div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.3);border:2px dashed var(--ocean)"></div></div><div class="linfo"><div class="lname">Extreme rainfall areas</div><div class="lsub">&gt;10" recorded March 10–24 (NWS HFO data)</div></div></div>
- 
-        <div class="lg-title">FEMA Flood Hazard — Hawaii State GIS</div>
-        <div class="lrow" onclick="TL('fema')"><div class="lchk on" id="chk-fema">&#10003;</div><div class="lico"><div class="li-poly" style="background:rgba(0,95,115,.35);border:2px solid var(--fema)"></div></div><div class="linfo"><div class="lname">FEMA Special Flood Hazard Areas</div><div class="lsub">DFIRM Dec 2025 · geodata.hawaii.gov</div></div></div>
-        <div class="lrow" onclick="TL('slr')"><div class="lchk" id="chk-slr"></div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.25);border:2px solid var(--ocean)"></div></div><div class="linfo"><div class="lname">Sea level rise coastal flood (3.2 ft)</div><div class="lsub">HAZUS model · Hawaii DLNR / UH Coastal Geology</div></div></div>
- 
-        <div class="lg-title">Hydrology</div>
-        <div class="lrow" onclick="TL('streams')"><div class="lchk on" id="chk-streams">&#10003;</div><div class="lico"><div class="li-line" style="background:var(--ocean)"></div></div><div class="linfo"><div class="lname">Major streams and rivers</div><div class="lsub">Key waterways that flooded in March 2026</div></div></div>
-        <div class="lrow" onclick="TL('watersheds')"><div class="lchk" id="chk-watersheds"></div><div class="lico"><div class="li-poly" style="background:rgba(0,77,64,.2);border:2px dashed var(--safe)"></div></div><div class="linfo"><div class="lname">Watershed boundaries</div><div class="lsub">DAR watershed units · Hawaii DLNR / GIS</div></div></div>
- 
+        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div></div></div>
+        <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">✓</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20–22)</div><div class="lsub">Areas under evacuation order or warning</div></div></div>
+        <div class="lrow" onclick="TL('dam')"><div class="lchk on" id="chk-dam">✓</div><div class="lico"><div class="li-dot" style="background:var(--dam);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Dam risk site — Wahiawa</div><div class="lsub">120-year-old earthen dam, 5,500 evacuated</div></div></div>
+        <div class="lrow" onclick="TL('rescue')"><div class="lchk on" id="chk-rescue">✓</div><div class="lico"><div class="li-dot" style="background:#fff;border:2px solid var(--flood);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Major rescue sites</div><div class="lsub">Documented mass rescue locations</div></div></div>
+        <div class="lrow" onclick="TL('rain')"><div class="lchk on" id="chk-rain">✓</div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.3);border:2px dashed var(--ocean)"></div></div><div class="linfo"><div class="lname">Extreme rainfall areas</div><div class="lsub">&gt;10" recorded March 10–24</div></div></div>
+
+        <div class="lg-title">Hydrology & Water Flow</div>
+        <div class="lrow" onclick="TL('waterways')"><div class="lchk on" id="chk-waterways">✓</div><div class="lico"><div class="li-line" style="background:var(--ocean)"></div></div><div class="linfo"><div class="lname">Waterway network (detailed)</div><div class="lsub">High-resolution stream channels with flow direction</div></div></div>
+        <div class="lrow" onclick="TL('elevation')"><div class="lchk" id="chk-elevation"></div><div class="lico"><div class="li-poly" style="background:rgba(63,81,181,.4);border:2px solid #3f51b5"></div></div><div class="linfo"><div class="lname">Elevation zones</div><div class="lsub">Source, transition, and accumulation areas for flood flow</div></div></div>
+        <div class="lrow" onclick="TL('watersheds')"><div class="lchk" id="chk-watersheds"></div><div class="lico"><div class="li-poly" style="background:rgba(0,77,64,.2);border:2px dashed var(--safe)"></div></div><div class="linfo"><div class="lname">Watershed boundaries</div><div class="lsub">DAR watershed units — Hawaii DLNR</div></div></div>
+
+        <div class="lg-title">Potential Contamination Sources</div>
+        <div class="lrow" onclick="TL('contamination')"><div class="lchk" id="chk-contamination"></div><div class="lico"><div class="li-warning" style="background:#d81b60;color:#fff;border-radius:50%;width:10px;height:10px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold">⚠</div></div><div class="linfo"><div class="lname">Contamination hazards</div><div class="lsub">Septic, landfills, industrial, agricultural runoff, USTs</div></div></div>
+
+        <div class="lg-title">Environmental Catalysts & Risk Factors</div>
+        <div class="lrow" onclick="TL('soils')"><div class="lchk" id="chk-soils"></div><div class="lico"><div class="li-poly" style="background:rgba(139,69,19,.3);border:2px dashed #8B4513"></div></div><div class="linfo"><div class="lname">Pineapple soils (high iron oxide)</div><div class="lsub">USDA/NRCS—24-30% Fe₂O₃ impacts infiltration & erosion</div></div></div>
+        <div class="lrow" onclick="TL('atmospheric_rivers')"><div class="lchk" id="chk-atmospheric_rivers"></div><div class="lico"><div class="li-poly" style="background:#FF6600;border:2px dashed #FF6600;height:4px;width:14px"></div></div><div class="linfo"><div class="lname">Atmospheric rivers (IVT forecasts)</div><div class="lsub">CW3E/UCSD—moisture transport events</div></div></div>
+        <div class="lrow" onclick="TL('census')"><div class="lchk" id="chk-census"></div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.3);border:2px solid #7B2D8B"></div></div><div class="linfo"><div class="lname">Population exposure</div><div class="lsub">2020 Census density & flood risk areas</div></div></div>
+        <div class="lrow" onclick="TL('impervious')"><div class="lchk" id="chk-impervious"></div><div class="lico"><div class="li-poly" style="background:rgba(64,64,64,.4);border:2px solid #404040"></div></div><div class="linfo"><div class="lname">Impervious surface coverage</div><div class="lsub">NLCD—urban runoff multiplier</div></div></div>
+
+        <div class="lg-title">FEMA & Hazard Zones</div>
+        <div class="lrow" onclick="TL('fema')"><div class="lchk on" id="chk-fema">✓</div><div class="lico"><div class="li-poly" style="background:rgba(0,95,115,.35);border:2px solid var(--fema)"></div></div><div class="linfo"><div class="lname">FEMA Special Flood Hazard Areas</div><div class="lsub">DFIRM Dec 2025 — geodata.hawaii.gov</div></div></div>
+        <div class="lrow" onclick="TL('slr')"><div class="lchk" id="chk-slr"></div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.25);border:2px solid var(--ocean)"></div></div><div class="linfo"><div class="lname">Sea level rise coastal flood (3.2 ft)</div><div class="lsub">HAZUS model — UH Coastal Geology</div></div></div>
+
         <div class="src-note">
-          <b>Live data layers</b> pull from:<br>
-          · <a href="https://geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer" target="_blank">geodata.hawaii.gov — Hazards MapServer</a><br>
-          · <a href="https://www.weather.gov/hfo/" target="_blank">NWS Honolulu (KHFO)</a> — live precipitation<br>
-          · <a href="https://geoportal.hawaii.gov" target="_blank">Hawaii Statewide GIS Program</a><br>
-          · <a href="https://apps.nationalmap.gov/downloader/" target="_blank">USGS National Map</a> — elevation/hydro<br>
-          · NASA Disasters / FEMA Esri Hub — response mapping<br><br>
-          <b>Event data</b> is drawn from NWS HFO rainfall summaries, NASA Earth Observatory satellite imagery, and Hawaii Emergency Management Agency situation reports for the March 10–24, 2026 Kona Low event.
+          <b>Data sources:</b><br>
+          · Hawaii Statewide GIS Program (geoportal.hawaii.gov)<br>
+          · USGS National Map (elevation/hydro)<br>
+          · NWS Honolulu & Hawaii Mesonet (precipitation)<br>
+          · NASA Earth Observatory (satellite imagery)<br>
+          · Hawaii DLNR (watersheds, OSDS, environmental data)<br>
+          · FEMA & Esri GIS Hub (response mapping)<br>
+          · <a href="https://cw3e.ucsd.edu/iwv-and-ivt-forecasts/" target="_blank">CW3E/UCSD</a> (Atmospheric rivers & IVT)<br>
+          · <a href="https://www.mrlc.gov/data/type/fractional-impervious-surface" target="_blank">NLCD/MRLC</a> (Impervious surface)<br>
+          · <a href="https://geoportal.hawaii.gov/datasets/1815a6c2c1fc40c39e575f7330dd62c6_34" target="_blank">2020 Census</a> (Population)<br>
+          · <a href="https://geoportal.hawaii.gov/datasets/d246843c079d45dbb827e63062e4a509_42" target="_blank">USDA/NRCS Soil Survey</a> (Soils)<br><br>
+          <b>Contamination & environmental catalysts:</b> OSDS, landfills, industrial facilities, agricultural runoff, USTs, Pineapple soils with high iron oxide content, atmospheric river data from CW3E, population exposure analysis.
         </div>
       </div>
     </div>
- 
+
     <!-- EVENT OVERVIEW -->
     <div class="panel" id="tab-event">
       <div class="scroll">
@@ -285,25 +139,25 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
         </div>
       </div>
     </div>
- 
+
     <!-- BY ISLAND -->
     <div class="panel" id="tab-islands">
       <div class="scroll" id="island-scroll">
-        <!-- rendered by JS -->
+        <!-- rendered by ui.js -->
       </div>
     </div>
- 
+
     <!-- NEWS -->
     <div class="panel" id="tab-news">
       <div class="news-bar"><span id="news-label">Loading&#8230;</span><button class="rfbtn" id="rfbtn" onclick="fetchNews(true)">Refresh</button></div>
       <div class="scroll" id="news-box"><div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Fetching Hawaii flood news&#8230;</div></div>
     </div>
- 
+
     <!-- DATA SOURCES -->
     <div class="panel" id="tab-data">
       <div class="scroll">
         <div style="font-size:12px;font-weight:700;color:var(--g800);margin-bottom:10px">Data Sources Incorporated</div>
- 
+
         <div class="ds-card">
           <h3>Hawaii Statewide GIS Program — Hazards MapServer</h3>
           <p><span class="ds-badge" style="background:#004D40;color:#fff">LIVE</span> FEMA DFIRM flood hazard areas (Dec 2025), sea level rise coastal flood zones (1% annual + 3.2ft SLR), FIRM panels. Served via <code>geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer</code>.</p>
@@ -346,9 +200,9 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
         </div>
       </div>
     </div>
- 
+
   </div><!-- end .sidebar -->
- 
+
   <!-- MAP -->
   <div class="map-area">
     <div id="map"></div>
@@ -376,439 +230,14 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
       </div>
     </div>
   </div>
- 
+
 </div><!-- end .main -->
- 
-<script>
-// ── ISLAND DATA ────────────────────────────────────────────────────────────────
-var ISLANDS = [
-  {
-    name:'Oʻahu', lat:21.45, lng:-157.98, zoom:11,
-    severity:'CRITICAL', color:'#E65100',
-    maxRain:'12"', rescued:236, evacuated:5500, damage:'$800M+',
-    desc:"North Shore communities Waialua and Haleiwa were catastrophically flooded March 19–20. Homes and cars were swept away. The 120-year-old Wahiawa Dam threatened failure, triggering 5,500 evacuations. 115,000 residents lost power. National Guard and Honolulu Fire Department conducted aerial rescues, including 72 children and adults airlifted from a youth camp on the west coast. The March 23 'rain bomb' over Mānoa and Pālolo valleys sent Mānoa Stream overflowing into shopping centers and an elementary school.",
-    actions:[
-      {t:'Do not return to flood-damaged homes without safety inspection', b:'Floodwater carries sewage, chemicals, and structural hazards. Wait for official clearance from Honolulu Civil Defense before re-entering flood-damaged properties.'},
-      {t:'Register for disaster assistance at DisasterAssistance.gov', b:'FEMA disaster declarations unlock individual assistance grants for temporary housing, home repair, and personal property losses. Apply within 60 days of the disaster declaration.'},
-      {t:'Document all damage with photos before cleanup', b:'Photograph every damaged room, item, and structural element. This record is required for FEMA claims, insurance claims, and SBA disaster loans.'},
-      {t:'Report road damage and blocked drains to 311', b:'Call or text 311 to report clogged storm drains, road damage, or infrastructure failures in your area. This routes work orders to the City DPW and DWS.'},
-      {t:'Check on neighbors — especially elderly and isolated residents', b:'The North Shore communities are tight-knit but some residents, particularly elderly individuals or those without transportation, may need help with cleanup, supplies, or evacuation from mud-damaged homes.'},
-    ]
-  },
-  {
-    name:'Maui', lat:20.80, lng:-156.33, zoom:11,
-    severity:'SEVERE', color:'#D81B60',
-    maxRain:'62"', rescued:0, evacuated:0, damage:'$100M+',
-    desc:"The first Kona low dumped up to 62 inches of rain on Maui's West Maui Mountains — among the highest totals recorded anywhere in the state during this event. Lahaina, still recovering from the devastating 2023 wildfire, received an evacuation warning as retention basins neared capacity. Kula Hospital (in upcountry Maui) was damaged. Roads across the island were closed. Farmers reported millions in agricultural damage.",
-    actions:[
-      {t:"Lahaina residents: check the County of Maui's Kona Storm page", b:"Lahaina is still in long-term wildfire recovery. Floodwater mixed with fire debris is a compounding hazard. Visit mauicounty.gov for the latest information on road closures and assistance programs."},
-      {t:'Upcountry residents: monitor stream gauges', b:'USGS maintains real-time stream gauges on Maui. Visit waterdata.usgs.gov and search for Maui stream stations to track water levels during subsequent rain events.'},
-      {t:'Report agricultural damage to the Hawaii Department of Agriculture', b:'Farmers can report storm damage to HDOA for inclusion in federal agricultural disaster declarations. Call (808) 973-9600 or visit hdoa.hawaii.gov.'},
-    ]
-  },
-  {
-    name:'Kauaʻi', lat:22.06, lng:-159.50, zoom:11,
-    severity:'MODERATE', color:'#F9A825',
-    maxRain:'10"', rescued:0, evacuated:0, damage:'$20M+',
-    desc:"The second Kona low began over south Kauai and the Kauai Channel before moving east toward Oahu. Kauai experienced flooding impacts primarily from the first storm system. The island's steep valleys and numerous streams create rapid runoff conditions even with moderate rainfall totals. South shore areas experienced flooding and road closures.",
-    actions:[
-      {t:"Monitor the Hanalei River and Waimea River USGS gauges", b:'Kauai streams rise quickly during rain. The USGS real-time gauge network at waterdata.usgs.gov provides flood stage data.'},
-      {t:"Participate in Kauai's emergency planning", b:"Contact the Kauai Emergency Management Agency at kauai.gov/ema to learn about flood-prone areas in your community and sign up for Kauai Alert emergency notifications."},
-    ]
-  },
-  {
-    name:'Hawaiʻi Island', lat:19.59, lng:-155.43, zoom:9,
-    severity:'MODERATE', color:'#F9A825',
-    maxRain:'30"+', rescued:0, evacuated:0, damage:'$30M+',
-    desc:"Intense thunderstorms containing rainfall rates of up to 4+ inches per hour struck Pahala through Hilo on March 23. Flooding impacts were mainly limited to road closures due to heavy ponding. Wind gusts reached 135.4 mph at higher elevations during the first Kona low — the highest recorded in the state during the event. Hilo rain gauge broke daily records.",
-    actions:[
-      {t:'Monitor Saddle Road and highway conditions during rain', b:"Highway 200 (Saddle Road) and saddle routes flood quickly during heavy rain. Check Hawaii DOT's highway conditions at hidot.hawaii.gov before traveling."},
-      {t:'Lava field residents: understand your unique flood risk', b:"Parts of lower Puna have very low topographic relief and no natural drainage. Floodwater can pond rapidly with no outlet. Identify your flood zone at FEMA's Flood Map Service Center."},
-    ]
-  },
-  {
-    name:"Molokaʻi", lat:21.13, lng:-157.02, zoom:11,
-    severity:'MONITORING', color:'#1565C0',
-    maxRain:'22"', rescued:0, evacuated:0, damage:'Unknown',
-    desc:"Molokai experienced significant rainfall during the event (Honolimaloo station recorded 22.31 inches). Critically, the Molokai WSR-88D weather radar was offline throughout the entire event, removing real-time precipitation data for forecasters covering both Molokai and Maui County. The University of Hawaii Mesonet stations helped fill this gap. Limited reporting on damages given the island's remote nature.",
-    actions:[
-      {t:"Advocate for radar restoration", b:"The Molokai radar outage was a critical gap. Contact your state legislators to urge prioritizing the restoration and modernization of the KHKI Molokai WSR-88D radar station."},
-    ]
-  },
-  {
-    name:"Lānaʻi", lat:20.83, lng:-156.92, zoom:11,
-    severity:'MONITORING', color:'#1565C0',
-    maxRain:'13"', rescued:0, evacuated:0, damage:'Minor',
-    desc:"Lanai City recorded 13.37 inches during the event period. Road flooding and some agricultural damage reported. The island's small population and limited infrastructure meant fewer documented impacts compared to neighboring islands.",
-    actions:[
-      {t:"Check in with the Maui County Emergency Management Agency", b:"Lanai falls under Maui County jurisdiction. For assistance and information, contact Maui Emergency Management Agency at mauicounty.gov/669."},
-    ]
-  },
-];
- 
-// ── STATIC NEWS ────────────────────────────────────────────────────────────────
-var STATIC_NEWS = [
-  {y:2026,title:"Back-to-back Kona lows deliver worst Hawaii flooding in 20 years",src:"NASA Earth Observatory",tag:"Event",tc:"#E65100",
-   sum:"NASA satellite imagery captured brown floodwater pooling across Waialua and Mokuleia farmland on March 14, with sediment plumes spreading into Kaiaka Bay. NASA's Disasters Response Coordination System was activated.",
-   full:"Back-to-back low-pressure systems struck Hawaii in March 2026, delivering some of the worst flooding the state has seen in decades. The kona lows siphoned moisture from the tropics, fueling slow-moving thunderstorms with torrential rains. The NWS reported rainfall totals of 5 to 10 inches throughout the state between March 11 and 15, with some areas seeing more than 30 inches. Weather stations in Honolulu, Hilo, Līhuʻe, and Kahului all broke daily rainfall records. Preliminary assessments indicate that hundreds of homes on Oʻahu sustained damage. The storm produced widespread wind gusts between 60 and 75 mph, with gusts in some places reaching 100 mph. As many as 115,000 Oʻahu residents faced power outages.",
-   url:"https://science.nasa.gov/earth/earth-observatory/kona-storms-flood-oahu/"},
-  {y:2026,title:"236 rescued, 5,500 evacuated as Oahu flooding threatens 120-year-old dam",src:"NPR / OPB",tag:"Rescue",tc:"#D81B60",
-   sum:"Hawaii's worst flooding in 20 years prompted Gov. Josh Green to declare a disaster. Crews rescued 236 people from rooftops and a flooded youth camp. The 1906-built Wahiawa dam threatened to fail.",
-   full:"Hawaii officials urged people in hard-hit areas to evacuate after heavy rains fell on already-saturated soil. Muddy floodwaters smothered vast stretches of Oahu's North Shore. Raging waters lifted homes and cars and prompted evacuation orders for 5,500 people north of Honolulu. Officials cautioned that the 120-year-old Wahiawa Dam could fail. On Maui, authorities upgraded an evacuation advisory for parts of Lahaina, still recovering from the 2023 wildfire. Gov. Green said the flooding was the state's most serious since 2004. The storm's cost could top $1 billion.",
-   url:"https://www.npr.org/2026/03/20/nx-s1-5755105/hawaii-evacuations-flooding-dam-failure"},
-  {y:2026,title:"2 trillion gallons fell on Hawaii in March — 3,000% above normal",src:"University of Hawaii / Phys.org",tag:"Science",tc:"#7B2D8B",
-   sum:"UH Mānoa's Hawaii Mesonet documented more than 2 trillion gallons of rain statewide — enough to fill 3 million Olympic-sized swimming pools. Some areas recorded 14-day totals at 3,000% of normal.",
-   full:"More than 2 trillion gallons of water inundated Hawaiʻi in March 2026. The statewide average rainfall between March 1–23 was 18.25 inches — 2.6 times the March average of 6.85 inches. The Hawaii Mesonet's 77-station network proved critical, especially after the Molokai radar went offline. The first storm brought hurricane-force wind gusts of 135.4 mph to Hawaii Island and up to 62 inches of rain to Maui. The second Kona storm triggered the 'rain bomb' over Mānoa/Pālolo — 2 to 4 inches per hour, with 3.5–6.5 inches total at six stations in a three-hour window.",
-   url:"https://phys.org/news/2026-04-trillion-gallons-trigger-historic-hawaii.html"},
-  {y:2026,title:"Molokai radar was offline during the entire Kona low flooding event",src:"Hawaii News Now",tag:"Infrastructure",tc:"#005F73",
-   sum:"The KHKI Molokai WSR-88D radar was out of service during both Kona low events, cutting off a crucial data source for forecasters covering Oahu and Maui County.",
-   full:"Forecasters faced an added challenge during the March 2026 flooding: the Molokai radar was out of service, cutting off a crucial data source as flooding continued. The Molokai radar is critical for monitoring storms approaching Oahu from the west and southwest. The Hawaii Mesonet helped fill that gap by tracking rainfall with measurements recorded every five minutes, but the radar outage limited the advance warning forecasters could provide. Officials and lawmakers have since called for prioritizing the restoration of the Molokai NEXRAD station.",
-   url:"https://www.hawaiinewsnow.com/2026/04/01/new-data-shows-march-storms-dumped-over-2-trillion-gallons-rain-over-hawaii/"},
-  {y:2026,title:"Lahaina receives evacuation warning as retention basins near capacity",src:"CNN / OPB",tag:"Evacuation",tc:"#D81B60",
-   sum:"Lahaina — still recovering from the August 2023 wildfire — received an evacuation warning during the second Kona low as retention basins reached capacity. Kula Hospital on Maui was also damaged.",
-   full:"On the island of Maui, authorities upgraded an evacuation advisory to a warning for some parts of Lahaina, which is still reeling from the deadly 2023 wildfire, because of retention basins nearing capacity. The disaster compounded the ongoing trauma for a community already in a multi-year recovery process. Kula Hospital in upcountry Maui was also damaged by the storms. Agricultural losses across Maui were in the millions of dollars. Gov. Green said federal support was assured after his chief of staff spoke to the White House.",
-   url:"https://www.cnn.com/2026/03/20/weather/hawaii-flooding-oahu-climate"},
-];
- 
-// ── MAP SETUP ──────────────────────────────────────────────────────────────────
-var STREET = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  {attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20});
-var SAT = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  {attribution:'&copy; Esri',maxZoom:19});
- 
-var map = L.map('map',{center:[20.5,[-157.5]],zoom:9,zoomControl:false,layers:[SAT]});
-map.setView([20.5,-157.5],9);
- 
-var baseNow='sat';
-function setBase(b){
-  if(b===baseNow)return;
-  if(b==='street'){map.removeLayer(SAT);STREET.addTo(map);}
-  else{map.removeLayer(STREET);SAT.addTo(map);}
-  baseNow=b;
-  document.getElementById('btn-st').classList.toggle('active',b==='street');
-  document.getElementById('btn-sa').classList.toggle('active',b==='sat');
-}
- 
-// ── LAYER GROUPS ──────────────────────────────────────────────────────────────
-var LG={
-  impact:   L.layerGroup().addTo(map),
-  evac:     L.layerGroup().addTo(map),
-  dam:      L.layerGroup().addTo(map),
-  rescue:   L.layerGroup().addTo(map),
-  rain:     L.layerGroup().addTo(map),
-  fema:     L.layerGroup().addTo(map),
-  slr:      L.layerGroup(),
-  streams:  L.layerGroup().addTo(map),
-  watersheds: L.layerGroup(),
-};
-var LON={impact:true,evac:true,dam:true,rescue:true,rain:true,fema:true,slr:false,streams:true,watersheds:false};
-function TL(n){
-  LON[n]=!LON[n];
-  var el=document.getElementById('chk-'+n);
-  if(el){el.classList.toggle('on',LON[n]);el.innerHTML=LON[n]?'&#10003;':'';}
-  if(LON[n])map.addLayer(LG[n]);else map.removeLayer(LG[n]);
-}
- 
-// ── IMPACT ZONES (documented flood areas) ─────────────────────────────────────
-var IMPACT_ZONES = [
-  // Oahu North Shore
-  {name:"Waialua / Haleiwa — Oahu North Shore",coords:[[21.57,-158.10],[21.61,-158.10],[21.61,-158.03],[21.57,-158.03]],
-   rain:"8–12\"",rescued:150,desc:"Worst-hit area. Homes and cars swept away by Kaukonahua Stream overflow. Communities completely inundated.",severity:"critical"},
-  {name:"Wahiawa / Central Oahu",coords:[[21.48,-158.04],[21.53,-158.04],[21.53,-157.98],[21.48,-157.98]],
-   rain:"8–10\"",rescued:0,desc:"Dam area. 5,500 residents evacuated north of this area due to Wahiawa Dam failure risk.",severity:"critical"},
-  {name:"Pupukea / North Shore Oahu",coords:[[21.64,-158.06],[21.67,-158.06],[21.67,-158.01],[21.64,-158.01]],
-   rain:"10–12\"",rescued:30,desc:"Vehicle documented completely submerged in Pupukea. Multiple structure rescues.",severity:"high"},
-  {name:"Mānoa / Pālolo — Honolulu",coords:[[21.29,-157.82],[21.32,-157.82],[21.32,-157.78],[21.29,-157.78]],
-   rain:"3.5–6.5\"(3hrs)",rescued:0,desc:"March 23 'rain bomb' — stationary storm cell dropped 2–4 inches per hour. Mānoa Stream overflowed into parking lots, roads, and Mānoa Elementary School.",severity:"high"},
-  {name:"Waianae / West Oahu",coords:[[21.43,-158.22],[21.48,-158.22],[21.48,-158.15],[21.43,-158.15]],
-   rain:"5\"",rescued:72,desc:"72 children and adults airlifted by National Guard from Our Lady of Keaau youth retreat camp on the west coast.",severity:"high"},
-  // Maui
-  {name:"Lahaina — West Maui",coords:[[20.86,-156.70],[20.91,-156.70],[20.91,-156.63],[20.86,-156.63]],
-   rain:"15+\"",rescued:0,desc:"Evacuation warning issued. Retention basins neared capacity. Still in wildfire recovery from August 2023 disaster.",severity:"high"},
-  {name:"West Maui Mountains",coords:[[20.87,-156.66],[20.95,-156.66],[20.95,-156.57],[20.87,-156.57]],
-   rain:"62\"",rescued:0,desc:"Highest recorded rainfall in the state during the event. Puu Kukui station (USGS) recorded 19.61 inches in Storm 2 alone.",severity:"high"},
-  {name:"Kula / Upcountry Maui",coords:[[20.74,-156.38],[20.80,-156.38],[20.80,-156.30],[20.74,-156.30]],
-   rain:"10–18\"",rescued:0,desc:"Kula Hospital damaged. Road closures throughout upcountry Maui. Agricultural losses in millions.",severity:"moderate"},
-  // Hawaii Island
-  {name:"Pahala — Big Island South",coords:[[19.16,-155.58],[19.21,-155.58],[19.21,-155.48],[19.16,-155.48]],
-   rain:"20+\"",rescued:0,desc:"March 23 thunderstorms with 4+ inch/hour rainfall rates. Road closures due to heavy ponding.",severity:"moderate"},
-  {name:"Hilo — Big Island East",coords:[[19.69,-155.10],[19.74,-155.10],[19.74,-155.02],[19.69,-155.02]],
-   rain:"15+\"",rescued:0,desc:"Daily rainfall records broken. Hilo is the wettest city in the US — even so this event was exceptional.",severity:"moderate"},
-  // Kauai
-  {name:"South Kauai / Kauai Channel",coords:[[21.84,-159.55],[21.91,-159.55],[21.91,-159.43],[21.84,-159.43]],
-   rain:"10+\"",rescued:0,desc:"Storm 2 originated over south Kauai before tracking east toward Oahu. Flooding and road closures.",severity:"moderate"},
-  // Molokai
-  {name:"Honolimaloo — Molokai",coords:[[21.18,-156.96],[21.22,-156.96],[21.22,-156.89],[21.18,-156.89]],
-   rain:"22.31\"",rescued:0,desc:"Highest rainfall on Molokai (UH Mesonet). Molokai radar was offline throughout the event.",severity:"moderate"},
-];
- 
-var colMap={critical:'rgba(230,81,0,.55)',high:'rgba(216,27,96,.45)',moderate:'rgba(249,168,37,.35)'};
-var borderMap={critical:'#E65100',high:'#D81B60',moderate:'#F9A825'};
- 
-IMPACT_ZONES.forEach(function(z){
-  var html='<div class="pop"><div class="pop-title">'+z.name+'</div>';
-  html+='<span class="pop-badge" style="background:'+borderMap[z.severity]+'">'+z.severity.toUpperCase()+'</span>';
-  html+='<div class="pop-stat"><span>Peak rainfall</span><b>'+z.rain+'</b></div>';
-  if(z.rescued) html+='<div class="pop-stat"><span>People rescued</span><b>'+z.rescued+'</b></div>';
-  html+='<div class="pop-box '+(z.severity==='moderate'?'warn':'danger')+'">'+z.desc+'</div></div>';
-  L.polygon(z.coords,{fillColor:colMap[z.severity],color:borderMap[z.severity],weight:2,opacity:.85,fillOpacity:.55})
-   .bindPopup(html,{maxWidth:290}).addTo(LG.impact);
-});
- 
-// ── EVACUATION ZONES ──────────────────────────────────────────────────────────
-var EVAC_ZONES = [
-  {name:"North Shore Oahu Evacuation Zone (March 20–22)",
-   coords:[[21.57,-158.12],[21.65,-158.12],[21.65,-158.00],[21.57,-158.00]],
-   desc:"5,500 residents evacuated north of Wahiawa due to dam failure risk. Orders lifted by March 22 as water levels stabilized."},
-  {name:"Lahaina Evacuation Warning (March 20)",
-   coords:[[20.85,-156.72],[20.93,-156.72],[20.93,-156.62],[20.85,-156.62]],
-   desc:"Maui County upgraded evacuation advisory to warning due to retention basins nearing capacity. Lahaina is also still in wildfire recovery."},
-];
-EVAC_ZONES.forEach(function(z){
-  var html='<div class="pop"><div class="pop-title">'+z.name+'</div><span class="pop-badge" style="background:#7B2D8B">EVACUATION</span><div class="pop-box warn">'+z.desc+'</div></div>';
-  L.polygon(z.coords,{fillColor:'rgba(123,45,139,.35)',color:'#7B2D8B',weight:2,dashArray:'8,4',opacity:.85,fillOpacity:.35})
-   .bindPopup(html,{maxWidth:290}).addTo(LG.evac);
-});
- 
-// ── DAM ───────────────────────────────────────────────────────────────────────
-var damIcon=L.divIcon({html:'<div style="width:22px;height:22px;background:#D81B60;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.4)">&#127754;</div>',className:'',iconSize:[22,22],iconAnchor:[11,11]});
-L.marker([21.503,-158.024],{icon:damIcon})
- .bindPopup('<div class="pop"><div class="pop-title">Wahiawa Dam</div><span class="pop-badge" style="background:#D81B60">DAM RISK</span><div class="pop-stat"><span>Built</span><b>1906 (earthen)</b></div><div class="pop-stat"><span>Evacuated</span><b>5,500 residents</b></div><div class="pop-box danger">Built to increase sugar production for the Waialua Agricultural Company (later Dole). Officials warned the dam could overtop during the March 20 storm. Concerns subsided as water levels stabilized, but the event exposed the risk of aging infrastructure in flood-prone watersheds.</div></div>',{maxWidth:290})
- .addTo(LG.dam);
- 
-// ── RESCUE SITES ──────────────────────────────────────────────────────────────
-var RESCUES=[
-  {lat:21.655,lng:-158.022,name:"Our Lady of Keaau Youth Camp",n:72,desc:"National Guard and Honolulu Fire airlifted 72 children and adults from this spring break camp on Oahu's west coast."},
-  {lat:21.575,lng:-158.062,name:"Waialua / Haleiwa Mass Rescue",n:150,desc:"Over 150 people rescued from rooftops and flooded homes as Kaukonahua Stream overflowed. Some pulled directly from rooftops."},
-  {lat:21.643,lng:-158.044,name:"North Shore Campsite",n:70,desc:"A group of 70 people were surrounded by water at a campsite. Gov. Green: 'They were having difficulty getting out because there was so much water around them.'"},
-];
-var rescueIcon=L.divIcon({html:'<div style="width:18px;height:18px;background:#fff;border:3px solid #E65100;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;box-shadow:0 2px 5px rgba(0,0,0,.3)">&#128690;</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
-RESCUES.forEach(function(r){
-  L.marker([r.lat,r.lng],{icon:rescueIcon})
-   .bindPopup('<div class="pop"><div class="pop-title">'+r.name+'</div><div class="pop-stat"><span>People rescued</span><b>'+r.n+'</b></div><div class="pop-box danger">'+r.desc+'</div></div>',{maxWidth:280})
-   .addTo(LG.rescue);
-});
- 
-// ── EXTREME RAINFALL AREAS ─────────────────────────────────────────────────────
-var RAIN_AREAS=[
-  {name:"Oahu North Shore (Storm 2 peak)",coords:[[21.55,-158.18],[21.70,-158.18],[21.70,-157.98],[21.55,-157.98]],rain:"8–12\""},
-  {name:"West Maui Mountains (Storm 1 peak — 62\" total)",coords:[[20.83,-156.72],[20.98,-156.72],[20.98,-156.54],[20.83,-156.54]],rain:"19–62\""},
-  {name:"Molokai (all stations)",coords:[[21.10,-157.20],[21.25,-157.20],[21.25,-156.75],[21.10,-156.75]],rain:"9–22\""},
-  {name:"Lanai",coords:[[20.78,-157.00],[20.94,-157.00],[20.94,-156.80],[20.78,-156.80]],rain:"7–13\""},
-  {name:"Hilo / Pahala Big Island",coords:[[19.10,-155.62],[19.80,-155.62],[19.80,-154.95],[19.10,-154.95]],rain:"15–30\""},
-  {name:"Kauai South / Kauai Channel",coords:[[21.83,-159.65],[21.95,-159.65],[21.95,-159.30],[21.83,-159.30]],rain:"10+\""},
-];
-RAIN_AREAS.forEach(function(r){
-  L.polygon(r.coords,{fillColor:'rgba(30,136,229,.2)',color:'#1E88E5',weight:1.5,dashArray:'6,4',fillOpacity:.2})
-   .bindPopup('<div class="pop"><div class="pop-title">'+r.name+'</div><div class="pop-stat"><span>Rainfall (event total)</span><b>'+r.rain+'</b></div><div class="pop-box info">Extreme rainfall area from NWS HFO March 2026 rainfall summaries. Areas shown received more than 10 inches during the combined Kona low event period (March 10–24).</div></div>',{maxWidth:280})
-   .addTo(LG.rain);
-});
- 
-// ── FEMA SPECIAL FLOOD HAZARD (approximate outlines from DFIRM) ────────────────
-// Draws approximate SFHA polygons based on known FEMA Zone A/AE areas
-// Full dataset: geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/5
-var FEMA_AREAS=[
-  // Oahu: North Shore rivers, Pearl Harbor area, Honolulu streams
-  {name:"FEMA SFHA — Kaukonahua Stream Floodplain (Waialua/Haleiwa)",coords:[[21.56,-158.10],[21.60,-158.10],[21.60,-158.04],[21.56,-158.04]]},
-  {name:"FEMA SFHA — Honolulu (Nuuanu, Palolo, Manoa Streams)",coords:[[21.28,-157.84],[21.32,-157.84],[21.32,-157.78],[21.28,-157.78]]},
-  {name:"FEMA SFHA — Pearl Harbor / Aiea",coords:[[21.37,-157.99],[21.41,-157.99],[21.41,-157.93],[21.37,-157.93]]},
-  // Maui
-  {name:"FEMA SFHA — Lahaina / Kaanapali Coastal Zone",coords:[[20.86,-156.71],[20.92,-156.71],[20.92,-156.64],[20.86,-156.64]]},
-  {name:"FEMA SFHA — Hana Highway Streams",coords:[[20.75,-156.02],[20.83,-156.02],[20.83,-155.95],[20.75,-155.95]]},
-  // Kauai
-  {name:"FEMA SFHA — Wailua River Basin",coords:[[22.03,-159.36],[22.09,-159.36],[22.09,-159.27],[22.03,-159.27]]},
-  {name:"FEMA SFHA — Hanalei River / North Shore Kauai",coords:[[22.18,-159.56],[22.22,-159.56],[22.22,-159.47],[22.18,-159.47]]},
-  // Hawaii Island
-  {name:"FEMA SFHA — Hilo Bayfront / Wailuku River",coords:[[19.71,-155.09],[19.75,-155.09],[19.75,-155.02],[19.71,-155.02]]},
-];
-FEMA_AREAS.forEach(function(a){
-  L.polygon(a.coords,{fillColor:'rgba(0,95,115,.35)',color:'#005F73',weight:1.5,dashArray:'4,3',fillOpacity:.35})
-   .bindPopup('<div class="pop"><div class="pop-title">'+a.name+'</div><span class="pop-badge" style="background:#005F73">FEMA SFHA</span><div class="pop-box info">Special Flood Hazard Area from FEMA Digital Flood Insurance Rate Maps (DFIRM), December 2025. Mandatory flood insurance purchase applies. Full dataset at: geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/5</div><a href="https://fhat.hawaii.gov/" target="_blank" style="font-size:10px;display:block;margin-top:6px">Open Hawaii Flood Hazard Assessment Tool</a></div>',{maxWidth:290})
-   .addTo(LG.fema);
-});
- 
-// ── SLR COASTAL FLOOD (3.2 ft scenario) ───────────────────────────────────────
-// From geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/15
-var SLR_AREAS=[
-  {name:"SLR 3.2ft Coastal Flood — Honolulu Waterfront",coords:[[21.29,-157.88],[21.31,-157.88],[21.31,-157.83],[21.29,-157.83]]},
-  {name:"SLR 3.2ft Coastal Flood — Waikiki",coords:[[21.27,-157.84],[21.29,-157.84],[21.29,-157.81],[21.27,-157.81]]},
-  {name:"SLR 3.2ft Coastal Flood — Kaneohe Bay",coords:[[21.41,-157.82],[21.44,-157.82],[21.44,-157.78],[21.41,-157.78]]},
-  {name:"SLR 3.2ft Coastal Flood — Kailua Beach / Oahu East",coords:[[21.38,-157.74],[21.41,-157.74],[21.41,-157.70],[21.38,-157.70]]},
-  {name:"SLR 3.2ft Coastal Flood — Kahului Harbor, Maui",coords:[[20.89,-156.48],[20.92,-156.48],[20.92,-156.44],[20.89,-156.44]]},
-  {name:"SLR 3.2ft Coastal Flood — Lihue / Nawiliwili, Kauai",coords:[[21.95,-159.36],[21.98,-159.36],[21.98,-159.31],[21.95,-159.31]]},
-];
-SLR_AREAS.forEach(function(a){
-  L.polygon(a.coords,{fillColor:'rgba(30,136,229,.3)',color:'#1E88E5',weight:1,fillOpacity:.3})
-   .bindPopup('<div class="pop"><div class="pop-title">'+a.name+'</div><span class="pop-badge" style="background:#1E88E5">SLR 3.2 FT SCENARIO</span><div class="pop-box info">1% annual-chance coastal flood zone with 3.2 feet of sea level rise, modeled by UH Coastal Geology Group using HAZUS. Source: geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/15. This scenario would greatly expand flood impacts compared to today\'s FIRM maps.</div></div>',{maxWidth:290})
-   .addTo(LG.slr);
-});
- 
-// ── MAJOR STREAMS ─────────────────────────────────────────────────────────────
-var STREAMS=[
-  {name:"Kaukonahua Stream (FLOODED — swept away homes)",c:'#E65100',w:3,pts:[[21.57,-158.09],[21.585,-158.07],[21.60,-158.05],[21.615,-158.04]]},
-  {name:"Mānoa Stream (FLOODED — rain bomb overflow)",c:'#D81B60',w:3,pts:[[21.333,-157.812],[21.318,-157.815],[21.305,-157.819],[21.295,-157.825]]},
-  {name:"Palolo Stream",c:'#1E88E5',w:2,pts:[[21.318,-157.795],[21.308,-157.800],[21.298,-157.808]]},
-  {name:"Waimea River — Kauai",c:'#1E88E5',w:2.5,pts:[[22.065,-159.67],[22.055,-159.645],[22.048,-159.623],[22.04,-159.605]]},
-  {name:"Wailua River — Kauai",c:'#1E88E5',w:2.5,pts:[[22.08,-159.40],[22.065,-159.37],[22.048,-159.345],[22.038,-159.33]]},
-  {name:"Hanalei River — Kauai North",c:'#1E88E5',w:2,pts:[[22.205,-159.53],[22.21,-159.515],[22.212,-159.50],[22.210,-159.484]]},
-  {name:"Wailuku River — Hilo",c:'#1E88E5',w:2.5,pts:[[19.742,-155.115],[19.730,-155.100],[19.718,-155.085],[19.710,-155.07]]},
-  {name:"Kaukonahua — N Branch",c:'#1E88E5',w:1.5,pts:[[21.63,-158.10],[21.61,-158.09],[21.59,-158.08]]},
-  {name:"Nuuanu Stream",c:'#1E88E5',w:2,pts:[[21.335,-157.850],[21.32,-157.845],[21.31,-157.840]]},
-];
-STREAMS.forEach(function(s){
-  L.polyline(s.pts,{color:s.c,weight:s.w,opacity:.85})
-   .bindTooltip(s.name,{direction:'top',sticky:true})
-   .addTo(LG.streams);
-});
- 
-// ── WATERSHED BOUNDARIES (approximate) ────────────────────────────────────────
-var WS_BOUNDS=[
-  {name:"Kaukonahua Watershed — Oahu",coords:[[21.50,-158.14],[21.68,-158.14],[21.68,-157.96],[21.50,-157.96]]},
-  {name:"Mānoa-Pālolo Watershed — Honolulu",coords:[[21.27,-157.86],[21.35,-157.86],[21.35,-157.77],[21.27,-157.77]]},
-  {name:"Wailua Watershed — Kauai",coords:[[22.01,-159.42],[22.12,-159.42],[22.12,-159.25],[22.01,-159.25]]},
-  {name:"Wailuku Watershed — Hilo, Big Island",coords:[[19.68,-155.18],[19.81,-155.18],[19.81,-155.02],[19.68,-155.02]]},
-];
-WS_BOUNDS.forEach(function(w){
-  L.polygon(w.coords,{fillColor:'rgba(0,77,64,.15)',color:'#004D40',weight:1.5,dashArray:'5,4',fillOpacity:.15})
-   .bindPopup('<div class="pop"><div class="pop-title">'+w.name+'</div><span class="pop-badge" style="background:#004D40">WATERSHED</span><div class="pop-box info">Approximate watershed boundary from Hawaii DLNR Division of Aquatic Resources watershed atlas. Full data at geoportal.hawaii.gov. Watershed boundaries define where rainfall drains — during extreme events, the entire watershed volume routes through stream channels that then overflow.</div></div>',{maxWidth:280})
-   .addTo(LG.watersheds);
-});
- 
-// ── ISLAND MARKERS ─────────────────────────────────────────────────────────────
-ISLANDS.forEach(function(isl){
-  var col=isl.color;
-  var icon=L.divIcon({
-    html:'<div style="background:'+col+';color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:10px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff">'+isl.name+'</div>',
-    className:'',iconSize:[null,null],iconAnchor:[0,0]
-  });
-  L.marker([isl.lat,isl.lng],{icon:icon,interactive:false}).addTo(map);
-});
- 
-// ── ISLAND TAB RENDERING ──────────────────────────────────────────────────────
-function renderIslands(){
-  var el=document.getElementById('island-scroll');
-  el.innerHTML='';
-  ISLANDS.forEach(function(isl,idx){
-    var div=document.createElement('div');
-    div.className='island-card';
-    div.innerHTML=
-      '<div class="island-name">'+isl.name+'<span class="island-badge" style="background:'+isl.color+'">'+isl.severity+'</span></div>'+
-      '<div class="island-stats">'+
-        '<div class="istat"><div class="istat-v">'+isl.maxRain+'</div><div class="istat-l">Max rain</div></div>'+
-        '<div class="istat"><div class="istat-v">'+(isl.rescued||'—')+'</div><div class="istat-l">Rescued</div></div>'+
-        '<div class="istat"><div class="istat-v">'+(isl.evacuated||'—')+'</div><div class="istat-l">Evacuated</div></div>'+
-      '</div>'+
-      '<div class="island-desc">'+isl.desc+'</div>'+
-      '<button class="actions-toggle" data-idx="'+idx+'" type="button">Actions &amp; Resources <span>&#x25BE;</span></button>'+
-      '<div class="actions-body" id="isact-'+idx+'">'+
-        isl.actions.map(function(a,i){return '<div class="act-item"><div class="act-num">'+(i+1)+'</div><div><b>'+a.t+'</b> '+a.b+'</div></div>';}).join('')+
-      '</div>';
-    div.querySelector('.island-card')
-    // Click card → fly to island
-    div.addEventListener('click',function(e){
-      if(e.target.tagName==='BUTTON'||e.target.closest('button')||e.target.tagName==='A') return;
-      map.flyTo([isl.lat,isl.lng],isl.zoom,{duration:1.2});
-    });
-    el.appendChild(div);
-  });
-}
-renderIslands();
- 
-// Toggle island actions via delegation
-document.addEventListener('click',function(e){
-  var btn=e.target.classList.contains('actions-toggle')?e.target:e.target.closest('.actions-toggle');
-  if(btn){
-    var idx=btn.getAttribute('data-idx');
-    var panel=document.getElementById('isact-'+idx);
-    if(panel){panel.classList.toggle('open');btn.querySelector('span').style.transform=panel.classList.contains('open')?'rotate(180deg)':'';}
-  }
-});
- 
-// ── TABS ──────────────────────────────────────────────────────────────────────
-function ST(name){
-  var names=['layers','event','islands','news','data'];
-  document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',names[i]===name);});
-  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='tab-'+name);});
-}
- 
-// ── SIDEBAR TOGGLE ────────────────────────────────────────────────────────────
-var sbOpen=true;
-function toggleSidebar(){
-  sbOpen=!sbOpen;
-  document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen);
-  document.getElementById('sb-toggle').innerHTML=sbOpen?'&#10094;':'&#10095;';
-  setTimeout(function(){map.invalidateSize();},280);
-}
- 
-// ── NWS WEATHER ───────────────────────────────────────────────────────────────
-async function fetchWeather(){
-  try{
-    var r=await fetch('https://api.weather.gov/stations/PHNL/observations/latest',{headers:{'Accept':'application/geo+json'}});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    var d=await r.json();
-    var raw=((d.properties||{}).precipitationLastHour||{}).value;
-    var precip=(raw!=null&&!isNaN(raw))?parseFloat((raw*39.3701).toFixed(2)):0;
-    document.getElementById('wx-val').textContent=precip>0?precip.toFixed(2)+'" last hr':'0.00" (dry)';
-    setSt('NWS Honolulu live','#4CAF50');
-  }catch(e){
-    document.getElementById('wx-val').textContent='N/A';
-    setSt('Weather unavailable','#F9A825');
-  }
-}
-function setSt(t,c){document.getElementById('stext').textContent=t;document.getElementById('sdot').style.background=c;}
- 
-// ── AI NEWS ────────────────────────────────────────────────────────────────────
-var NK='hi_v1_news',ND='hi_v1_date';
-async function fetchNews(force){
-  var today=new Date().toISOString().slice(0,10);
-  if(!force){try{var cd=localStorage.getItem(ND),cn=localStorage.getItem(NK);if(cd===today&&cn){renderNews(JSON.parse(cn));setSt('NWS live · news updated today','#4CAF50');return;}}catch(e){}}
-  document.getElementById('news-box').innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Searching Hawaii flood news&#8230;</div>';
-  document.getElementById('rfbtn').disabled=true;
-  document.getElementById('news-label').textContent='Fetching&#8230;';
-  try{
-    var t=new Date().toISOString().slice(0,10);
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:'Search for 5 very recent news articles (2026) about Hawaii flooding recovery, the March 2026 Kona Low storms, Oahu North Shore flood damage, Waialua Haleiwa flooding, or Hawaii flood relief and FEMA response. Today is '+t+'. Return a JSON array. Each item: y (2026), title, src, tag (one of: Recovery/Damage/Infrastructure/Relief/Climate), tc (hex: Recovery=#004D40 Damage=#E65100 Infrastructure=#005F73 Relief=#7B2D8B Climate=#1E88E5), sum (2 sentences max), full (2-3 paragraphs), url. Return ONLY the JSON array, no markdown.'}]})});
-    var data=await r.json();
-    var txt=(data.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('');
-    var m=txt.match(/\[\s*\{[\s\S]*?\}\s*\]/);
-    if(!m)throw new Error('no JSON');
-    var ai=JSON.parse(m[0]);
-    localStorage.setItem(NK,JSON.stringify(ai));localStorage.setItem(ND,t);
-    renderNews(ai);setSt('NWS live · news updated today','#4CAF50');
-  }catch(e){
-    console.error(e);renderNews([]);
-    document.getElementById('news-label').textContent='Archived reports';
-    setSt('Archived news','#F9A825');
-  }finally{document.getElementById('rfbtn').disabled=false;}
-}
- 
-function renderNews(ai){
-  var box=document.getElementById('news-box');box.innerHTML='';
-  var all=ai.map(function(a){return Object.assign({},a,{isAI:true});}).concat(STATIC_NEWS.map(function(a){return Object.assign({},a,{isAI:false});}));
-  all.sort(function(a,b){return (b.y||0)-(a.y||0);});
-  document.getElementById('news-label').textContent=(ai.length>0?ai.length+' live + ':'')+STATIC_NEWS.length+' archived';
-  all.forEach(function(n,i){
-    var d=document.createElement('div');d.className='n-card';
-    var tc=n.tc||'#607D8B';
-    d.innerHTML='<div class="n-hdr" onclick="xNews('+i+')">'
-      +'<div class="n-meta"><span class="n-yr">'+(n.y||'2026')+'</span>'
-      +'<span class="n-tg" style="background:'+tc+'22;color:'+tc+'">'+(n.tag||'')+'</span>'
-      +(n.isAI?'<span class="ai-tg">Live</span>':'')+'</div>'
-      +'<div class="n-src">'+(n.src||'')+'</div>'
-      +'<div class="n-ttl">'+(n.title||'')+'</div>'
-      +'<div class="n-sum">'+(n.sum||n.summary||'')+'</div>'
-      +'<button class="n-xbtn" id="nb-'+i+'">Read more</button></div>'
-      +'<div class="n-body" id="nb-body-'+i+'"><div class="n-txt">'+(n.full||'')+'</div>'
-      +'<a class="n-link" href="'+(n.url||'#')+'" target="_blank">Open source</a></div>';
-    box.appendChild(d);
-  });
-}
-function xNews(i){var b=document.getElementById('nb-body-'+i),btn=document.getElementById('nb-'+i);var o=b.classList.toggle('open');btn.textContent=o?'Collapse':'Read more';}
- 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-fetchWeather();
-fetchNews(false);
-setInterval(fetchWeather,600000);
-</script>
+
+<!-- Load external scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="data.js"></script>
+<script src="map.js"></script>
+<script src="ui.js"></script>
+
 </body>
 </html>
