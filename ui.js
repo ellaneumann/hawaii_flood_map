@@ -44,60 +44,51 @@ document.addEventListener('click',function(e){
 });
 
 // ── TABS ───────────────────────────────────────────────────────────────────────
+var fviAutoEnabled = false;
 function ST(name){
-  var names=['layers','event','stats','islands','news','data'];
+  var names=['vulnerability','layers','event','islands'];
   document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',names[i]===name);});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.id==='tab-'+name);});
+  // Auto-enable FVI heatmap on first visit to vulnerability tab
+  if(name==='vulnerability' && !fviAutoEnabled){
+    fviAutoEnabled=true;
+    if(typeof LON!=='undefined' && !LON.fvi) TL('fvi');
+    if(typeof recalcFVI==='function') recalcFVI();
+    if(typeof map!=='undefined') map.flyTo([21.48,-157.97],11,{duration:1.2});
+  }
 }
 
-function renderStats(){
-  var totalEvacuated=ISLANDS.reduce(function(sum,i){return sum+(i.evacuated||0);},0);
-  var totalRescued=ISLANDS.reduce(function(sum,i){return sum+(i.rescued||0);},0);
-  var totalEvacZones=EVAC_ZONES.length;
-  var totalImpactZones=IMPACT_ZONES.length;
-  var totalFEMA=FEMA_AREAS.length;
-  var totalStreams=STREAMS.length;
-  var totalSoilAreas=Object.keys(SOIL_DATA).reduce(function(sum,k){return sum+SOIL_DATA[k].length;},0);
-  var totalAtmospheric=ATMOSPHERIC_RIVERS.length;
-  var totalCensus=CENSUS_DATA.length;
-  var totalImpervious=IMPERVIOUS_SURFACE.length;
-
-  var html = ''+
-    '<div class="lg-title">Event Summary</div>'+ 
-    '<div class="lrow" style="padding:6px 8px;margin:4px 0;background:#f8fafc;border:1px solid var(--g200);border-radius:6px;">'+
-      '<div class="linfo"><div class="lname">Total evacuated</div><div class="lsub">'+totalEvacuated.toLocaleString()+'</div></div>'+ 
-    '</div>'+ 
-    '<div class="lrow" style="padding:6px 8px;margin:4px 0;background:#fff3e0;border:1px solid var(--warn);border-radius:6px;">'+
-      '<div class="linfo"><div class="lname">Total rescued</div><div class="lsub">'+totalRescued.toLocaleString()+'</div></div>'+ 
-    '</div>'+ 
-    '<div class="lg-title">Data Snapshot</div>'+ 
-    '<div class="pop-stat"><b>'+totalEvacZones+'</b> evacuation zones</div>'+ 
-    '<div class="pop-stat"><b>'+totalImpactZones+'</b> impact zones</div>'+ 
-    '<div class="pop-stat"><b>'+totalFEMA+'</b> FEMA SFHA areas</div>'+ 
-    '<div class="pop-stat"><b>'+totalStreams+'</b> major stream segments</div>'+ 
-    '<div class="pop-stat"><b>'+totalSoilAreas+'</b> pineapple soil zones</div>'+ 
-    '<div class="pop-stat"><b>'+totalAtmospheric+'</b> atmospheric river event layers</div>'+ 
-    '<div class="pop-stat"><b>'+totalCensus+'</b> census exposure zones</div>'+ 
-    '<div class="pop-stat"><b>'+totalImpervious+'</b> impervious surface zones</div>';
-
-  document.getElementById('stats-content').innerHTML=html;
+// ── COLLAPSIBLE NEWS SECTION ───────────────────────────────────────────────────
+function toggleNewsSection(){
+  var body=document.getElementById('news-section-body');
+  var arrow=document.getElementById('news-section-arrow');
+  if(!body) return;
+  body.classList.toggle('open');
+  if(arrow) arrow.style.transform=body.classList.contains('open')?'':'rotate(-90deg)';
 }
-
-renderStats();
 
 // ── SIDEBAR TOGGLE ─────────────────────────────────────────────────────────────
-var sbOpen=window.innerWidth>768; // Auto-close on mobile/tablet
+var sbOpen=true;
+function applySidebarState(){
+  var sb=document.getElementById('sidebar');
+  var btn=document.getElementById('sb-toggle');
+  if(window.innerWidth>768){
+    sb.classList.toggle('collapsed',!sbOpen);
+    sb.classList.remove('open');
+  } else {
+    sb.classList.toggle('open',sbOpen);
+    sb.classList.remove('collapsed');
+  }
+  if(btn) btn.innerHTML=sbOpen?'&#10094;':'&#10095;';
+}
 function toggleSidebar(){
   sbOpen=!sbOpen;
-  var sb=document.getElementById('sidebar');
-  sb.classList.toggle('open',sbOpen);
-  document.getElementById('sb-toggle').innerHTML=sbOpen?'&#10094;':'&#10095;';
+  applySidebarState();
   setTimeout(function(){if(map)map.invalidateSize();},280);
 }
 // Ensure proper state on window resize
 window.addEventListener('resize',function(){
-  if(window.innerWidth>768 && !sbOpen){sbOpen=true;document.getElementById('sidebar').classList.add('open');}
-  else if(window.innerWidth<=768 && sbOpen){sbOpen=false;document.getElementById('sidebar').classList.remove('open');}
+  applySidebarState();
   if(map)map.invalidateSize();
 });
 
@@ -185,7 +176,20 @@ function renderNews(ai){
 }
 function xNews(i){var b=document.getElementById('nb-body-'+i),btn=document.getElementById('nb-'+i);var o=b.classList.toggle('open');btn.textContent=o?'Collapse':'Read more';}
 
+// ── VULNERABILITY SCENARIO SELECTION ──────────────────────────────────────────
+function selectScenario(key) {
+  document.querySelectorAll('.fvi-scenario').forEach(function(el) {
+    el.classList.toggle('active', el.id === 'scen-' + key);
+  });
+  if (typeof applyScenario === 'function') {
+    applyScenario(key);
+  }
+}
+
 // ── INITIALIZATION ────────────────────────────────────────────────────────────
 fetchWeather();
 fetchNews(false);
 setInterval(fetchWeather,600000); // Refresh weather every 10 minutes
+
+// Page opens on Vulnerability tab — trigger auto-enable after scripts load
+setTimeout(function(){ ST('vulnerability'); }, 50);

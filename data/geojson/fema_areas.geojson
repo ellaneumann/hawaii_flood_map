@@ -1,0 +1,237 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Kaukonahua Stream Floodplain (Waialua/Haleiwa)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.1,
+              21.56
+            ],
+            [
+              -158.1,
+              21.6
+            ],
+            [
+              -158.04,
+              21.6
+            ],
+            [
+              -158.04,
+              21.56
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Honolulu (Nuuanu, Palolo, Manoa Streams)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.84,
+              21.28
+            ],
+            [
+              -157.84,
+              21.32
+            ],
+            [
+              -157.78,
+              21.32
+            ],
+            [
+              -157.78,
+              21.28
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Pearl Harbor / Aiea"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.99,
+              21.37
+            ],
+            [
+              -157.99,
+              21.41
+            ],
+            [
+              -157.93,
+              21.41
+            ],
+            [
+              -157.93,
+              21.37
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Lahaina / Kaanapali Coastal Zone"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.71,
+              20.86
+            ],
+            [
+              -156.71,
+              20.92
+            ],
+            [
+              -156.64,
+              20.92
+            ],
+            [
+              -156.64,
+              20.86
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Hana Highway Streams"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.02,
+              20.75
+            ],
+            [
+              -156.02,
+              20.83
+            ],
+            [
+              -155.95,
+              20.83
+            ],
+            [
+              -155.95,
+              20.75
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Wailua River Basin"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.36,
+              22.03
+            ],
+            [
+              -159.36,
+              22.09
+            ],
+            [
+              -159.27,
+              22.09
+            ],
+            [
+              -159.27,
+              22.03
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Hanalei River / North Shore Kauai"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.56,
+              22.18
+            ],
+            [
+              -159.56,
+              22.22
+            ],
+            [
+              -159.47,
+              22.22
+            ],
+            [
+              -159.47,
+              22.18
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "FEMA SFHA - Hilo Bayfront / Wailuku River"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.09,
+              19.71
+            ],
+            [
+              -155.09,
+              19.75
+            ],
+            [
+              -155.02,
+              19.75
+            ],
+            [
+              -155.02,
+              19.71
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

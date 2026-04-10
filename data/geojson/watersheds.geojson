@@ -1,0 +1,121 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kaukonahua Watershed — Oahu"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.14,
+              21.5
+            ],
+            [
+              -158.14,
+              21.68
+            ],
+            [
+              -157.96,
+              21.68
+            ],
+            [
+              -157.96,
+              21.5
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mānoa-Pālolo Watershed — Honolulu"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.86,
+              21.27
+            ],
+            [
+              -157.86,
+              21.35
+            ],
+            [
+              -157.77,
+              21.35
+            ],
+            [
+              -157.77,
+              21.27
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailua Watershed — Kauai"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.42,
+              22.01
+            ],
+            [
+              -159.42,
+              22.12
+            ],
+            [
+              -159.25,
+              22.12
+            ],
+            [
+              -159.25,
+              22.01
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailuku Watershed — Hilo, Big Island"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.18,
+              19.68
+            ],
+            [
+              -155.18,
+              19.81
+            ],
+            [
+              -155.02,
+              19.81
+            ],
+            [
+              -155.02,
+              19.68
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

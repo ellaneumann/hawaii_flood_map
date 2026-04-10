@@ -1,0 +1,389 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Shore Oahu Evacuation (Dam Failure Risk)",
+        "reason": "Wahiawa Dam failure risk",
+        "residents": 5500,
+        "source": "Hawaii Civil Defense",
+        "desc": "5,500 residents evacuated from Waialua, Maunawili, Heʻeia, and surrounding areas due to Wahiawa Dam (1906, earthen, height 47 ft) failure risk. Zone includes North Shore communities downstream of the dam. Evacuation lifted by March 22 as water levels stabilized. Evacuation route: HI-803 (Whitmore Ave) north to HI-99 (Kamehameha Hwy)."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.15,
+              21.55
+            ],
+            [
+              -158.17,
+              21.58
+            ],
+            [
+              -158.16,
+              21.62
+            ],
+            [
+              -158.14,
+              21.67
+            ],
+            [
+              -158.1,
+              21.68
+            ],
+            [
+              -158.04,
+              21.66
+            ],
+            [
+              -158.02,
+              21.63
+            ],
+            [
+              -158.03,
+              21.59
+            ],
+            [
+              -158.05,
+              21.56
+            ],
+            [
+              -158.08,
+              21.54
+            ],
+            [
+              -158.12,
+              21.53
+            ],
+            [
+              -158.15,
+              21.55
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Oahu Evacuation (Downstream Risk)",
+        "reason": "Kaukonahua/Wahiawa drainage overflow",
+        "residents": 1200,
+        "source": "Honolulu Civil Defense",
+        "desc": "Residents in Waialua, Mokuleia, and lower Haleʻiwa warned due to Kaukonahua Stream and Wahiawa Stream drainage overflow. Includes agricultural areas and scattered residential. Route via Main Road (HI-803) to HI-99 north."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.25,
+              21.55
+            ],
+            [
+              -158.28,
+              21.6
+            ],
+            [
+              -158.26,
+              21.65
+            ],
+            [
+              -158.22,
+              21.68
+            ],
+            [
+              -158.15,
+              21.68
+            ],
+            [
+              -158.12,
+              21.64
+            ],
+            [
+              -158.1,
+              21.6
+            ],
+            [
+              -158.12,
+              21.56
+            ],
+            [
+              -158.16,
+              21.53
+            ],
+            [
+              -158.22,
+              21.52
+            ],
+            [
+              -158.25,
+              21.55
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manoa/Palolo Evacuation (Stream Flooding)",
+        "reason": "Manoa & Palolo Stream overflow",
+        "residents": 800,
+        "source": "Honolulu Emergency Services",
+        "desc": "Mānoa and Pālolo valley residents evacuated due to stream overflow on March 23. The 'rain bomb' caused Mānoa Stream to overtop, affecting shopping centers, residences, and Mānoa Elementary. Route via Kaimukī Ave to Highway 1."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.82,
+              21.3
+            ],
+            [
+              -157.84,
+              21.33
+            ],
+            [
+              -157.82,
+              21.35
+            ],
+            [
+              -157.78,
+              21.34
+            ],
+            [
+              -157.76,
+              21.31
+            ],
+            [
+              -157.78,
+              21.29
+            ],
+            [
+              -157.82,
+              21.3
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pearl Harbor Area (Aiea Bridge Risk)",
+        "reason": "Flood plain and industrial facility risk",
+        "residents": 2100,
+        "source": "FEMA/State Civil Defense",
+        "desc": "Pearl Harbor area residents and workers warned due to Aiea Stream flooding and adjacent floodplain. Includes residences in Aiea, Pearl City, and industrial zones. Route via HI-63 (Kamehameha Hwy) to central Oahu."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.99,
+              21.37
+            ],
+            [
+              -158.01,
+              21.41
+            ],
+            [
+              -157.97,
+              21.43
+            ],
+            [
+              -157.93,
+              21.4
+            ],
+            [
+              -157.94,
+              21.37
+            ],
+            [
+              -157.99,
+              21.37
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lahaina Evacuation Warning (Maui)",
+        "reason": "Retention basin overflow & post-fire vulnerability",
+        "residents": 3500,
+        "source": "Maui County Emergency Mgmt",
+        "desc": "Lahaina residents upgraded to evacuation warning on March 20 as retention basins from 2023 wildfire recovery neared capacity. Compounding hazard: floodwater mixed with fire debris. Evacuation route via HI-30 (Mokulele Hwy) south or north to upcountry Maui."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.74,
+              20.84
+            ],
+            [
+              -156.76,
+              20.88
+            ],
+            [
+              -156.74,
+              20.92
+            ],
+            [
+              -156.69,
+              20.91
+            ],
+            [
+              -156.68,
+              20.87
+            ],
+            [
+              -156.69,
+              20.84
+            ],
+            [
+              -156.74,
+              20.84
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kula/Upcountry Maui (Hospitals & High Ground)",
+        "reason": "Kula Hospital & water systems damage",
+        "residents": 2800,
+        "source": "Maui County",
+        "desc": "Upcountry residents sheltered in place with advisories. Kula Hospital damaged. Stream flooding in agricultural zones. Higher elevation provides natural refuge but vulnerable infrastructure. No major evacuation but road closures via HI-37."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.35,
+              20.79
+            ],
+            [
+              -156.38,
+              20.85
+            ],
+            [
+              -156.38,
+              20.9
+            ],
+            [
+              -156.33,
+              20.92
+            ],
+            [
+              -156.28,
+              20.88
+            ],
+            [
+              -156.3,
+              20.82
+            ],
+            [
+              -156.35,
+              20.79
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailua River Basin Evacuation (Kauai)",
+        "reason": "Rapid river rise and floodplain overflow",
+        "residents": 1200,
+        "source": "Kauai County Civil Defense",
+        "desc": "Wailua River residents (south bank near Wailua Homesteads) evacuated due to rapid water rise and historical flood patterns. Wailua Stream also elevated. Route via HI-56 (Kuhio Hwy) north."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.35,
+              22.02
+            ],
+            [
+              -159.38,
+              22.08
+            ],
+            [
+              -159.36,
+              22.12
+            ],
+            [
+              -159.3,
+              22.1
+            ],
+            [
+              -159.27,
+              22.05
+            ],
+            [
+              -159.35,
+              22.02
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hanalei Area Evacuation (North Shore Kauai)",
+        "reason": "Hanalei River & stream system overflow",
+        "residents": 600,
+        "source": "Kauai County",
+        "desc": "Hanalei Valley residents and businesses warned. Hanalei River one of Kauai's largest, prone to rapid rises. Includes Hanalei Beach Park and Hanalei Bay area. North Shore known for hydrophobic lava fields limiting drainage."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.58,
+              22.17
+            ],
+            [
+              -159.61,
+              22.22
+            ],
+            [
+              -159.57,
+              22.24
+            ],
+            [
+              -159.52,
+              22.21
+            ],
+            [
+              -159.55,
+              22.17
+            ],
+            [
+              -159.58,
+              22.17
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "island": "Oahu",
+        "name": "Oahu Pineapple Soil Zone — Waialua Series",
+        "soil_type": "Hydrous Kanhaplic Humoxisol",
+        "parent_material": "Basaltic lava flows (Pleistocene)",
+        "elevation_ft": 2000,
+        "iron_oxide_pct": "22-28%",
+        "hazards": [
+          "High iron content creates laterite hardpan — reduces infiltration",
+          "Perched water tables increase lateral runoff concentration",
+          "5-15 ton/acre/year erosion post-abandonment"
+        ],
+        "flood_impact": "Iron-rich subsurface acts as impermeable barrier. Increases flood peak flow magnitude by 30-50% vs sandy soils.",
+        "desc": "Historically dominant pineapple cultivation zone. High iron oxide creates cemented lower horizons that impede water drainage and increase flood runoff. Soils are vulnerable to gully erosion once vegetative cover is removed.",
+        "source_url": "https://soilseries.sc.egov.usda.gov/OSD_Docs/W/WAIALUA.html"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.13,
+              21.54
+            ],
+            [
+              -158.13,
+              21.62
+            ],
+            [
+              -158.08,
+              21.62
+            ],
+            [
+              -158.08,
+              21.54
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "island": "Oahu",
+        "name": "Central Oahu Pineapple Soil Zone — Ala Series",
+        "soil_type": "Humic Acrudox",
+        "parent_material": "Volcanic ash over basalt",
+        "elevation_ft": 1500,
+        "iron_oxide_pct": "18-24%",
+        "hazards": [
+          "Iron hydrate cementation layer at 20-40 inches depth",
+          "When saturated, represents slip surface for landslides",
+          "Slippery interface between iron-rich and upper soil layers"
+        ],
+        "flood_impact": "Iron-cemented horizons prevent downward water movement. All infiltration becomes lateral flow along clay layers, concentrating water into draws and gullies. Increases gully erosion potential 10-20x.",
+        "desc": "Secondary pineapple zone with more pronounced iron accumulation. Properties make soils prone to slippage after saturation, increasing landslide risk on slopes >20 degrees.",
+        "source_url": "https://soilseries.sc.egov.usda.gov/OSD_Docs/A/ALA.html"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.06,
+              21.48
+            ],
+            [
+              -158.06,
+              21.55
+            ],
+            [
+              -157.98,
+              21.55
+            ],
+            [
+              -157.98,
+              21.48
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "island": "Maui",
+        "name": "Maui Pineapple Zone — Molokai Series",
+        "soil_type": "Hydrous Kanhaplic Humoxisol",
+        "parent_material": "Basaltic lava (West Maui volcanic)",
+        "elevation_ft": 2200,
+        "iron_oxide_pct": "24-30%",
+        "hazards": [
+          "Among highest iron content in Hawaii (24-30%)",
+          "Steep terrain (20-35 degree slopes) + high clay content",
+          "Post-wildfire soil destabilization compounded by iron content"
+        ],
+        "flood_impact": "Most severe flood/landslide risk. Iron-rich soils mixed with 2023 wildfire charred root zones create dual hazard: rapid runoff + slope instability. 62 inches rain in 2026 event mobilized debris flows in multiple gulches.",
+        "desc": "West Maui's primary pineapple legacy zone. Extremely high iron oxide creates very low hydraulic conductivity and permeability. Combined with post-wildfire conditions, this represents CRITICAL flood and debris flow risk for Lahaina area.",
+        "source_url": "https://soilseries.sc.egov.usda.gov/OSD_Docs/M/MOLOKAI.html"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.66,
+              20.87
+            ],
+            [
+              -156.66,
+              20.95
+            ],
+            [
+              -156.58,
+              20.95
+            ],
+            [
+              -156.58,
+              20.87
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "island": "Kauai",
+        "name": "Kauai Pineapple Zone — Mahiki Series",
+        "soil_type": "Humic Torrox",
+        "parent_material": "Weathered basalt",
+        "elevation_ft": 1800,
+        "iron_oxide_pct": "20-26%",
+        "hazards": [
+          "High iron content with steep island morphology",
+          "Valley concentrations create flash flood channels",
+          "Highly erodible once vegetation removed"
+        ],
+        "flood_impact": "Iron-rich soils accelerate runoff into narrow valley systems. Creates high-velocity flood peaks in tributary streams. 10+ inches rainfall generates significant debris flow risk.",
+        "desc": "Kauai's main pineapple cultivation area. Soils exhibit classic iron-oxide weathering pattern. Combination of soil properties and steep terrain makes this area prone to rapid flash flooding.",
+        "source_url": "https://soilseries.sc.egov.usda.gov/OSD_Docs/M/MAHIKI.html"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.65,
+              22.04
+            ],
+            [
+              -159.65,
+              22.12
+            ],
+            [
+              -159.53,
+              22.12
+            ],
+            [
+              -159.53,
+              22.04
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

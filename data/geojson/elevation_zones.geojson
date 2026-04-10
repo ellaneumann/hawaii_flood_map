@@ -1,0 +1,104 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Elevation Rainfall Zones (>3000 ft)",
+        "type": "source",
+        "elev_min": 3000,
+        "elev_max": 6000,
+        "desc": "West Maui & upcountry areas receiving heaviest rainfall. Steep slopes accelerate runoff."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.68,
+              20.7
+            ],
+            [
+              -156.68,
+              21
+            ],
+            [
+              -156.44,
+              21
+            ],
+            [
+              -156.44,
+              20.7
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mid-Elevation Transition Zones (1000-3000 ft)",
+        "type": "transition",
+        "elev_min": 1000,
+        "elev_max": 3000,
+        "desc": "Rapid flow acceleration zone. Runoff from high elevations concentrates here into stream channels."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.1,
+              21.45
+            ],
+            [
+              -158.1,
+              21.65
+            ],
+            [
+              -157.95,
+              21.65
+            ],
+            [
+              -157.95,
+              21.45
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Low-Lying Accumulation (0-300 ft)",
+        "type": "sink",
+        "elev_min": 0,
+        "elev_max": 300,
+        "desc": "Valley floors and coastal plains where floodwater accumulates. Slowest drainage."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.2,
+              21.5
+            ],
+            [
+              -158.2,
+              21.7
+            ],
+            [
+              -157.95,
+              21.7
+            ],
+            [
+              -157.95,
+              21.5
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

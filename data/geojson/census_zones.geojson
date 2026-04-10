@@ -1,0 +1,116 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Population Density — Honolulu (>1,200 per sq mi)",
+        "population": 2800,
+        "population_density": 1450,
+        "households": 900,
+        "median_income": "$73,500",
+        "flood_exposure": "CRITICAL",
+        "people_at_risk": 2500,
+        "desc": "Central Honolulu. March 23 'rain bomb' affected this densely populated area with unexpected flooding due to perched water table in urban soils.",
+        "source_url": "https://geoportal.hawaii.gov/datasets/1815a6c2c1fc40c39e575f7330dd62c6_34"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.88,
+              21.28
+            ],
+            [
+              -157.88,
+              21.35
+            ],
+            [
+              -157.78,
+              21.35
+            ],
+            [
+              -157.78,
+              21.28
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Medium-High Population Density — Waialua/Haleiwa (400-600 per sq mi)",
+        "population": 8200,
+        "population_density": 520,
+        "households": 2100,
+        "median_income": "$71,200",
+        "flood_exposure": "CRITICAL",
+        "people_at_risk": 5500,
+        "desc": "North Shore Oahu. Worst-hit area with 236 rescued. Kaukonahua Stream overflow inundated both agricultural and residential areas.",
+        "source_url": "https://geoportal.hawaii.gov/datasets/1815a6c2c1fc40c39e575f7330dd62c6_34"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.12,
+              21.57
+            ],
+            [
+              -158.12,
+              21.65
+            ],
+            [
+              -157.98,
+              21.65
+            ],
+            [
+              -157.98,
+              21.57
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Medium Population Density — West Maui (280-450 per sq mi)",
+        "population": 1200,
+        "population_density": 380,
+        "households": 320,
+        "median_income": "$68,900",
+        "flood_exposure": "high",
+        "people_at_risk": 850,
+        "desc": "Lahaina. Still in wildfire recovery phase. 62 inches rain and pineapple soil properties created compounded flood/debris hazard.",
+        "source_url": "https://geoportal.hawaii.gov/datasets/1815a6c2c1fc40c39e575f7330dd62c6_34"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.72,
+              20.85
+            ],
+            [
+              -156.72,
+              20.93
+            ],
+            [
+              -156.62,
+              20.93
+            ],
+            [
+              -156.62,
+              20.85
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

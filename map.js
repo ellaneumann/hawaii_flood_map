@@ -47,9 +47,14 @@ var LG={
 var LON={impact:true,evac:true,dam:true,rescue:true,rain:true,fema:true,slr:false,waterways:true,watersheds:false,elevation:false,contamination:false,soils:false,atmospheric_rivers:false,census:false,impervious:false};
 function TL(n){
   LON[n]=!LON[n];
-  var el=document.getElementById('chk-'+n);
-  if(el){el.classList.toggle('on',LON[n]);el.innerHTML=LON[n]?'✓':'';}
+  // Update all checkboxes for this layer (handles duplicates across tabs)
+  ['chk-'+n,'chk-'+n+'-layers'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.toggle('on',LON[n]);el.innerHTML=LON[n]?'✓':'';}
+  });
   if(LON[n])map.addLayer(LG[n]);else map.removeLayer(LG[n]);
+  // Show/hide FVI legend
+  if(n==='fvi'){var leg=document.getElementById('fvi-legend');if(leg)leg.style.display=LON[n]?'block':'none';}
 }
 
 // ── IMPACT ZONES ───────────────────────────────────────────────────────────────

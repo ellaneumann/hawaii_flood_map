@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Flood Overlay",
+        "risk": "High",
+        "description": "This polygon is loaded from GeoJSON and demonstrates the external shapefile overlay feature.",
+        "source": "User-provided GIS data"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-158.104, 21.573],
+            [-158.035, 21.573],
+            [-158.035, 21.608],
+            [-158.104, 21.608],
+            [-158.104, 21.573]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kaukonahua Stream - Upper",
+        "type": "stream",
+        "flow": "S"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -158.08,
+            21.62
+          ],
+          [
+            -158.07,
+            21.6
+          ],
+          [
+            -158.06,
+            21.58
+          ],
+          [
+            -158.04,
+            21.57
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kaukonahua Stream - Middle",
+        "type": "stream",
+        "flow": "SE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -158.04,
+            21.57
+          ],
+          [
+            -158.035,
+            21.555
+          ],
+          [
+            -158.02,
+            21.54
+          ],
+          [
+            -158,
+            21.525
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kaukonahua Stream - Lower (MAIN FLOOD CHANNEL)",
+        "type": "stream",
+        "flow": "SE",
+        "flood_severity": "critical"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -158,
+            21.525
+          ],
+          [
+            -157.98,
+            21.51
+          ],
+          [
+            -157.96,
+            21.495
+          ],
+          [
+            -157.94,
+            21.475
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Heeia Stream (tributary)",
+        "type": "tributary",
+        "flow": "N"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -158.07,
+            21.54
+          ],
+          [
+            -158.055,
+            21.555
+          ],
+          [
+            -158.04,
+            21.565
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mānoa Stream - Upper Valley",
+        "type": "stream",
+        "flow": "S"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -157.825,
+            21.345
+          ],
+          [
+            -157.82,
+            21.338
+          ],
+          [
+            -157.815,
+            21.33
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mānoa Stream - Main (RAIN BOMB OVERFLOW POINT)",
+        "type": "stream",
+        "flow": "S",
+        "flood_severity": "high"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -157.815,
+            21.33
+          ],
+          [
+            -157.81,
+            21.322
+          ],
+          [
+            -157.805,
+            21.315
+          ],
+          [
+            -157.8,
+            21.305
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pālolo Stream",
+        "type": "tributary",
+        "flow": "SE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -157.8,
+            21.32
+          ],
+          [
+            -157.8,
+            21.31
+          ],
+          [
+            -157.805,
+            21.3
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailua River (Kailua)",
+        "type": "river",
+        "flow": "S"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -157.75,
+            21.42
+          ],
+          [
+            -157.74,
+            21.4
+          ],
+          [
+            -157.73,
+            21.37
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kahana Stream",
+        "type": "stream",
+        "flow": "S"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -157.85,
+            21.52
+          ],
+          [
+            -157.83,
+            21.5
+          ],
+          [
+            -157.81,
+            21.48
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Iao Stream (Wailuku)",
+        "type": "river",
+        "flow": "N"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -156.5,
+            20.79
+          ],
+          [
+            -156.48,
+            20.81
+          ],
+          [
+            -156.46,
+            20.83
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kapalua Streams Complex",
+        "type": "stream_complex",
+        "flow": "N"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -156.67,
+            20.97
+          ],
+          [
+            -156.65,
+            20.94
+          ],
+          [
+            -156.63,
+            20.91
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lahaina Watershed Runoff",
+        "type": "stream",
+        "flow": "W",
+        "flood_severity": "moderate"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -156.68,
+            20.88
+          ],
+          [
+            -156.7,
+            20.86
+          ],
+          [
+            -156.72,
+            20.84
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailuku River (Hilo Main)",
+        "type": "river",
+        "flow": "E"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -155.12,
+            19.72
+          ],
+          [
+            -155.1,
+            19.7
+          ],
+          [
+            -155.08,
+            19.68
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Honolii Stream (Hilo)",
+        "type": "stream",
+        "flow": "E"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -155.08,
+            19.74
+          ],
+          [
+            -155.06,
+            19.72
+          ],
+          [
+            -155.04,
+            19.7
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wailua River (Kauai Main)",
+        "type": "river",
+        "flow": "E"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -159.4,
+            22.08
+          ],
+          [
+            -159.37,
+            22.06
+          ],
+          [
+            -159.34,
+            22.04
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hanalei River (North Shore)",
+        "type": "river",
+        "flow": "N"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -159.51,
+            22.21
+          ],
+          [
+            -159.5,
+            22.208
+          ],
+          [
+            -159.49,
+            22.205
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Waimea River (West Kauai)",
+        "type": "river",
+        "flow": "N"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -159.7,
+            22.07
+          ],
+          [
+            -159.67,
+            22.06
+          ],
+          [
+            -159.64,
+            22.05
+          ]
+        ]
+      }
+    }
+  ]
+}

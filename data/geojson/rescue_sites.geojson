@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Our Lady of Keaau Youth Camp",
+        "people_rescued": 72,
+        "desc": "National Guard and Honolulu Fire airlifted 72 children and adults from this spring break camp on Oahu's west coast."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.022,
+          21.655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Waialua / Haleiwa Mass Rescue",
+        "people_rescued": 150,
+        "desc": "Over 150 people rescued from rooftops and flooded homes as Kaukonahua Stream overflowed. Some pulled directly from rooftops."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.062,
+          21.575
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "North Shore Campsite",
+        "people_rescued": 70,
+        "desc": "A group of 70 people were surrounded by water at a campsite. Gov. Green: 'They were having difficulty getting out because there was so much water around them.'"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.044,
+          21.643
+        ]
+      }
+    }
+  ]
+}

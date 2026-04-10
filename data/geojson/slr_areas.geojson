@@ -1,0 +1,179 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Honolulu Waterfront"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.88,
+              21.29
+            ],
+            [
+              -157.88,
+              21.31
+            ],
+            [
+              -157.83,
+              21.31
+            ],
+            [
+              -157.83,
+              21.29
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Waikiki"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.84,
+              21.27
+            ],
+            [
+              -157.84,
+              21.29
+            ],
+            [
+              -157.81,
+              21.29
+            ],
+            [
+              -157.81,
+              21.27
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Kaneohe Bay"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.82,
+              21.41
+            ],
+            [
+              -157.82,
+              21.44
+            ],
+            [
+              -157.78,
+              21.44
+            ],
+            [
+              -157.78,
+              21.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Kailua Beach / Oahu East"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.74,
+              21.38
+            ],
+            [
+              -157.74,
+              21.41
+            ],
+            [
+              -157.7,
+              21.41
+            ],
+            [
+              -157.7,
+              21.38
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Kahului Harbor, Maui"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.48,
+              20.89
+            ],
+            [
+              -156.48,
+              20.92
+            ],
+            [
+              -156.44,
+              20.92
+            ],
+            [
+              -156.44,
+              20.89
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SLR 3.2ft Coastal Flood — Lihue / Nawiliwili, Kauai"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.36,
+              21.95
+            ],
+            [
+              -159.36,
+              21.98
+            ],
+            [
+              -159.31,
+              21.98
+            ],
+            [
+              -159.31,
+              21.95
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -29,20 +29,20 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <button class="sb-toggle" id="sb-toggle" onclick="toggleSidebar()" title="Toggle sidebar">&#10094;</button>
 
     <div class="tabs">
-      <div class="tab active" onclick="ST('layers')">Layers</div>
-      <div class="tab" onclick="ST('event')">Event</div>
-      <div class="tab" onclick="ST('stats')">Stats</div>
+      <div class="tab active" onclick="ST('vulnerability')">Flood Index</div>
+      <div class="tab" onclick="ST('layers')">Layers</div>
+      <div class="tab" onclick="ST('event')">Event &amp; News</div>
       <div class="tab" onclick="ST('islands')">By Island</div>
-      <div class="tab" onclick="ST('news')">News</div>
-      <div class="tab" onclick="ST('data')">Data Sources</div>
     </div>
 
     <!-- LAYERS -->
-    <div class="panel active" id="tab-layers">
+    <div class="panel" id="tab-layers">
       <div class="scroll">
+        <div class="lg-title">Vulnerability Analysis</div>
+        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}"><div class="lchk" id="chk-fvi-layers"></div><div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#388E3C,#FFEB3B,#E65100,#B71C1C);border:2px solid #E65100;border-radius:2px"></div></div><div class="linfo"><div class="lname">Flood Vulnerability Heatmap</div><div class="lsub">9-factor FVI — iron oxide, event impact, evac zones &amp; more</div></div></div>
+
         <div class="lg-title">March 2026 Event — Hardest-Hit Areas</div>
         <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div></div></div>
         <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">✓</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20–22)</div><div class="lsub">Areas under evacuation order or warning</div></div></div>
@@ -85,7 +85,117 @@
       </div>
     </div>
 
-    <!-- EVENT OVERVIEW -->
+    <!-- VULNERABILITY ANALYSIS -->
+    <div class="panel active" id="tab-vulnerability">
+      <div class="scroll">
+        <div class="fvi-hero">
+          <div class="fvi-hero-title">Flood Risk Index</div>
+          <div class="fvi-hero-sub">9-factor vulnerability analysis for O'ahu</div>
+        </div>
+
+        <div class="lrow" onclick="TL('fvi')">
+          <div class="lchk" id="chk-fvi"></div>
+          <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#388E3C,#FFEB3B,#E65100,#B71C1C);border:2px solid #E65100;border-radius:2px"></div></div>
+          <div class="linfo"><div class="lname">Show vulnerability heatmap</div><div class="lsub">Toggle the FVI overlay on the map</div></div>
+        </div>
+
+        <div id="fvi-stats-summary" class="fvi-stats-row">
+          <div class="fvi-mini-stat"><span class="fvi-ms-val">...</span><span class="fvi-ms-lbl">computing</span></div>
+        </div>
+
+        <div class="lg-title" style="margin-top:14px">Factor Weights</div>
+        <div class="fvi-weights-info">Adjust how much each factor contributes to the overall score. Weights are normalized to 100% on recalculate.</div>
+
+        <div class="fvi-slider-group">
+          <div class="fvi-slider-row">
+            <label>Elevation</label>
+            <input type="range" id="ws-elevation" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('elevation',this.value)">
+            <span class="fvi-wval" id="wval-elevation">15%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Slope</label>
+            <input type="range" id="ws-slope" min="0" max="0.5" step="0.01" value="0.07" oninput="updateWeight('slope',this.value)">
+            <span class="fvi-wval" id="wval-slope">7%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Rainfall intensity</label>
+            <input type="range" id="ws-rainfall" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('rainfall',this.value)">
+            <span class="fvi-wval" id="wval-rainfall">15%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Impervious surface</label>
+            <input type="range" id="ws-impervious" min="0" max="0.5" step="0.01" value="0.12" oninput="updateWeight('impervious',this.value)">
+            <span class="fvi-wval" id="wval-impervious">12%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Soil drainage</label>
+            <input type="range" id="ws-soil" min="0" max="0.5" step="0.01" value="0.11" oninput="updateWeight('soil',this.value)">
+            <span class="fvi-wval" id="wval-soil">11%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Stream proximity</label>
+            <input type="range" id="ws-streamProx" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('streamProx',this.value)">
+            <span class="fvi-wval" id="wval-streamProx">15%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Iron oxide (pineapple soils)</label>
+            <input type="range" id="ws-ironOxide" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('ironOxide',this.value)">
+            <span class="fvi-wval" id="wval-ironOxide">10%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>March 2026 event impact</label>
+            <input type="range" id="ws-eventImpact" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('eventImpact',this.value)">
+            <span class="fvi-wval" id="wval-eventImpact">10%</span>
+          </div>
+          <div class="fvi-slider-row">
+            <label>Evacuation zone overlap</label>
+            <input type="range" id="ws-evacZone" min="0" max="0.5" step="0.01" value="0.05" oninput="updateWeight('evacZone',this.value)">
+            <span class="fvi-wval" id="wval-evacZone">5%</span>
+          </div>
+        </div>
+
+        <div class="fvi-weight-total">Total: <b id="weight-total" style="color:#388E3C">100%</b></div>
+        <div class="fvi-btn-row">
+          <button class="fvi-btn primary" onclick="recalcFVI()">Recalculate</button>
+          <button class="fvi-btn" onclick="resetWeights()">Reset defaults</button>
+        </div>
+
+        <div class="lg-title" style="margin-top:16px">Land Use Scenarios</div>
+        <div class="fvi-weights-info">Compare how different development or climate scenarios change flood risk across O'ahu.</div>
+
+        <div class="fvi-scenario-list">
+          <div class="fvi-scenario active" id="scen-current" onclick="selectScenario('current')">
+            <div class="fvi-scen-name">Current conditions</div>
+            <div class="fvi-scen-desc">Baseline 2026 land cover and climate</div>
+          </div>
+          <div class="fvi-scenario" id="scen-urbanExpansion" onclick="selectScenario('urbanExpansion')">
+            <div class="fvi-scen-name">Urban expansion (+20% impervious)</div>
+            <div class="fvi-scen-desc">Continued development in Ewa/Kapolei corridors</div>
+          </div>
+          <div class="fvi-scenario" id="scen-reforest" onclick="selectScenario('reforest')">
+            <div class="fvi-scen-name">Watershed reforestation</div>
+            <div class="fvi-scen-desc">Restore native forest in upper watersheds</div>
+          </div>
+          <div class="fvi-scenario" id="scen-slr32" onclick="selectScenario('slr32')">
+            <div class="fvi-scen-name">Sea level rise +3.2 ft</div>
+            <div class="fvi-scen-desc">Raised groundwater, reduced coastal drainage</div>
+          </div>
+          <div class="fvi-scenario" id="scen-extremeRain" onclick="selectScenario('extremeRain')">
+            <div class="fvi-scen-name">Extreme rainfall (March 2026 repeat)</div>
+            <div class="fvi-scen-desc">Double the rainfall weighting factor</div>
+          </div>
+        </div>
+
+        <div id="scenario-stats" class="fvi-scenario-stats"></div>
+
+        <div class="src-note" style="margin-top:14px">
+          <b>Methodology:</b> Weighted multi-factor vulnerability index using SCS Curve Number concepts. Elevation from USGS 1/3" DEM control points, rainfall from Hawaii Rainfall Atlas, soils from SSURGO/NRCS, impervious surface from NLCD, streams from NHD. Grid cells ~500m. This is a screening-level analysis — not a substitute for calibrated hydraulic modeling.<br><br>
+          <b>Limitations:</b> Simplified DEM interpolation, no subsurface flow modeling, no storm drain network. Best used for relative comparison between areas and scenarios, not absolute flood depth prediction.
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT OVERVIEW + NEWS (combined) -->
     <div class="panel" id="tab-event">
       <div class="scroll">
         <div class="event-card critical">
@@ -138,13 +248,19 @@
             <b>Climate signal:</b> Kona lows are a normal feature of Hawaii's winter, but this back-to-back sequence with tropical moisture at this intensity is consistent with climate-change-driven intensification of Pacific weather systems.
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- STATS -->
-    <div class="panel" id="tab-stats">
-      <div class="scroll" id="stats-content" style="padding:12px;">
-        <div style="font-size:10.5px;color:var(--g600);line-height:1.5">Loading stats&#8230;</div>
+        <!-- Collapsible News Section -->
+        <div class="news-section-hdr" id="news-section-hdr" onclick="toggleNewsSection()">
+          <span class="news-section-title">News &amp; Updates</span>
+          <div class="news-section-right">
+            <span id="news-label">Loading&#8230;</span>
+            <button class="rfbtn" id="rfbtn" onclick="event.stopPropagation();fetchNews(true)">Refresh</button>
+            <span class="news-section-arrow" id="news-section-arrow">&#x25BE;</span>
+          </div>
+        </div>
+        <div id="news-section-body" class="open">
+          <div id="news-box"><div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Fetching Hawaii flood news&#8230;</div></div>
+        </div>
       </div>
     </div>
 
@@ -155,61 +271,8 @@
       </div>
     </div>
 
-    <!-- NEWS -->
-    <div class="panel" id="tab-news">
-      <div class="news-bar"><span id="news-label">Loading&#8230;</span><button class="rfbtn" id="rfbtn" onclick="fetchNews(true)">Refresh</button></div>
-      <div class="scroll" id="news-box"><div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Fetching Hawaii flood news&#8230;</div></div>
-    </div>
-
-    <!-- DATA SOURCES -->
-    <div class="panel" id="tab-data">
-      <div class="scroll">
-        <div style="font-size:12px;font-weight:700;color:var(--g800);margin-bottom:10px">Data Sources Incorporated</div>
-
-        <div class="ds-card">
-          <h3>Hawaii Statewide GIS Program — Hazards MapServer</h3>
-          <p><span class="ds-badge" style="background:#004D40;color:#fff">LIVE</span> FEMA DFIRM flood hazard areas (Dec 2025), sea level rise coastal flood zones (1% annual + 3.2ft SLR), FIRM panels. Served via <code>geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer</code>.</p>
-          <a href="https://geoportal.hawaii.gov" target="_blank">geoportal.hawaii.gov</a>
-        </div>
-        <div class="ds-card">
-          <h3>NWS Honolulu (HFO) — Rainfall Summaries</h3>
-          <p><span class="ds-badge" style="background:#1E88E5;color:#fff">NWS</span> Official rainfall totals for March 10–16 and March 19–24 events. Station-by-station data for Oahu, Maui, Molokai, Lanai, Kauai, and Hawaii Island. Flash flood warnings and watches.</p>
-          <a href="https://www.weather.gov/hfo/marchSevere2026_continued" target="_blank">weather.gov/hfo — March 2026 Event Summary</a>
-        </div>
-        <div class="ds-card">
-          <h3>University of Hawaii Mesonet / Hawaii Climate Data Portal</h3>
-          <p><span class="ds-badge" style="background:#7B2D8B;color:#fff">UH</span> 77-station statewide network recording precipitation every 5 minutes. Documented 2 trillion gallons statewide and 3,000% above-normal totals. Filled the gap left by the Molokai radar outage.</p>
-          <a href="https://www.hawaii.edu/news/2026/04/01/hawaii-mesonet-march-2026-flood/" target="_blank">UH Mānoa — Mesonet March 2026 summary</a>
-        </div>
-        <div class="ds-card">
-          <h3>NASA Earth Observatory / Disasters Mapping Portal</h3>
-          <p><span class="ds-badge" style="background:#E65100;color:#fff">NASA</span> Landsat 8/9 and Sentinel-2 satellite imagery showing before/after flood extent in Waialua and Mokuleia (January 25 vs March 14, 2026). NASA Disasters Response Coordination System activated.</p>
-          <a href="https://science.nasa.gov/earth/earth-observatory/kona-storms-flood-oahu/" target="_blank">NASA Earth Observatory — Kona Storms Flood O'ahu</a>
-        </div>
-        <div class="ds-card">
-          <h3>USGS National Map — Elevation &amp; Hydrography</h3>
-          <p><span class="ds-badge" style="background:#005F73;color:#fff">USGS</span> 1/3 arc-second DEM for Hawaii elevation. National Hydrography Dataset (NHD) stream networks. Used for watershed delineation and flood routing context.</p>
-          <a href="https://apps.nationalmap.gov/downloader/" target="_blank">apps.nationalmap.gov/downloader</a>
-        </div>
-        <div class="ds-card">
-          <h3>Hawaii DLNR — Watersheds &amp; Streams</h3>
-          <p><span class="ds-badge" style="background:#004D40;color:#fff">DLNR</span> Division of Aquatic Resources watershed boundaries and stream network for all main Hawaiian Islands. Used for identifying drainage basins that overflowed during the Kona low events.</p>
-          <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::watersheds/about" target="_blank">geoportal.hawaii.gov — Watersheds</a> &nbsp;|&nbsp; <a href="https://geoportal.hawaii.gov/datasets/HiStateGIS::streams/about" target="_blank">Streams</a>
-        </div>
-        <div class="ds-card">
-          <h3>FEMA / Esri — Incident Response Mapping</h3>
-          <p><span class="ds-badge" style="background:#E65100;color:#fff">FEMA</span> FEMA Geospatial Resource Center activated for the Hawaii flooding incident. Provides situational awareness layers, shelter locations, damage assessments.</p>
-          <a href="https://gis-fema.hub.arcgis.com/pages/incident-page-hawaii-flooding-march2026" target="_blank">FEMA GIS — Hawaii Flooding March 2026</a>
-        </div>
-        <div class="ds-card">
-          <h3>Hawaii Emergency Management Agency</h3>
-          <p>Official situation reports, evacuation orders, rescue counts, and recovery updates. Disaster relief period in effect through April 13, 2026 per Governor Green's proclamation.</p>
-          <a href="https://dod.hawaii.gov/hiema/" target="_blank">dod.hawaii.gov/hiema</a>
-        </div>
-      </div>
-    </div>
-
   </div><!-- end .sidebar -->
+  <button class="sb-toggle" id="sb-toggle" onclick="toggleSidebar()" title="Toggle sidebar">&#10094;</button>
 
   <!-- MAP -->
   <div class="map-area">
@@ -236,6 +299,13 @@
       <div class="leg-sec"><div class="leg-sec-ttl">Hydrology</div>
         <div class="leg-row"><div class="leg-ln" style="background:#1E88E5"></div><span class="leg-lbl">Major stream / river</span></div>
       </div>
+      <div class="leg-sec" id="fvi-legend" style="display:none"><div class="leg-sec-ttl">Vulnerability Index</div>
+        <div class="leg-row"><div class="leg-sq" style="background:#388E3C"></div><span class="leg-lbl">Low (0–0.30)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#FFEB3B"></div><span class="leg-lbl">Moderate (0.30–0.50)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#FF9800"></div><span class="leg-lbl">High (0.50–0.65)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#E53935"></div><span class="leg-lbl">Very high (0.65–0.80)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#B71C1C"></div><span class="leg-lbl">Extreme (0.80+)</span></div>
+      </div>
     </div>
   </div>
 
@@ -245,6 +315,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="data.js"></script>
 <script src="map.js"></script>
+<script src="vulnerability.js"></script>
 <script src="ui.js"></script>
 
 </body>

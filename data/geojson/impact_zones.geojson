@@ -1,0 +1,401 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Waialua / Haleiwa — Oahu North Shore",
+        "rain": "8–12\"",
+        "rescued": 150,
+        "desc": "Worst-hit area. Homes and cars swept away by Kaukonahua Stream overflow. Communities completely inundated.",
+        "severity": "critical"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.1,
+              21.57
+            ],
+            [
+              -158.1,
+              21.61
+            ],
+            [
+              -158.03,
+              21.61
+            ],
+            [
+              -158.03,
+              21.57
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wahiawa / Central Oahu",
+        "rain": "8–10\"",
+        "rescued": 0,
+        "desc": "Dam area. 5,500 residents evacuated north of this area due to Wahiawa Dam failure risk.",
+        "severity": "critical"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.04,
+              21.48
+            ],
+            [
+              -158.04,
+              21.53
+            ],
+            [
+              -157.98,
+              21.53
+            ],
+            [
+              -157.98,
+              21.48
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pupukea / North Shore Oahu",
+        "rain": "10–12\"",
+        "rescued": 30,
+        "desc": "Vehicle documented completely submerged in Pupukea. Multiple structure rescues.",
+        "severity": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.06,
+              21.64
+            ],
+            [
+              -158.06,
+              21.67
+            ],
+            [
+              -158.01,
+              21.67
+            ],
+            [
+              -158.01,
+              21.64
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mānoa / Pālolo — Honolulu",
+        "rain": "3.5–6.5\"(3hrs)",
+        "rescued": 0,
+        "desc": "March 23 'rain bomb' — stationary storm cell dropped 2–4 inches per hour. Mānoa Stream overflowed into parking lots, roads, and Mānoa Elementary School.",
+        "severity": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.82,
+              21.29
+            ],
+            [
+              -157.82,
+              21.32
+            ],
+            [
+              -157.78,
+              21.32
+            ],
+            [
+              -157.78,
+              21.29
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Waianae / West Oahu",
+        "rain": "5\"",
+        "rescued": 72,
+        "desc": "72 children and adults airlifted by National Guard from Our Lady of Keaau youth retreat camp on the west coast.",
+        "severity": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.22,
+              21.43
+            ],
+            [
+              -158.22,
+              21.48
+            ],
+            [
+              -158.15,
+              21.48
+            ],
+            [
+              -158.15,
+              21.43
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lahaina — West Maui",
+        "rain": "15+\"",
+        "rescued": 0,
+        "desc": "Evacuation warning issued. Retention basins neared capacity. Still in wildfire recovery from August 2023 disaster.",
+        "severity": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.7,
+              20.86
+            ],
+            [
+              -156.7,
+              20.91
+            ],
+            [
+              -156.63,
+              20.91
+            ],
+            [
+              -156.63,
+              20.86
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Maui Mountains",
+        "rain": "62\"",
+        "rescued": 0,
+        "desc": "Highest recorded rainfall in the state during the event. Puu Kukui station (USGS) recorded 19.61 inches in Storm 2 alone.",
+        "severity": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.66,
+              20.87
+            ],
+            [
+              -156.66,
+              20.95
+            ],
+            [
+              -156.57,
+              20.95
+            ],
+            [
+              -156.57,
+              20.87
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kula / Upcountry Maui",
+        "rain": "10–18\"",
+        "rescued": 0,
+        "desc": "Kula Hospital damaged. Road closures throughout upcountry Maui. Agricultural losses in millions.",
+        "severity": "moderate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.38,
+              20.74
+            ],
+            [
+              -156.38,
+              20.8
+            ],
+            [
+              -156.3,
+              20.8
+            ],
+            [
+              -156.3,
+              20.74
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pahala — Big Island South",
+        "rain": "20+\"",
+        "rescued": 0,
+        "desc": "March 23 thunderstorms with 4+ inch/hour rainfall rates. Road closures due to heavy ponding.",
+        "severity": "moderate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.58,
+              19.16
+            ],
+            [
+              -155.58,
+              19.21
+            ],
+            [
+              -155.48,
+              19.21
+            ],
+            [
+              -155.48,
+              19.16
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hilo — Big Island East",
+        "rain": "15+\"",
+        "rescued": 0,
+        "desc": "Daily rainfall records broken. Hilo is the wettest city in the US — even so this event was exceptional.",
+        "severity": "moderate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.1,
+              19.69
+            ],
+            [
+              -155.1,
+              19.74
+            ],
+            [
+              -155.02,
+              19.74
+            ],
+            [
+              -155.02,
+              19.69
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Kauai / Kauai Channel",
+        "rain": "10+\"",
+        "rescued": 0,
+        "desc": "Storm 2 originated over south Kauai before tracking east toward Oahu. Flooding and road closures.",
+        "severity": "moderate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.55,
+              21.84
+            ],
+            [
+              -159.55,
+              21.91
+            ],
+            [
+              -159.43,
+              21.91
+            ],
+            [
+              -159.43,
+              21.84
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Honolimaloo — Molokai",
+        "rain": "22.31\"",
+        "rescued": 0,
+        "desc": "Highest rainfall on Molokai (UH Mesonet). Molokai radar was offline throughout the event.",
+        "severity": "moderate"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.96,
+              21.18
+            ],
+            [
+              -156.96,
+              21.22
+            ],
+            [
+              -156.89,
+              21.22
+            ],
+            [
+              -156.89,
+              21.18
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
