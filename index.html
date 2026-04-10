@@ -93,75 +93,131 @@
           <div class="fvi-hero-sub">9-factor vulnerability analysis for O'ahu</div>
         </div>
 
-        <div class="lrow" onclick="TL('fvi')">
+        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}">
           <div class="lchk" id="chk-fvi"></div>
           <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#388E3C,#FFEB3B,#E65100,#B71C1C);border:2px solid #E65100;border-radius:2px"></div></div>
-          <div class="linfo"><div class="lname">Show vulnerability heatmap</div><div class="lsub">Toggle the FVI overlay on the map</div></div>
+          <div class="linfo"><div class="lname">Show flood risk heatmap</div><div class="lsub">Color-coded grid: green = low risk → red = extreme risk</div></div>
         </div>
 
         <div id="fvi-stats-summary" class="fvi-stats-row">
           <div class="fvi-mini-stat"><span class="fvi-ms-val">...</span><span class="fvi-ms-lbl">computing</span></div>
         </div>
 
-        <div class="lg-title" style="margin-top:14px">Factor Weights</div>
-        <div class="fvi-weights-info">Adjust how much each factor contributes to the overall score. Weights are normalized to 100% on recalculate.</div>
-
-        <div class="fvi-slider-group">
-          <div class="fvi-slider-row">
-            <label>Elevation</label>
-            <input type="range" id="ws-elevation" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('elevation',this.value)">
-            <span class="fvi-wval" id="wval-elevation">15%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Slope</label>
-            <input type="range" id="ws-slope" min="0" max="0.5" step="0.01" value="0.07" oninput="updateWeight('slope',this.value)">
-            <span class="fvi-wval" id="wval-slope">7%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Rainfall intensity</label>
-            <input type="range" id="ws-rainfall" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('rainfall',this.value)">
-            <span class="fvi-wval" id="wval-rainfall">15%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Impervious surface</label>
-            <input type="range" id="ws-impervious" min="0" max="0.5" step="0.01" value="0.12" oninput="updateWeight('impervious',this.value)">
-            <span class="fvi-wval" id="wval-impervious">12%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Soil drainage</label>
-            <input type="range" id="ws-soil" min="0" max="0.5" step="0.01" value="0.11" oninput="updateWeight('soil',this.value)">
-            <span class="fvi-wval" id="wval-soil">11%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Stream proximity</label>
-            <input type="range" id="ws-streamProx" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('streamProx',this.value)">
-            <span class="fvi-wval" id="wval-streamProx">15%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Iron oxide (pineapple soils)</label>
-            <input type="range" id="ws-ironOxide" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('ironOxide',this.value)">
-            <span class="fvi-wval" id="wval-ironOxide">10%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>March 2026 event impact</label>
-            <input type="range" id="ws-eventImpact" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('eventImpact',this.value)">
-            <span class="fvi-wval" id="wval-eventImpact">10%</span>
-          </div>
-          <div class="fvi-slider-row">
-            <label>Evacuation zone overlap</label>
-            <input type="range" id="ws-evacZone" min="0" max="0.5" step="0.01" value="0.05" oninput="updateWeight('evacZone',this.value)">
-            <span class="fvi-wval" id="wval-evacZone">5%</span>
-          </div>
+        <!-- HOW IT WORKS -->
+        <div class="lg-title" style="margin-top:14px">How the Score Is Calculated</div>
+        <div class="fvi-explainer">
+          Each cell on the map gets a <b>Flood Risk Score from 0 to 1</b> (0 = no risk, 1 = extreme). The score is a weighted average of 9 physical factors — each factor is measured, normalized to 0–1, then multiplied by its weight below. Drag the sliders to change how much each factor counts, then hit <b>Recalculate</b> to update the map.
+        </div>
+        <div class="fvi-formula" id="fvi-formula">
+          <div class="fvi-formula-title">Live formula</div>
+          <div id="fvi-formula-body" class="fvi-formula-body">loading…</div>
         </div>
 
-        <div class="fvi-weight-total">Total: <b id="weight-total" style="color:#388E3C">100%</b></div>
-        <div class="fvi-btn-row">
-          <button class="fvi-btn primary" onclick="recalcFVI()">Recalculate</button>
+        <!-- FACTOR WEIGHTS -->
+        <div class="lg-title" style="margin-top:14px">Factor Weights <span class="fvi-total-inline">— Total: <b id="weight-total" style="color:#388E3C">100%</b></span></div>
+
+        <div class="fvi-slider-group">
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Elevation</label>
+              <input type="range" id="ws-elevation" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('elevation',this.value)">
+              <span class="fvi-wval" id="wval-elevation">15%</span>
+            </div>
+            <div class="fvi-factor-desc">Low-lying land floods first. Coastal plains and valley floors score highest (near 1); mountain ridges score near 0.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Slope</label>
+              <input type="range" id="ws-slope" min="0" max="0.5" step="0.01" value="0.07" oninput="updateWeight('slope',this.value)">
+              <span class="fvi-wval" id="wval-slope">7%</span>
+            </div>
+            <div class="fvi-factor-desc">Flat ground ponds water (high risk); moderate slopes drain quickly. Very steep slopes produce dangerous flash flows to areas below.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Rainfall</label>
+              <input type="range" id="ws-rainfall" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('rainfall',this.value)">
+              <span class="fvi-wval" id="wval-rainfall">15%</span>
+            </div>
+            <div class="fvi-factor-desc">O'ahu ranges from 18 in/yr (leeward Ewa) to 200+ in/yr (windward Ko'olau). More rain = more flood events per year.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Impervious cover</label>
+              <input type="range" id="ws-impervious" min="0" max="0.5" step="0.01" value="0.12" oninput="updateWeight('impervious',this.value)">
+              <span class="fvi-wval" id="wval-impervious">12%</span>
+            </div>
+            <div class="fvi-factor-desc">Pavement and rooftops block water from soaking in. Downtown Honolulu is 75–85% impervious — nearly all rain becomes surface runoff.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Soil drainage</label>
+              <input type="range" id="ws-soil" min="0" max="0.5" step="0.01" value="0.11" oninput="updateWeight('soil',this.value)">
+              <span class="fvi-wval" id="wval-soil">11%</span>
+            </div>
+            <div class="fvi-factor-desc">Rated A–D by the USDA (United States Department of Agriculture): A soils drain fast (low risk), D soils drain very slowly and saturate quickly (high risk). Coastal alluvial soils are almost all D.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Stream proximity</label>
+              <input type="range" id="ws-streamProx" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('streamProx',this.value)">
+              <span class="fvi-wval" id="wval-streamProx">15%</span>
+            </div>
+            <div class="fvi-factor-desc">Distance to the nearest stream channel. Areas within 0.5 km score near 1; beyond 8 km scores near 0. Kaukonahua Stream flooded homes in Waialua during the March 2026 event.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Iron oxide in soil</label>
+              <input type="range" id="ws-ironOxide" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('ironOxide',this.value)">
+              <span class="fvi-wval" id="wval-ironOxide">10%</span>
+            </div>
+            <div class="fvi-factor-desc">Former pineapple plantation soils (Waialua and Ala soil series) contain 18–28% iron oxide (Fe₂O₃). This cements a hard subsurface layer that blocks water from draining down, forcing it sideways into streams — raising flood peak flows by 30–50% vs. sandy soils.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>March 2026 impact</label>
+              <input type="range" id="ws-eventImpact" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('eventImpact',this.value)">
+              <span class="fvi-wval" id="wval-eventImpact">10%</span>
+            </div>
+            <div class="fvi-factor-desc">Ground-truth layer: areas where flooding, structural damage, or rescues were <em>actually documented</em> during the March 2026 Kona Low storms. A high score here means real flood events confirmed the model's predictions.</div>
+          </div>
+
+          <div class="fvi-factor-wrap">
+            <div class="fvi-slider-row">
+              <label>Evacuation zone</label>
+              <input type="range" id="ws-evacZone" min="0" max="0.5" step="0.01" value="0.05" oninput="updateWeight('evacZone',this.value)">
+              <span class="fvi-wval" id="wval-evacZone">5%</span>
+            </div>
+            <div class="fvi-factor-desc">Whether this area was under an official civil-defense evacuation order or warning March 20–22, 2026. Issued by Honolulu Civil Defense based on dam failure risk and stream overflow.</div>
+          </div>
+
+        </div>
+
+        <div class="fvi-btn-row" style="margin-top:10px">
+          <button class="fvi-btn primary" onclick="recalcFVI()">Recalculate map</button>
           <button class="fvi-btn" onclick="resetWeights()">Reset defaults</button>
         </div>
 
+        <!-- COLOR SCALE -->
+        <div class="lg-title" style="margin-top:16px">Reading the Colors</div>
+        <div class="fvi-color-scale">
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#388E3C"></div><div><b>0.00–0.30 — Low</b><br>High elevation, fast-draining soil, far from streams. Minimal flood history.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FFEB3B"></div><div><b>0.30–0.50 — Moderate</b><br>Some combination of risk factors. Flooding possible in extreme events.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FF9800"></div><div><b>0.50–0.65 — High</b><br>Multiple compounding factors. Flood insurance strongly recommended.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#E65100"></div><div><b>0.65–0.80 — Very High</b><br>Documented flooding, poor drainage, and proximity to streams combine.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#B71C1C"></div><div><b>0.80–1.00 — Extreme</b><br>Areas that actually flooded in March 2026 and sit in evacuation zones.</div></div>
+        </div>
+
         <div class="lg-title" style="margin-top:16px">Land Use Scenarios</div>
-        <div class="fvi-weights-info">Compare how different development or climate scenarios change flood risk across O'ahu.</div>
+        <div class="fvi-weights-info">See how flood risk changes under different future or alternative conditions. Each scenario adjusts the underlying factor scores and re-scores every grid cell.</div>
 
         <div class="fvi-scenario-list">
           <div class="fvi-scenario active" id="scen-current" onclick="selectScenario('current')">

@@ -380,6 +380,26 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
 #news-section-body.open{display:block;padding-top:6px}
 
 /* ── VULNERABILITY ANALYSIS PANEL ──────────────────────────────────────────── */
+.fvi-explainer{font-size:10px;color:var(--g600);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:var(--g50);border-radius:6px;border-left:3px solid var(--ocean)}
+.fvi-explainer b{color:var(--g800)}
+
+.fvi-formula{background:#0d2137;border-radius:6px;padding:9px 11px;margin-bottom:4px}
+.fvi-formula-title{font-size:8px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.fvi-formula-body{font-size:9px;color:rgba(255,255,255,.85);line-height:1.7;display:flex;flex-wrap:wrap;gap:3px 5px}
+.fvi-formula-term{white-space:nowrap}
+.fvi-formula-term b{color:#fff;font-family:var(--mono)}
+
+.fvi-total-inline{font-size:9px;font-weight:400;color:var(--g400);text-transform:none;letter-spacing:0}
+
+.fvi-factor-wrap{margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--g100)}
+.fvi-factor-wrap:last-child{border-bottom:none;margin-bottom:0}
+.fvi-factor-desc{font-size:9px;color:var(--g400);line-height:1.5;margin-top:2px;padding-left:2px}
+.fvi-factor-desc em{color:var(--g600);font-style:normal;font-weight:500}
+
+.fvi-color-scale{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
+.fvi-cs-row{display:flex;gap:8px;align-items:flex-start;font-size:9.5px;color:var(--g600);line-height:1.45}
+.fvi-cs-row b{color:var(--g800);display:block}
+.fvi-cs-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:1px}
 
 .fvi-hero{background:linear-gradient(135deg,#1a3a5c,#0d2137);border-radius:8px;padding:14px 16px;margin-bottom:12px}
 .fvi-hero-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
