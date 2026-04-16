@@ -3,25 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hawaii FloodWatch — March 2026 Kona Low Event</title>
+<title>Hawaii FloodWatch · March 2026 Kona Low Event</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-  <div class="hdr-icon"></div>
+  <img src="ka_moamoa_logo.png" alt="Ka Moamoa" class="hdr-logo">
+  <div class="hdr-divider"></div>
   <div>
-    <div class="hdr-title">Hawaii FloodWatch — March 2026 Kona Low Event</div>
-    <div class="hdr-sub">Ka Moamoa</div>
-  </div>
-  <div class="hdr-badge">ACTIVE DISASTER</div>
-  <div class="hdr-right">
-    <div class="wx-pill">
-      <div><div class="wx-lbl">KHFO NWS &mdash; Honolulu</div><div class="wx-val" id="wx-val">&#8230;</div></div>
-    </div>
-    <div class="hdr-st"><div class="sdot" id="sdot"></div><span id="stext">&#8230;</span></div>
+    <div class="hdr-title">Hawaii FloodWatch · March 2026 Kona Low Event</div>
+    <div class="hdr-sub">Ka Moamoa Lab · Flood vulnerability analysis for O'ahu</div>
   </div>
 </header>
 
@@ -33,7 +27,7 @@
     <div class="tabs">
       <div class="tab active" onclick="ST('vulnerability')">Flood Index</div>
       <div class="tab" onclick="ST('layers')">Layers</div>
-      <div class="tab" onclick="ST('event')">Event &amp; News</div>
+      <div class="tab" onclick="ST('event')">Event</div>
       <div class="tab" onclick="ST('islands')">By Island</div>
     </div>
 
@@ -41,32 +35,34 @@
     <div class="panel" id="tab-layers">
       <div class="scroll">
         <div class="lg-title">Vulnerability Analysis</div>
-        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}"><div class="lchk" id="chk-fvi-layers"></div><div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#388E3C,#FFEB3B,#E65100,#B71C1C);border:2px solid #E65100;border-radius:2px"></div></div><div class="linfo"><div class="lname">Flood Vulnerability Heatmap</div><div class="lsub">9-factor FVI — iron oxide, event impact, evac zones &amp; more</div></div></div>
+        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}"><div class="lchk" id="chk-fvi-layers"></div><div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#E65100,#D81B60,#4e2a82);border:2px solid #E65100;border-radius:2px"></div></div><div class="linfo"><div class="lname">Flood Vulnerability Heatmap</div><div class="lsub">9-factor FVI: iron oxide, event impact, evac zones &amp; more</div></div></div>
+        <div class="lrow" onclick="toggleFVIvsFEMA()"><div class="lchk" id="chk-fvivsfema"></div><div class="lico"><div style="display:flex;gap:2px"><div class="li-poly" style="background:rgba(78,42,130,.55);border:2px solid #4e2a82;width:7px;height:12px"></div><div class="li-poly" style="background:rgba(21,101,192,.55);border:2px solid #1565C0;width:7px;height:12px"></div></div></div><div class="linfo"><div class="lname">FVI vs FEMA: discrepancy map</div><div class="lsub">Where the 9-factor model and FEMA zones agree or diverge</div><div id="fvivsfema-note" class="lsrc"></div></div></div>
 
-        <div class="lg-title">March 2026 Event — Hardest-Hit Areas</div>
-        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div></div></div>
-        <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">✓</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20–22)</div><div class="lsub">Areas under evacuation order or warning</div></div></div>
-        <div class="lrow" onclick="TL('dam')"><div class="lchk on" id="chk-dam">✓</div><div class="lico"><div class="li-dot" style="background:var(--dam);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Dam risk site — Wahiawa</div><div class="lsub">120-year-old earthen dam, 5,500 evacuated</div></div></div>
-        <div class="lrow" onclick="TL('rescue')"><div class="lchk on" id="chk-rescue">✓</div><div class="lico"><div class="li-dot" style="background:#fff;border:2px solid var(--flood);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Major rescue sites</div><div class="lsub">Documented mass rescue locations</div></div></div>
-        <div class="lrow" onclick="TL('rain')"><div class="lchk on" id="chk-rain">✓</div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.3);border:2px dashed var(--ocean)"></div></div><div class="linfo"><div class="lname">Extreme rainfall areas</div><div class="lsub">&gt;10" recorded March 10–24</div></div></div>
+        <div class="lg-title">March 2026 Event: Hardest-Hit Areas</div>
+        <div class="layer-note" style="padding:6px 8px;margin-bottom:6px;font-size:8.5px;line-height:1.5"><b>Note:</b> All layers in this section are based on news reports, NWS bulletins, and Hawaii Civil Defense press releases. Not official GIS datasets. Locations are approximate.</div>
+        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div><div class="lsrc">Source: NWS HFO, NPR, Hawaii News Now, NASA Earth Observatory</div></div></div>
+        <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">✓</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20 to 22)</div><div class="lsub">Areas under evacuation order or warning</div><div class="lsrc">Source: Hawaii Civil Defense press releases (approximate polygons)</div></div></div>
+        <div class="lrow" onclick="TL('dam')"><div class="lchk on" id="chk-dam">✓</div><div class="lico"><div class="li-dot" style="background:var(--dam);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Dam risk site: Wahiawa</div><div class="lsub">120-year-old earthen dam, 5,500 evacuated</div><div class="lsrc">Source: Gov. Green press release, NPR, Hawaii News Now</div></div></div>
+        <div class="lrow" onclick="TL('rescue')"><div class="lchk on" id="chk-rescue">✓</div><div class="lico"><div class="li-dot" style="background:#fff;border:2px solid var(--flood);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Major rescue sites</div><div class="lsub">Documented mass rescue locations</div><div class="lsrc">Source: Honolulu Fire Dept, National Guard (news reports)</div></div></div>
+        <div class="lrow" onclick="TL('rain')"><div class="lchk on" id="chk-rain">✓</div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.3);border:2px dashed var(--ocean)"></div></div><div class="linfo"><div class="lname">Extreme rainfall areas</div><div class="lsub">&gt;10" recorded March 10–24</div><div class="lsrc">Source: NWS HFO storm summaries, UH Hawaii Mesonet</div></div></div>
 
-        <div class="lg-title">Hydrology & Water Flow</div>
-        <div class="lrow" onclick="TL('waterways')"><div class="lchk on" id="chk-waterways">✓</div><div class="lico"><div class="li-line" style="background:var(--ocean)"></div></div><div class="linfo"><div class="lname">Waterway network (detailed)</div><div class="lsub">High-resolution stream channels with flow direction</div></div></div>
-        <div class="lrow" onclick="TL('elevation')"><div class="lchk" id="chk-elevation"></div><div class="lico"><div class="li-poly" style="background:rgba(63,81,181,.4);border:2px solid #3f51b5"></div></div><div class="linfo"><div class="lname">Elevation zones</div><div class="lsub">Source, transition, and accumulation areas for flood flow</div></div></div>
-        <div class="lrow" onclick="TL('watersheds')"><div class="lchk" id="chk-watersheds"></div><div class="lico"><div class="li-poly" style="background:rgba(0,77,64,.2);border:2px dashed var(--safe)"></div></div><div class="linfo"><div class="lname">Watershed boundaries</div><div class="lsub">DAR watershed units — Hawaii DLNR</div></div></div>
+        <div class="lg-title">Hydrology &amp; Water Flow (Real Data)</div>
+        <div class="lrow" onclick="TL('waterways')"><div class="lchk on" id="chk-waterways">✓</div><div class="lico"><div class="li-line" style="background:var(--ocean)"></div></div><div class="linfo"><div class="lname">Waterway network (NHD+ HR)</div><div class="lsub">787 real stream flowlines on O'ahu</div><div class="lsrc">Source: USGS NHDPlus High Resolution</div></div></div>
+        <div class="lrow" onclick="TL('elevation')"><div class="lchk" id="chk-elevation"></div><div class="lico"><div class="li-poly" style="background:rgba(63,81,181,.4);border:2px solid #3f51b5"></div></div><div class="linfo"><div class="lname">Elevation zones</div><div class="lsub">Source, transition, and accumulation areas for flood flow</div><div class="lsrc">Based on USGS DEM control points. See FVI methodology note.</div></div></div>
+        <div class="lrow" onclick="TL('watersheds')"><div class="lchk" id="chk-watersheds"></div><div class="lico"><div class="li-poly" style="background:rgba(0,77,64,.2);border:2px dashed var(--safe)"></div></div><div class="linfo"><div class="lname">Watershed boundaries (WBD HUC-10)</div><div class="lsub">62 real watershed units across all Hawaii islands</div><div class="lsrc">Source: USGS Watershed Boundary Dataset</div></div></div>
 
         <div class="lg-title">Potential Contamination Sources</div>
         <div class="lrow" onclick="TL('contamination')"><div class="lchk" id="chk-contamination"></div><div class="lico"><div class="li-warning" style="background:#d81b60;color:#fff;border-radius:50%;width:10px;height:10px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold">⚠</div></div><div class="linfo"><div class="lname">Contamination hazards</div><div class="lsub">Septic, landfills, industrial, agricultural runoff, USTs</div></div></div>
 
         <div class="lg-title">Environmental Catalysts & Risk Factors</div>
-        <div class="lrow" onclick="TL('soils')"><div class="lchk" id="chk-soils"></div><div class="lico"><div class="li-poly" style="background:rgba(139,69,19,.3);border:2px dashed #8B4513"></div></div><div class="linfo"><div class="lname">Pineapple soils (high iron oxide)</div><div class="lsub">USDA/NRCS—24-30% Fe₂O₃ impacts infiltration & erosion</div></div></div>
-        <div class="lrow" onclick="TL('atmospheric_rivers')"><div class="lchk" id="chk-atmospheric_rivers"></div><div class="lico"><div class="li-poly" style="background:#FF6600;border:2px dashed #FF6600;height:4px;width:14px"></div></div><div class="linfo"><div class="lname">Atmospheric rivers (IVT forecasts)</div><div class="lsub">CW3E/UCSD—moisture transport events</div></div></div>
+        <div class="lrow" onclick="TL('soils')"><div class="lchk" id="chk-soils"></div><div class="lico"><div class="li-poly" style="background:rgba(139,69,19,.3);border:2px dashed #8B4513"></div></div><div class="linfo"><div class="lname">Pineapple soils (high iron oxide)</div><div class="lsub">USDA/NRCS: 24 to 30% Fe₂O₃, impacts infiltration &amp; erosion</div></div></div>
+        <div class="lrow" onclick="TL('atmospheric_rivers')"><div class="lchk" id="chk-atmospheric_rivers"></div><div class="lico"><div class="li-poly" style="background:#FF6600;border:2px dashed #FF6600;height:4px;width:14px"></div></div><div class="linfo"><div class="lname">Atmospheric rivers (IVT forecasts)</div><div class="lsub">CW3E/UCSD moisture transport events</div></div></div>
         <div class="lrow" onclick="TL('census')"><div class="lchk" id="chk-census"></div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.3);border:2px solid #7B2D8B"></div></div><div class="linfo"><div class="lname">Population exposure</div><div class="lsub">2020 Census density & flood risk areas</div></div></div>
-        <div class="lrow" onclick="TL('impervious')"><div class="lchk" id="chk-impervious"></div><div class="lico"><div class="li-poly" style="background:rgba(64,64,64,.4);border:2px solid #404040"></div></div><div class="linfo"><div class="lname">Impervious surface coverage</div><div class="lsub">NLCD—urban runoff multiplier</div></div></div>
+        <div class="lrow" onclick="TL('impervious')"><div class="lchk" id="chk-impervious"></div><div class="lico"><div class="li-poly" style="background:rgba(64,64,64,.4);border:2px solid #404040"></div></div><div class="linfo"><div class="lname">Impervious surface coverage</div><div class="lsub">NLCD urban runoff multiplier</div></div></div>
 
-        <div class="lg-title">FEMA & Hazard Zones</div>
-        <div class="lrow" onclick="TL('fema')"><div class="lchk on" id="chk-fema">✓</div><div class="lico"><div class="li-poly" style="background:rgba(0,95,115,.35);border:2px solid var(--fema)"></div></div><div class="linfo"><div class="lname">FEMA Special Flood Hazard Areas</div><div class="lsub">DFIRM Dec 2025 — geodata.hawaii.gov</div></div></div>
-        <div class="lrow" onclick="TL('slr')"><div class="lchk" id="chk-slr"></div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.25);border:2px solid var(--ocean)"></div></div><div class="linfo"><div class="lname">Sea level rise coastal flood (3.2 ft)</div><div class="lsub">HAZUS model — UH Coastal Geology</div></div></div>
+        <div class="lg-title">FEMA &amp; Hazard Zones (Real Data)</div>
+        <div class="lrow" onclick="TL('fema')"><div class="lchk on" id="chk-fema">✓</div><div class="lico"><div class="li-poly" style="background:rgba(0,95,115,.35);border:2px solid var(--fema)"></div></div><div class="linfo"><div class="lname">FEMA Special Flood Hazard Areas</div><div class="lsub">10,361 real DFIRM polygons across all Hawaii islands</div><div class="lsrc">Source: FEMA NFHL, DFIRM Dec 2025 (hazards.fema.gov)</div></div></div>
+        <div class="lrow" onclick="TL('slr')"><div class="lchk" id="chk-slr"></div><div class="lico"><div class="li-poly" style="background:rgba(30,136,229,.25);border:2px solid var(--ocean)"></div></div><div class="linfo"><div class="lname">Sea level rise coastal flood (3.2 ft)</div><div class="lsub">HAZUS model, UH Coastal Geology</div><div class="lsrc">Approximate. See methodology note below.</div></div></div>
 
         <div class="src-note">
           <b>Data sources:</b><br>
@@ -90,31 +86,21 @@
       <div class="scroll">
         <div class="fvi-hero">
           <div class="fvi-hero-title">Flood Risk Index</div>
-          <div class="fvi-hero-sub">9-factor vulnerability analysis for O'ahu</div>
+          <div class="fvi-hero-sub">Mapping why O'ahu floods, and what changes it</div>
         </div>
 
         <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}">
           <div class="lchk" id="chk-fvi"></div>
-          <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#388E3C,#FFEB3B,#E65100,#B71C1C);border:2px solid #E65100;border-radius:2px"></div></div>
-          <div class="linfo"><div class="lname">Show flood risk heatmap</div><div class="lsub">Color-coded grid: green = low risk → red = extreme risk</div></div>
+          <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#E65100,#D81B60,#4e2a82);border:2px solid #E65100;border-radius:2px"></div></div>
+          <div class="linfo"><div class="lname">Show flood risk heatmap</div><div class="lsub">Color-coded grid: blue = low risk, purple = extreme risk</div></div>
         </div>
 
-        <div id="fvi-stats-summary" class="fvi-stats-row">
-          <div class="fvi-mini-stat"><span class="fvi-ms-val">...</span><span class="fvi-ms-lbl">computing</span></div>
-        </div>
-
-        <!-- HOW IT WORKS -->
-        <div class="lg-title" style="margin-top:14px">How the Score Is Calculated</div>
-        <div class="fvi-explainer">
-          Each cell on the map gets a <b>Flood Risk Score from 0 to 1</b> (0 = no risk, 1 = extreme). The score is a weighted average of 9 physical factors — each factor is measured, normalized to 0–1, then multiplied by its weight below. Drag the sliders to change how much each factor counts, then hit <b>Recalculate</b> to update the map.
-        </div>
-        <div class="fvi-formula" id="fvi-formula">
-          <div class="fvi-formula-title">Live formula</div>
-          <div id="fvi-formula-body" class="fvi-formula-body">loading…</div>
-        </div>
+        <div id="fvi-stats-summary" class="fvi-stats-row" style="display:none"></div>
+        <div id="fvi-stream-note" style="font-size:8.5px;color:var(--g400);padding:3px 0 6px;margin-top:-2px">Stream proximity: loading real NHD+ stream network&hellip;</div>
 
         <!-- FACTOR WEIGHTS -->
-        <div class="lg-title" style="margin-top:14px">Factor Weights <span class="fvi-total-inline">— Total: <b id="weight-total" style="color:#388E3C">100%</b></span></div>
+        <div class="lg-title" style="margin-top:10px">9 Factors That Drive Flood Risk <span class="fvi-total-inline">· Total: <b id="weight-total" style="color:#4e2a82">100%</b></span></div>
+        <div class="fvi-explainer" style="margin-bottom:8px">Drag any slider to change how much each factor influences the score. Hit <b>Recalculate</b> when done.</div>
 
         <div class="fvi-slider-group">
 
@@ -124,7 +110,7 @@
               <input type="range" id="ws-elevation" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('elevation',this.value)">
               <span class="fvi-wval" id="wval-elevation">15%</span>
             </div>
-            <div class="fvi-factor-desc">Low-lying land floods first. Coastal plains and valley floors score highest (near 1); mountain ridges score near 0.</div>
+            <div class="fvi-factor-desc">Low-lying land floods first. Coastal plains and valley floors like Waialua, Kailua, and Manoa score high. Mountain ridges score near zero. Elevation is determined by the landscape, not land use.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -133,7 +119,7 @@
               <input type="range" id="ws-slope" min="0" max="0.5" step="0.01" value="0.07" oninput="updateWeight('slope',this.value)">
               <span class="fvi-wval" id="wval-slope">7%</span>
             </div>
-            <div class="fvi-factor-desc">Flat ground ponds water (high risk); moderate slopes drain quickly. Very steep slopes produce dangerous flash flows to areas below.</div>
+            <div class="fvi-factor-desc">Flat ground ponds water (high risk). Valley floors and coastal plains are almost completely flat. Steep slopes drain fast but can generate powerful flash floods in the valleys below them.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -142,7 +128,7 @@
               <input type="range" id="ws-rainfall" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('rainfall',this.value)">
               <span class="fvi-wval" id="wval-rainfall">15%</span>
             </div>
-            <div class="fvi-factor-desc">O'ahu ranges from 18 in/yr (leeward Ewa) to 200+ in/yr (windward Ko'olau). More rain = more flood events per year.</div>
+            <div class="fvi-factor-desc">O'ahu ranges from 18 inches per year (dry leeward Ewa side) to 200+ inches per year on the windward Ko'olau ridge. More rainfall means more frequent and more intense flood events. Climate change is making Kona Low storms more intense and more frequent.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -151,7 +137,7 @@
               <input type="range" id="ws-impervious" min="0" max="0.5" step="0.01" value="0.12" oninput="updateWeight('impervious',this.value)">
               <span class="fvi-wval" id="wval-impervious">12%</span>
             </div>
-            <div class="fvi-factor-desc">Pavement and rooftops block water from soaking in. Downtown Honolulu is 75–85% impervious — nearly all rain becomes surface runoff.</div>
+            <div class="fvi-factor-desc">Pavement and rooftops block rain from soaking into the ground. Downtown Honolulu is 75 to 85% covered by impervious surfaces, meaning nearly all rainfall runs off into streets and streams instead of soaking in. Each new development that paves over open land increases downstream flood risk for existing neighborhoods.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -160,7 +146,7 @@
               <input type="range" id="ws-soil" min="0" max="0.5" step="0.01" value="0.11" oninput="updateWeight('soil',this.value)">
               <span class="fvi-wval" id="wval-soil">11%</span>
             </div>
-            <div class="fvi-factor-desc">Rated A–D by the USDA (United States Department of Agriculture): A soils drain fast (low risk), D soils drain very slowly and saturate quickly (high risk). Coastal alluvial soils are almost all D.</div>
+            <div class="fvi-factor-desc">The USDA (United States Department of Agriculture) rates soils A through D. A soils drain fast and absorb rain well. D soils drain very slowly and saturate quickly, so even moderate rain causes runoff. Coastal lowland soils are almost all D-class. Healthy native soils and lo'i kalo (taro) systems can improve drainage over time.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -169,7 +155,7 @@
               <input type="range" id="ws-streamProx" min="0" max="0.5" step="0.01" value="0.15" oninput="updateWeight('streamProx',this.value)">
               <span class="fvi-wval" id="wval-streamProx">15%</span>
             </div>
-            <div class="fvi-factor-desc">Distance to the nearest stream channel. Areas within 0.5 km score near 1; beyond 8 km scores near 0. Kaukonahua Stream flooded homes in Waialua during the March 2026 event.</div>
+            <div class="fvi-factor-desc">How close you are to the nearest stream channel. Land within 0.5 km scores near 1 (highest risk); beyond 8 km scores near 0. Kaukonahua Stream overflowed its banks in Waialua during the March 2026 event, sweeping away homes and cars. Traditional ahupua'a systems managed these same streams with terraced lo'i kalo that absorbed peak flows before they could flood communities.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -178,7 +164,7 @@
               <input type="range" id="ws-ironOxide" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('ironOxide',this.value)">
               <span class="fvi-wval" id="wval-ironOxide">10%</span>
             </div>
-            <div class="fvi-factor-desc">Former pineapple plantation soils (Waialua and Ala soil series) contain 18–28% iron oxide (Fe₂O₃). This cements a hard subsurface layer that blocks water from draining down, forcing it sideways into streams — raising flood peak flows by 30–50% vs. sandy soils.</div>
+            <div class="fvi-factor-desc">Former pineapple plantation soils (Waialua and Ala series) contain 18 to 28% iron oxide. Decades of heavy machinery compacted these soils into a hardpan layer just below the surface that blocks water from draining down. Rain instead moves sideways into streams 30 to 50% faster than in healthy soils. This is a <b>direct, measurable legacy of Dole and Del Monte pineapple operations</b> that ended decades ago but left behind altered soils. Native ground cover and lo'i kalo restoration have been shown to break up this hardpan over time.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -187,7 +173,7 @@
               <input type="range" id="ws-eventImpact" min="0" max="0.5" step="0.01" value="0.10" oninput="updateWeight('eventImpact',this.value)">
               <span class="fvi-wval" id="wval-eventImpact">10%</span>
             </div>
-            <div class="fvi-factor-desc">Ground-truth layer: areas where flooding, structural damage, or rescues were <em>actually documented</em> during the March 2026 Kona Low storms. A high score here means real flood events confirmed the model's predictions.</div>
+            <div class="fvi-factor-desc">The reality check layer: areas where flooding, structural damage, or rescues were <em>actually documented</em> during the March 2026 Kona Low storms. A high score here means real flood events have already confirmed what the model predicts. These areas need the most urgent policy attention.</div>
           </div>
 
           <div class="fvi-factor-wrap">
@@ -196,57 +182,67 @@
               <input type="range" id="ws-evacZone" min="0" max="0.5" step="0.01" value="0.05" oninput="updateWeight('evacZone',this.value)">
               <span class="fvi-wval" id="wval-evacZone">5%</span>
             </div>
-            <div class="fvi-factor-desc">Whether this area was under an official civil-defense evacuation order or warning March 20–22, 2026. Issued by Honolulu Civil Defense based on dam failure risk and stream overflow.</div>
+            <div class="fvi-factor-desc">Whether this area fell under an official civil-defense evacuation order March 20 to 22, 2026. The Wahiawa Dam, built in 1906 to supply water for sugar cane plantations, threatened to overflow during the storm. Infrastructure designed for a plantation economy was not built to protect communities from climate-intensified storms. 5,500 people were evacuated.</div>
           </div>
 
         </div>
 
-        <div class="fvi-btn-row" style="margin-top:10px">
-          <button class="fvi-btn primary" onclick="recalcFVI()">Recalculate map</button>
+        <div class="fvi-btn-row" style="margin-top:10px" id="fvi-recalc-row">
+          <button class="fvi-btn primary" id="fvi-recalc-btn" onclick="recalcFVI()">Recalculate map</button>
           <button class="fvi-btn" onclick="resetWeights()">Reset defaults</button>
+        </div>
+        <div class="fvi-formula" id="fvi-formula" style="display:none">
+          <div class="fvi-formula-title">Live formula</div>
+          <div id="fvi-formula-body" class="fvi-formula-body"></div>
         </div>
 
         <!-- COLOR SCALE -->
         <div class="lg-title" style="margin-top:16px">Reading the Colors</div>
         <div class="fvi-color-scale">
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#388E3C"></div><div><b>0.00–0.30 — Low</b><br>High elevation, fast-draining soil, far from streams. Minimal flood history.</div></div>
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FFEB3B"></div><div><b>0.30–0.50 — Moderate</b><br>Some combination of risk factors. Flooding possible in extreme events.</div></div>
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FF9800"></div><div><b>0.50–0.65 — High</b><br>Multiple compounding factors. Flood insurance strongly recommended.</div></div>
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#E65100"></div><div><b>0.65–0.80 — Very High</b><br>Documented flooding, poor drainage, and proximity to streams combine.</div></div>
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#B71C1C"></div><div><b>0.80–1.00 — Extreme</b><br>Areas that actually flooded in March 2026 and sit in evacuation zones.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#1E88E5"></div><div><b>0.00 to 0.30 · Low risk</b><br>Higher ground, fast-draining soils, or far from streams. Little flood history. Generally safe under most storm conditions.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FFC107"></div><div><b>0.30 to 0.45 · Moderate risk</b><br>Some combination of risk factors present. Flooding is possible in intense storms. Flood insurance worth considering.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#E65100"></div><div><b>0.45 to 0.60 · High risk</b><br>Multiple compounding factors: low elevation, poor soil drainage, and stream proximity. Flood insurance strongly recommended. These areas appear regularly in NWS flood advisories.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#D81B60"></div><div><b>0.60 to 0.75 · Very High risk</b><br>Areas with documented flooding history where multiple severe factors stack together. Often former plantation land or dense urban valleys. Active policy intervention is warranted here.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#4e2a82"></div><div><b>0.75 to 1.00 · Extreme risk</b><br>Areas that actually flooded in March 2026 and sit inside official evacuation zones. These zones are the strongest case for flood mitigation funding, infrastructure investment, and Indigenous land restoration programs.</div></div>
         </div>
 
-        <div class="lg-title" style="margin-top:16px">Land Use Scenarios</div>
-        <div class="fvi-weights-info">See how flood risk changes under different future or alternative conditions. Each scenario adjusts the underlying factor scores and re-scores every grid cell.</div>
+        <div class="lg-title" style="margin-top:16px" id="fvi-scenarios-title">Policy Scenarios: What If?</div>
+        <div class="fvi-weights-info">Each scenario models what happens to flood risk when land use or climate changes. Click one, then hit Recalculate to see the shift across O'ahu.</div>
 
-        <div class="fvi-scenario-list">
-          <div class="fvi-scenario active" id="scen-current" onclick="selectScenario('current')">
-            <div class="fvi-scen-name">Current conditions</div>
-            <div class="fvi-scen-desc">Baseline 2026 land cover and climate</div>
+        <div class="fvi-scenario-list" id="fvi-scenario-list">
+          <div class="fvi-scenario scen-indigenous-highlight active" id="scen-indigenousRestore" onclick="selectScenario('indigenousRestore')">
+            <div class="fvi-scen-badge">Start here</div>
+            <div class="fvi-scen-name">Indigenous land restoration</div>
+            <div class="fvi-scen-desc">Restore loʻi kalo (taro wetlands), break up plantation iron-hardpan through native plantings, return ahupuaʻa watershed management. Based on measured runoff reductions at restored sites in Hawaii.</div>
+          </div>
+          <div class="fvi-scenario" id="scen-current" onclick="selectScenario('current')">
+            <div class="fvi-scen-name">Current conditions (2026 baseline)</div>
+            <div class="fvi-scen-desc">Today's land cover, soils, and development patterns. Compare against the restoration scenarios.</div>
+          </div>
+          <div class="fvi-scenario" id="scen-reforest" onclick="selectScenario('reforest')">
+            <div class="fvi-scen-name">Native forest and watershed restoration</div>
+            <div class="fvi-scen-desc">Restore native forest in upper watersheds above 300 ft elevation. Reduces runoff and improves soil infiltration.</div>
           </div>
           <div class="fvi-scenario" id="scen-urbanExpansion" onclick="selectScenario('urbanExpansion')">
             <div class="fvi-scen-name">Urban expansion (+20% impervious)</div>
-            <div class="fvi-scen-desc">Continued development in Ewa/Kapolei corridors</div>
-          </div>
-          <div class="fvi-scenario" id="scen-reforest" onclick="selectScenario('reforest')">
-            <div class="fvi-scen-name">Watershed reforestation</div>
-            <div class="fvi-scen-desc">Restore native forest in upper watersheds</div>
+            <div class="fvi-scen-desc">Continued development in Ewa/Kapolei corridors. Each paved acre increases flood risk downstream.</div>
           </div>
           <div class="fvi-scenario" id="scen-slr32" onclick="selectScenario('slr32')">
             <div class="fvi-scen-name">Sea level rise +3.2 ft</div>
-            <div class="fvi-scen-desc">Raised groundwater, reduced coastal drainage</div>
+            <div class="fvi-scen-desc">Raised groundwater and reduced coastal drainage capacity compound existing flood risk</div>
           </div>
           <div class="fvi-scenario" id="scen-extremeRain" onclick="selectScenario('extremeRain')">
             <div class="fvi-scen-name">Extreme rainfall (March 2026 repeat)</div>
-            <div class="fvi-scen-desc">Double the rainfall weighting factor</div>
+            <div class="fvi-scen-desc">Doubles the rainfall intensity factor. Climate research suggests events like March 2026 will become more frequent.</div>
           </div>
         </div>
 
         <div id="scenario-stats" class="fvi-scenario-stats"></div>
 
         <div class="src-note" style="margin-top:14px">
-          <b>Methodology:</b> Weighted multi-factor vulnerability index using SCS Curve Number concepts. Elevation from USGS 1/3" DEM control points, rainfall from Hawaii Rainfall Atlas, soils from SSURGO/NRCS, impervious surface from NLCD, streams from NHD. Grid cells ~500m. This is a screening-level analysis — not a substitute for calibrated hydraulic modeling.<br><br>
-          <b>Limitations:</b> Simplified DEM interpolation, no subsurface flow modeling, no storm drain network. Best used for relative comparison between areas and scenarios, not absolute flood depth prediction.
+          <b>About this tool:</b> This map uses a Flood Vulnerability Index (FVI), a research method that combines 9 physical factors into a single flood risk score for each area. Think of it like a report card for flood risk: each factor contributes a share, and together they explain why some neighborhoods flood more than others.<br><br>
+          <b>Data sources:</b> Elevation from USGS national DEM, rainfall from the Hawaii Rainfall Atlas, soils from USDA SSURGO/NRCS, land cover from NLCD, stream network from USGS NHD+ High Resolution, flood zones from FEMA NFHL. Each grid cell covers roughly 400 meters of land.<br><br>
+          <b>Important limits:</b> This is a screening-level planning tool, not an official flood insurance rate map. It does not replace FEMA assessments and cannot predict exact flood depths. It is best used to understand relative risk across areas, identify where land-use decisions matter most, and simulate how restoration or development would shift risk patterns. For legal flood insurance determinations, use FEMA's official Flood Map Service Center.
         </div>
       </div>
     </div>
@@ -255,7 +251,7 @@
     <div class="panel" id="tab-event">
       <div class="scroll">
         <div class="event-card critical">
-          <div class="event-date">March 10–16, 2026 — Storm 1: Kona Low #1</div>
+          <div class="event-date">March 10–16, 2026 · Storm 1: Kona Low #1</div>
           <div class="event-title">Hurricane-force winds, record rainfall across all islands</div>
           <div class="event-body">The first Kona low system siphoned moisture from the tropics and stalled over the island chain. Wind gusts reached 135.4 mph on Hawaii Island. Rainfall broke daily records at every major NWS station.</div>
           <div class="event-stat-row">
@@ -263,19 +259,21 @@
             <div class="estat"><div class="estat-v">135mph</div><div class="estat-l">Wind gust (HI Island)</div></div>
             <div class="estat"><div class="estat-v">4</div><div class="estat-l">Islands impacted</div></div>
           </div>
+          <div class="event-news-src">Source: <a href="https://science.nasa.gov/earth/earth-observatory/kona-storms-flood-oahu/" target="_blank">NASA Earth Observatory</a> · NWS Honolulu storm summaries</div>
         </div>
         <div class="event-card critical">
-          <div class="event-date">March 19–24, 2026 — Storm 2: Kona Low #2</div>
-          <div class="event-title">Worst Hawaii flooding in 20 years — 236 rescued, 5,500 evacuated</div>
-          <div class="event-body">The second system struck already-saturated ground. North Shore Oahu (Waialua, Haleiwa) bore the worst damage — homes and cars swept away. Wahiawa Dam (1906) threatened failure. Gov. Green declared &gt;$1 billion in estimated damage. 115,000 customers lost power.</div>
+          <div class="event-date">March 19–24, 2026 · Storm 2: Kona Low #2</div>
+          <div class="event-title">Worst Hawaii flooding in 20 years: 236 rescued, 5,500 evacuated</div>
+          <div class="event-body">The second system struck already-saturated ground. North Shore Oahu (Waialua, Haleiwa) bore the worst damage with homes and cars swept away. Wahiawa Dam (1906) threatened failure. Gov. Green declared &gt;$1 billion in estimated damage. 115,000 customers lost power.</div>
           <div class="event-stat-row">
             <div class="estat"><div class="estat-v">236</div><div class="estat-l">People rescued</div></div>
             <div class="estat"><div class="estat-v">5,500</div><div class="estat-l">Evacuated</div></div>
             <div class="estat"><div class="estat-v">&gt;$1B</div><div class="estat-l">Est. damage</div></div>
           </div>
+          <div class="event-news-src">Source: <a href="https://www.npr.org/2026/03/20/nx-s1-5755105/hawaii-evacuations-flooding-dam-failure" target="_blank">NPR</a> · Hawaii Civil Defense press releases · Gov. Josh Green statement</div>
         </div>
         <div class="event-card warning">
-          <div class="event-date">March 23, 2026 — "Rain Bomb" over Mānoa/Pālolo</div>
+          <div class="event-date">March 23, 2026 · "Rain Bomb" over Mānoa/Pālolo</div>
           <div class="event-title">Stationary storm cell drops 2–4 inches per hour over Honolulu valleys</div>
           <div class="event-body">Mayor Blangiardi described it as a "classic rain bomb." Six Hawaii Mesonet stations recorded 3.5–6.5 inches total, most within a three-hour window. Mānoa Stream overflowed into shopping centers, roads, and an elementary school. The Molokai radar was offline throughout the entire event period.</div>
           <div class="event-stat-row">
@@ -283,16 +281,18 @@
             <div class="estat"><div class="estat-v">3hrs</div><div class="estat-l">Peak duration</div></div>
             <div class="estat"><div class="estat-v">6.5"</div><div class="estat-l">Max station total</div></div>
           </div>
+          <div class="event-news-src">Source: Mayor Blangiardi press conference · UH Hawaii Mesonet station data</div>
         </div>
         <div class="event-card">
-          <div class="event-date">March 1–24 Cumulative — University of Hawaii Mesonet</div>
-          <div class="event-title">2 trillion gallons total — 3,000% of normal rainfall</div>
-          <div class="event-body">UH Mānoa's Hawaii Mesonet (77-station statewide network) documented the full scope. Statewide average: 18.25 inches over 23 days — 2.6× the March average of 6.85 inches. Some locations recorded 14-day totals at 3,000% of historical norms. The Molokai radar outage made real-time response harder; the Mesonet network filled the gap with 5-minute rainfall readings.</div>
+          <div class="event-date">March 1–24 Cumulative · University of Hawaii Mesonet</div>
+          <div class="event-title">2 trillion gallons total: 3,000% of normal rainfall</div>
+          <div class="event-body">UH Mānoa's Hawaii Mesonet (77-station statewide network) documented the full scope. Statewide average: 18.25 inches over 23 days, 2.6× the March average of 6.85 inches. Some locations recorded 14-day totals at 3,000% of historical norms. The Molokai radar outage made real-time response harder; the Mesonet network filled the gap with 5-minute rainfall readings.</div>
           <div class="event-stat-row">
             <div class="estat"><div class="estat-v">2T gal</div><div class="estat-l">Total rainfall</div></div>
             <div class="estat"><div class="estat-v">18.25"</div><div class="estat-l">Statewide avg</div></div>
             <div class="estat"><div class="estat-v">3,000%</div><div class="estat-l">Above normal</div></div>
           </div>
+          <div class="event-news-src">Source: <a href="https://www.hawaiinewsnow.com/2026/04/01/new-data-shows-march-storms-dumped-over-2-trillion-gallons-rain-over-hawaii/" target="_blank">Hawaii News Now</a> · <a href="https://phys.org/news/2026-04-trillion-gallons-trigger-historic-hawaii.html" target="_blank">UH Mesonet / Phys.org</a></div>
         </div>
         <div class="event-card">
           <div class="event-date">Context</div>
@@ -305,18 +305,6 @@
           </div>
         </div>
 
-        <!-- Collapsible News Section -->
-        <div class="news-section-hdr" id="news-section-hdr" onclick="toggleNewsSection()">
-          <span class="news-section-title">News &amp; Updates</span>
-          <div class="news-section-right">
-            <span id="news-label">Loading&#8230;</span>
-            <button class="rfbtn" id="rfbtn" onclick="event.stopPropagation();fetchNews(true)">Refresh</button>
-            <span class="news-section-arrow" id="news-section-arrow">&#x25BE;</span>
-          </div>
-        </div>
-        <div id="news-section-body" class="open">
-          <div id="news-box"><div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Fetching Hawaii flood news&#8230;</div></div>
-        </div>
       </div>
     </div>
 
@@ -342,7 +330,7 @@
       <button class="zbtn" onclick="map.zoomOut()">&#8722;</button>
     </div>
     <div class="map-legend">
-      <div class="leg-ttl">Legend — March 2026</div>
+      <div class="leg-ttl">March 2026 Legend</div>
       <div class="leg-sec"><div class="leg-sec-ttl">Event Impact</div>
         <div class="leg-row"><div class="leg-sq" style="background:rgba(230,81,0,.55);border:2px solid #E65100"></div><span class="leg-lbl">Flood impact zone</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:rgba(123,45,139,.4);border:2px solid #7B2D8B"></div><span class="leg-lbl">Evacuation zone</span></div>
@@ -355,17 +343,68 @@
       <div class="leg-sec"><div class="leg-sec-ttl">Hydrology</div>
         <div class="leg-row"><div class="leg-ln" style="background:#1E88E5"></div><span class="leg-lbl">Major stream / river</span></div>
       </div>
+      <div class="leg-sec" id="fvifema-legend" style="display:none"><div class="leg-sec-ttl">FVI vs FEMA</div>
+        <div class="leg-row"><div class="leg-sq" style="background:#D81B60"></div><span class="leg-lbl">Both flag high risk</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#4e2a82"></div><span class="leg-lbl">FVI high, no FEMA zone</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#1565C0"></div><span class="leg-lbl">FEMA zone, FVI lower</span></div>
+      </div>
       <div class="leg-sec" id="fvi-legend" style="display:none"><div class="leg-sec-ttl">Vulnerability Index</div>
-        <div class="leg-row"><div class="leg-sq" style="background:#388E3C"></div><span class="leg-lbl">Low (0–0.30)</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#FFEB3B"></div><span class="leg-lbl">Moderate (0.30–0.50)</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#FF9800"></div><span class="leg-lbl">High (0.50–0.65)</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#E53935"></div><span class="leg-lbl">Very high (0.65–0.80)</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#B71C1C"></div><span class="leg-lbl">Extreme (0.80+)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#1E88E5"></div><span class="leg-lbl">Low (0–0.30)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#FFC107"></div><span class="leg-lbl">Moderate (0.30–0.45)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#E65100"></div><span class="leg-lbl">High (0.45–0.60)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#D81B60"></div><span class="leg-lbl">Very high (0.60–0.75)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#4e2a82"></div><span class="leg-lbl">Extreme (0.75+)</span></div>
       </div>
     </div>
   </div>
 
 </div><!-- end .main -->
+
+<!-- HOW-TO MODAL — shown on first visit, stored in localStorage so it only appears once -->
+<div id="howto-overlay">
+  <div class="howto-box">
+    <button class="howto-close" onclick="closeHowTo()" aria-label="Close">&#x2715;</button>
+    <div class="howto-title">O'ahu flood risk: what created it and what can change it</div>
+
+    <div class="howto-policy">
+      <div class="howto-pi howto-pi-restore">
+        <div class="howto-pi-label">1,000 years of flood management, then erased</div>
+        Loʻi kalo (taro wetland agriculture) and ahupuaʻa watershed systems sustained O'ahu communities across every storm for over a millennium. Native forest reduced peak stream runoff by 40 to 60%. Loʻi fields slowed water into streams. These systems were dismantled by plantation agriculture. The North Shore flood risk you see on this map is a direct consequence.
+      </div>
+      <div class="howto-pi howto-pi-land">
+        <div class="howto-pi-label">Pineapple farming left a hidden flood accelerant in the soil</div>
+        Dole and Del Monte operations compacted North Shore soils into an iron oxide hardpan layer. Rain that should soak down now moves sideways into streams 30 to 50% faster. That is why Kaukonahua Stream swept away homes in Waialua in March 2026. This map measures that compaction as a scored factor.
+      </div>
+      <div class="howto-pi howto-pi-infra">
+        <div class="howto-pi-label">Infrastructure built for extraction now puts communities at risk</div>
+        The Wahiawa Dam (built 1906 to irrigate sugar cane) nearly failed in March 2026 and forced 5,500 evacuations. It was designed for a plantation economy, not to protect communities from climate-intensified storms.
+      </div>
+    </div>
+
+    <div class="howto-divider"></div>
+    <div class="howto-subtitle">How to use this map</div>
+    <div class="howto-steps">
+      <div class="howto-step"><div class="howto-num">1</div><div class="howto-step-txt"><b>Flood Index tab:</b> Open the <b>Policy Scenarios</b> section and try <b>Indigenous Land Restoration</b> first. Hit Recalculate to see how restoring loʻi kalo and breaking up plantation hardpan shifts risk across O'ahu.</div></div>
+      <div class="howto-step"><div class="howto-num">2</div><div class="howto-step-txt"><b>Layers tab:</b> Toggle FEMA zones, stream networks, and the 9-factor model. The purple areas on the discrepancy map show where risk is high but FEMA has no official designation.</div></div>
+      <div class="howto-step"><div class="howto-num">3</div><div class="howto-step-txt"><b>Click any area</b> on the map to see which of the 9 factors drives the flood risk score for that exact location.</div></div>
+    </div>
+    <button class="howto-btn" onclick="closeHowTo()">Explore the map</button>
+    <button class="howto-tour-btn" onclick="closeHowTo(); setTimeout(startTour, 300)">Take a guided tour</button>
+    <div class="howto-note">Data: FEMA NFHL · USGS NHD+ · USGS WBD · NWS HFO · Hawaii Civil Defense · US Census TIGER. Screening-level planning tool, not a substitute for official FEMA flood insurance rate maps.</div>
+  </div>
+</div>
+
+<!-- GUIDED TOUR OVERLAY -->
+<div id="tour-dim" class="hidden"></div>
+<div id="tour-card" class="hidden">
+  <div class="tour-count" id="tour-count"></div>
+  <div class="tour-card-title" id="tour-card-title"></div>
+  <div class="tour-card-body" id="tour-card-body"></div>
+  <div class="tour-card-btns">
+    <button class="tour-skip-btn" onclick="endTour()">Skip tour</button>
+    <button class="tour-next-btn" id="tour-next-btn" onclick="tourNext()">Next</button>
+  </div>
+</div>
 
 <!-- Load external scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>

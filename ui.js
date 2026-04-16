@@ -1,31 +1,26 @@
 /* ────────────────────────────────────────────────────────────────────────────────
    HAWAII FLOODWATCH — UI & INTERACTIONS
-   Handles tabs, sidebar, island cards, news rendering, and weather fetching
+   Handles tabs, sidebar, island cards, and vulnerability scenarios
    ──────────────────────────────────────────────────────────────────────────────── */
 
 // ── ISLAND TAB RENDERING ───────────────────────────────────────────────────────
 function renderIslands(){
   var el=document.getElementById('island-scroll');
   el.innerHTML='';
-  ISLANDS.forEach(function(isl,idx){
+  ISLANDS.forEach(function(isl){
     var div=document.createElement('div');
     div.className='island-card';
     div.innerHTML=
       '<div class="island-name">'+isl.name+'<span class="island-badge" style="background:'+isl.color+'">'+isl.severity+'</span></div>'+
       '<div class="island-stats">'+
         '<div class="istat"><div class="istat-v">'+isl.maxRain+'</div><div class="istat-l">Max rain</div></div>'+
-        '<div class="istat"><div class="istat-v">'+(isl.rescued||'—')+'</div><div class="istat-l">Rescued</div></div>'+
-        '<div class="istat"><div class="istat-v">'+(isl.evacuated||'—')+'</div><div class="istat-l">Evacuated</div></div>'+
+        '<div class="istat"><div class="istat-v">'+(isl.rescued||'N/A')+'</div><div class="istat-l">Rescued</div></div>'+
+        '<div class="istat"><div class="istat-v">'+(isl.evacuated||'N/A')+'</div><div class="istat-l">Evacuated</div></div>'+
       '</div>'+
-      '<div class="island-desc">'+isl.desc+'</div>'+
-      '<button class="actions-toggle" data-idx="'+idx+'" type="button">Actions &amp; Resources <span>&#x25BE;</span></button>'+
-      '<div class="actions-body" id="isact-'+idx+'">'+
-        isl.actions.map(function(a,i){return '<div class="act-item"><div class="act-num">'+(i+1)+'</div><div><b>'+a.t+'</b> '+a.b+'</div></div>';}).join('')+
-      '</div>';
-    div.querySelector('.island-card')
+      '<div class="island-desc">'+isl.desc+'</div>';
     // Click card → fly to island
     div.addEventListener('click',function(e){
-      if(e.target.tagName==='BUTTON'||e.target.closest('button')||e.target.tagName==='A') return;
+      if(e.target.tagName==='A') return;
       map.flyTo([isl.lat,isl.lng],isl.zoom,{duration:1.2});
     });
     el.appendChild(div);
@@ -33,15 +28,16 @@ function renderIslands(){
 }
 renderIslands();
 
-// ── TOGGLE ISLAND ACTIONS ──────────────────────────────────────────────────────
-document.addEventListener('click',function(e){
-  var btn=e.target.classList.contains('actions-toggle')?e.target:e.target.closest('.actions-toggle');
-  if(btn){
-    var idx=btn.getAttribute('data-idx');
-    var panel=document.getElementById('isact-'+idx);
-    if(panel){panel.classList.toggle('open');btn.querySelector('span').style.transform=panel.classList.contains('open')?'rotate(180deg)':'';}
-  }
-});
+// ── HOW-TO MODAL ───────────────────────────────────────────────────────────────
+// Show on first visit; remember the choice in localStorage so it doesn't reappear
+function closeHowTo(){
+  document.getElementById('howto-overlay').classList.add('hidden');
+  try{localStorage.setItem('hwft_seen','1');}catch(e){}
+}
+// If the user has already seen it, hide immediately without waiting for a click
+(function(){
+  try{if(localStorage.getItem('hwft_seen')){document.getElementById('howto-overlay').classList.add('hidden');}}catch(e){}
+})();
 
 // ── TABS ───────────────────────────────────────────────────────────────────────
 var fviAutoEnabled = false;
@@ -56,15 +52,6 @@ function ST(name){
     if(typeof recalcFVI==='function') recalcFVI();
     if(typeof map!=='undefined') map.flyTo([21.48,-157.97],11,{duration:1.2});
   }
-}
-
-// ── COLLAPSIBLE NEWS SECTION ───────────────────────────────────────────────────
-function toggleNewsSection(){
-  var body=document.getElementById('news-section-body');
-  var arrow=document.getElementById('news-section-arrow');
-  if(!body) return;
-  body.classList.toggle('open');
-  if(arrow) arrow.style.transform=body.classList.contains('open')?'':'rotate(-90deg)';
 }
 
 // ── SIDEBAR TOGGLE ─────────────────────────────────────────────────────────────
@@ -92,90 +79,6 @@ window.addEventListener('resize',function(){
   if(map)map.invalidateSize();
 });
 
-// ── NWS WEATHER ────────────────────────────────────────────────────────────────
-async function fetchWeather(){
-  try{
-    var r=await fetch('https://api.weather.gov/stations/PHNL/observations/latest',{headers:{'Accept':'application/geo+json'}});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    var d=await r.json();
-    var raw=((d.properties||{}).precipitationLastHour||{}).value;
-    var precip=(raw!=null&&!isNaN(raw))?parseFloat((raw*39.3701).toFixed(2)):0;
-    document.getElementById('wx-val').textContent=precip>0?precip.toFixed(2)+'" last hr':'0.00" (dry)';
-    setSt('NWS Honolulu live','#4CAF50');
-  }catch(e){
-    document.getElementById('wx-val').textContent='N/A';
-    setSt('Weather unavailable','#F9A825');
-  }
-}
-function setSt(t,c){document.getElementById('stext').textContent=t;document.getElementById('sdot').style.background=c;}
-
-// ── NEWS UTILITIES ─────────────────────────────────────────────────────────────
-var NK='hi_v1_news',ND='hi_v1_date';
-
-async function fetchNews(force){
-  var today=new Date().toISOString().slice(0,10);
-  if(!force){try{var cd=localStorage.getItem(ND),cn=localStorage.getItem(NK);if(cd===today&&cn){renderNews(JSON.parse(cn));setSt('NWS live · news updated today','#4CAF50');return;}}catch(e){}}
-  document.getElementById('news-box').innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--g400)"><span class="spin"></span>Searching Hawaii flood news&#8230;</div>';
-  document.getElementById('rfbtn').disabled=true;
-  document.getElementById('news-label').textContent='Fetching&#8230;';
-  try{
-    var t=new Date().toISOString().slice(0,10);
-    var promptMsg = [
-      'Search for 5 very recent news articles (2026) about Hawaii flooding recovery, the March 2026 Kona Low storms, Oahu North Shore flood damage, Waialua Haleiwa flooding, or Hawaii flood relief and FEMA response.',
-      'Today is ' + t + '.',
-      'Return a JSON array. Each item: y (2026), title, src, tag (one of: Recovery/Damage/Infrastructure/Relief/Climate), tc (hex: Recovery=#004D40 Damage=#E65100 Infrastructure=#005F73 Relief=#7B2D8B Climate=#1E88E5), sum (2 sentences max), full (2-3 paragraphs), url.',
-      'Return ONLY the JSON array, no markdown.'
-    ].join(' ');
-
-    var payload = {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      tools: [{type:'web_search_20250305', name:'web_search'}],
-      messages: [{role:'user', content: promptMsg}]
-    };
-
-    var r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    });
-    var data = await r.json();
-    var txt=(data.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('');
-    var m=txt.match(/\[\s*\{[\s\S]*?\}\s*\]/);
-    if(!m)throw new Error('no JSON');
-    var ai=JSON.parse(m[0]);
-    localStorage.setItem(NK,JSON.stringify(ai));localStorage.setItem(ND,t);
-    renderNews(ai);setSt('NWS live - news updated today','#4CAF50');
-  }catch(e){
-    console.error(e);renderNews([]);
-    document.getElementById('news-label').textContent='Archived reports';
-    setSt('Archived news','#F9A825');
-  }finally{document.getElementById('rfbtn').disabled=false;}
-}
-
-function renderNews(ai){
-  var box=document.getElementById('news-box');box.innerHTML='';
-  var all=ai.map(function(a){return Object.assign({},a,{isAI:true});}).concat(STATIC_NEWS.map(function(a){return Object.assign({},a,{isAI:false});}));
-  all.sort(function(a,b){return (b.y||0)-(a.y||0);});
-  document.getElementById('news-label').textContent=(ai.length>0?ai.length+' live + ':'')+STATIC_NEWS.length+' archived';
-  all.forEach(function(n,i){
-    var d=document.createElement('div');d.className='n-card';
-    var tc=n.tc||'#607D8B';
-    d.innerHTML='<div class="n-hdr" onclick="xNews('+i+')">'
-      +'<div class="n-meta"><span class="n-yr">'+(n.y||'2026')+'</span>'
-      +'<span class="n-tg" style="background:'+tc+'22;color:'+tc+'">'+(n.tag||'')+'</span>'
-      +(n.isAI?'<span class="ai-tg">Live</span>':'')+'</div>'
-      +'<div class="n-src">'+(n.src||'')+'</div>'
-      +'<div class="n-ttl">'+(n.title||'')+'</div>'
-      +'<div class="n-sum">'+(n.sum||n.summary||'')+'</div>'
-      +'<button class="n-xbtn" id="nb-'+i+'">Read more</button></div>'
-      +'<div class="n-body" id="nb-body-'+i+'"><div class="n-txt">'+(n.full||'')+'</div>'
-      +'<a class="n-link" href="'+(n.url||'#')+'" target="_blank">Open source</a></div>';
-    box.appendChild(d);
-  });
-}
-function xNews(i){var b=document.getElementById('nb-body-'+i),btn=document.getElementById('nb-'+i);var o=b.classList.toggle('open');btn.textContent=o?'Collapse':'Read more';}
-
 // ── VULNERABILITY SCENARIO SELECTION ──────────────────────────────────────────
 function selectScenario(key) {
   document.querySelectorAll('.fvi-scenario').forEach(function(el) {
@@ -186,10 +89,184 @@ function selectScenario(key) {
   }
 }
 
-// ── INITIALIZATION ────────────────────────────────────────────────────────────
-fetchWeather();
-fetchNews(false);
-setInterval(fetchWeather,600000); // Refresh weather every 10 minutes
+// ── GUIDED TOUR ───────────────────────────────────────────────────────────────
+var TOUR_STEPS = [
+  {
+    targetId: 'fvi-stats-summary',
+    title: 'The plantation footprint in numbers',
+    body: 'These three stats show how many high-risk zones carry measurable plantation-era soil hardpan, how many could move out of High risk if lo\'i kalo is restored, and how many overlap the 1906 dam\'s evacuation footprint.',
+    position: 'below',
+    scrollTo: true,
+    ensureTab: 'vulnerability'
+  },
+  {
+    targetId: 'fvi-scenario-list',
+    title: 'Policy scenarios: compare futures',
+    body: 'Each scenario shifts the flood model based on land-use or climate changes. Indigenous Land Restoration is selected by default — it applies measured effects from real Hawaiian lo\'i kalo restoration sites.',
+    position: 'below',
+    scrollTo: true,
+    ensureTab: 'vulnerability'
+  },
+  {
+    targetId: 'scen-indigenousRestore',
+    title: 'What lo\'i kalo restoration does',
+    body: 'Based on published research: 75% reduction in iron oxide hardpan flood contribution, 45% improvement in soil drainage, 20% stream-flow attenuation. These are research-supported estimates, not guaranteed outcomes.',
+    position: 'right',
+    scrollTo: true,
+    ensureTab: 'vulnerability'
+  },
+  {
+    targetId: 'fvi-recalc-btn',
+    title: 'Recalculate the model',
+    body: 'After selecting a scenario or adjusting the 9 weight sliders, hit this to recompute the flood index across all of O\'ahu. The heatmap and stats update immediately.',
+    position: 'above',
+    scrollTo: true,
+    ensureTab: 'vulnerability'
+  },
+  {
+    targetId: 'map',
+    title: 'Click anywhere on the map',
+    body: 'Tap any colored grid cell to see a popup showing the FVI score and which of the 9 factors drives the risk at that exact location — elevation, soil, iron oxide, March 2026 impact, and more.',
+    position: 'center'
+  },
+  {
+    targetId: null,
+    tabHighlight: true,
+    title: 'Explore the Layers tab',
+    body: 'Switch to Layers to toggle FEMA flood zones, the USGS stream network, watershed boundaries, pineapple soils, and the discrepancy map showing where the 9-factor model sees risk that FEMA doesn\'t.',
+    position: 'below',
+    ensureTab: null
+  }
+];
 
+var _tourStep = 0;
+var _tourActive = false;
+var _tourHighlighted = null;
+
+function startTour() {
+  _tourStep = 0;
+  _tourActive = true;
+  document.getElementById('tour-dim').classList.remove('hidden');
+  document.getElementById('tour-card').classList.remove('hidden');
+  _renderTourStep();
+}
+
+function endTour() {
+  _tourActive = false;
+  document.getElementById('tour-dim').classList.add('hidden');
+  document.getElementById('tour-card').classList.add('hidden');
+  _clearTourHighlight();
+}
+
+function tourNext() {
+  _tourStep++;
+  if (_tourStep >= TOUR_STEPS.length) {
+    endTour();
+    return;
+  }
+  _renderTourStep();
+}
+
+function _clearTourHighlight() {
+  if (_tourHighlighted) {
+    _tourHighlighted.classList.remove('tour-highlight-ring');
+    _tourHighlighted = null;
+  }
+}
+
+function _renderTourStep() {
+  var step = TOUR_STEPS[_tourStep];
+  var isLast = _tourStep === TOUR_STEPS.length - 1;
+
+  // Switch tab if needed
+  if (step.ensureTab) ST(step.ensureTab);
+
+  // Update card content
+  document.getElementById('tour-count').textContent = 'Step ' + (_tourStep + 1) + ' of ' + TOUR_STEPS.length;
+  document.getElementById('tour-card-title').textContent = step.title;
+  document.getElementById('tour-card-body').textContent = step.body;
+  document.getElementById('tour-next-btn').textContent = isLast ? 'Finish' : 'Next';
+
+  _clearTourHighlight();
+
+  // Handle tab highlight (last step)
+  if (step.tabHighlight) {
+    var tabs = document.querySelector('.tabs');
+    if (tabs) {
+      tabs.classList.add('tour-highlight-ring');
+      _tourHighlighted = tabs;
+    }
+    _positionTourCard(tabs, 'below');
+    return;
+  }
+
+  if (!step.targetId) {
+    _positionTourCard(null, 'center');
+    return;
+  }
+
+  var el = document.getElementById(step.targetId);
+  if (!el) {
+    _positionTourCard(null, 'center');
+    return;
+  }
+
+  // Scroll into view
+  if (step.scrollTo) {
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+
+  // Highlight
+  el.classList.add('tour-highlight-ring');
+  _tourHighlighted = el;
+
+  setTimeout(function() {
+    _positionTourCard(el, step.position);
+  }, step.scrollTo ? 250 : 0);
+}
+
+function _positionTourCard(el, position) {
+  var card = document.getElementById('tour-card');
+  var cardW = 270;
+  var cardH = card.offsetHeight || 170;
+  var margin = 14;
+  var vpW = window.innerWidth;
+  var vpH = window.innerHeight;
+
+  if (!el || position === 'center') {
+    card.style.left = Math.round((vpW - cardW) / 2) + 'px';
+    card.style.top = Math.round(vpH * 0.38) + 'px';
+    return;
+  }
+
+  var r = el.getBoundingClientRect();
+
+  var top, left;
+
+  if (position === 'below') {
+    top = r.bottom + margin;
+    left = r.left;
+  } else if (position === 'above') {
+    top = r.top - cardH - margin;
+    left = r.left;
+  } else if (position === 'right') {
+    top = r.top;
+    left = r.right + margin;
+  } else {
+    top = r.bottom + margin;
+    left = r.left;
+  }
+
+  // Clamp to viewport
+  if (left + cardW > vpW - 8) left = vpW - cardW - 8;
+  if (left < 8) left = 8;
+  if (top + cardH > vpH - 8) top = vpH - cardH - 8;
+  if (top < 8) top = 8;
+
+  card.style.left = Math.round(left) + 'px';
+  card.style.top = Math.round(top) + 'px';
+}
+
+// ── INITIALIZATION ────────────────────────────────────────────────────────────
 // Page opens on Vulnerability tab — trigger auto-enable after scripts load
 setTimeout(function(){ ST('vulnerability'); }, 50);

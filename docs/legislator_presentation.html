@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hawaii FloodWatch · Legislator Presentation Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:#f7f5fb;color:#1a0a2e;line-height:1.6;font-size:14px}
+
+  .page{max-width:820px;margin:0 auto;padding:40px 32px}
+
+  /* Header */
+  .doc-header{background:#2d1857;color:#fff;padding:28px 32px;margin-bottom:0;border-radius:8px 8px 0 0}
+  .doc-header h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .doc-header p{font-size:12px;color:rgba(255,255,255,.65);margin:0}
+  .doc-subheader{background:#4e2a82;color:#fff;padding:10px 32px;font-size:11px;border-radius:0 0 8px 8px;margin-bottom:32px}
+  .doc-subheader b{color:#d4b8ff}
+
+  /* Section headers */
+  h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#4e2a82;margin:32px 0 12px;padding-bottom:6px;border-bottom:2px solid #e8e0f8}
+  h3{font-size:14px;font-weight:700;color:#2d1857;margin:20px 0 8px}
+
+  /* Script block */
+  .script-block{background:#fff;border-radius:8px;padding:24px 28px;border-left:4px solid #4e2a82;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:8px}
+  .script-line{font-size:13.5px;color:#1a0a2e;line-height:1.75;margin-bottom:14px}
+  .script-line:last-child{margin-bottom:0}
+  .script-pause{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#4e2a82;background:#ede8f8;border-radius:3px;padding:1px 6px;margin:0 4px;vertical-align:middle}
+  .script-cue{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#fff;background:#E65100;border-radius:3px;padding:1px 6px;margin:0 4px;vertical-align:middle}
+  .script-highlight{background:#fffbf0;border-left:3px solid #F9A825;padding:2px 6px;border-radius:0 3px 3px 0}
+  .timing{font-size:10px;color:#7060a8;font-weight:500;margin-bottom:6px}
+
+  /* Screenshot placeholder */
+  .screenshot-section{margin:20px 0 32px}
+  .screenshot-wrap{position:relative;background:#e8e0f8;border:2px dashed #9b82cc;border-radius:6px;min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:8px}
+  .screenshot-wrap img{width:100%;border-radius:4px;display:block}
+  .screenshot-placeholder{text-align:center;padding:32px}
+  .screenshot-placeholder .cam{font-size:32px;margin-bottom:10px;opacity:.4}
+  .screenshot-placeholder p{font-size:11px;color:#7060a8;line-height:1.6}
+  .screenshot-placeholder strong{display:block;font-size:12px;color:#4e2a82;margin-bottom:6px}
+
+  /* Annotation list */
+  .annotation-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .annotation-list li{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#2d1857;line-height:1.5}
+  .ann-num{background:#4e2a82;color:#fff;width:20px;height:20px;min-width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin-top:1px;flex-shrink:0}
+  .ann-num.orange{background:#E65100}
+  .ann-num.green{background:#2e7d32}
+  .ann-num.magenta{background:#D81B60}
+
+  /* How-to steps */
+  .step-row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #ede8f8}
+  .step-row:last-child{border-bottom:none}
+  .step-num{font-size:22px;font-weight:700;color:#e8e0f8;line-height:1;min-width:32px}
+  .step-body h3{margin-top:0}
+  .step-body p{font-size:12px;color:#5a4a7a;margin-top:4px}
+
+  /* Key stat callouts */
+  .stat-row{display:flex;gap:12px;margin:16px 0}
+  .stat-box{flex:1;background:#fff;border-radius:6px;padding:12px 14px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.06);border-top:3px solid #4e2a82}
+  .stat-box .val{font-size:22px;font-weight:700;color:#2d1857}
+  .stat-box .lbl{font-size:10px;color:#7060a8;margin-top:2px}
+
+  /* Footer */
+  .doc-footer{margin-top:48px;padding-top:16px;border-top:1px solid #e0d8f0;font-size:10px;color:#9080b8;text-align:center}
+
+  @media print{
+    body{background:#fff}
+    .page{padding:20px}
+    .screenshot-wrap{border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="doc-header">
+    <h1>Hawaii FloodWatch · Legislator Presentation Guide</h1>
+    <p>Ka Moamoa Lab · April 2026 · For use in legislative briefings, funding hearings, and advocacy meetings</p>
+  </div>
+  <div class="doc-subheader">
+    Open the map at <b>hawaii_flood_map/index.html</b> in a browser before you begin.
+    This document walks through the map screen by screen with a spoken script for each view.
+  </div>
+
+  <!-- KEY STATS -->
+  <div class="stat-row">
+    <div class="stat-box"><div class="val">236</div><div class="lbl">People rescued, March 2026</div></div>
+    <div class="stat-box"><div class="val">5,500</div><div class="lbl">Evacuated due to 1906 dam</div></div>
+    <div class="stat-box"><div class="val">&gt;$1B</div><div class="lbl">Estimated damage</div></div>
+    <div class="stat-box"><div class="val">1,000+</div><div class="lbl">Years loʻi kalo prevented this</div></div>
+  </div>
+
+  <!-- ── SCREEN 1 ── -->
+  <h2>Screen 1 · Opening view: the heatmap</h2>
+  <p style="font-size:12px;color:#5a4a7a;margin-bottom:14px">
+    Start on the <b>Flood Index tab</b> with the heatmap visible. The map should have already calculated and be showing the Indigenous Land Restoration scenario (green "Start here" card selected).
+    If it has not loaded yet, click <b>Show flood risk heatmap</b> then <b>Recalculate map</b>.
+  </p>
+
+  <div class="screenshot-section">
+    <div class="screenshot-wrap">
+      <!-- Replace the div below with: <img src="screenshots/01_heatmap_overview.png" alt="Heatmap overview"> -->
+      <div class="screenshot-placeholder">
+        <div class="cam">📸</div>
+        <strong>SCREENSHOT 1: Full map with heatmap active</strong>
+        <p>Capture the full browser window.<br>
+        The heatmap should be visible over O'ahu with the sidebar open on the Flood Index tab.<br>
+        Save as: <code>docs/screenshots/01_heatmap_overview.png</code></p>
+      </div>
+    </div>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><span><b>Purple cluster, North Shore (Waialua/Haleiwa area):</b> Draw an arrow pointing to the dark purple area at the top-left of O'ahu. Label it: <i>"Worst flooding in March 2026 — homes swept away"</i></span></li>
+      <li><div class="ann-num orange">2</div><span><b>Orange/red band, Central O'ahu (Wahiawa):</b> Arrow pointing to the Wahiawa area. Label: <i>"Wahiawa Dam — built 1906, forced 5,500 evacuations"</i></span></li>
+      <li><div class="ann-num magenta">3</div><span><b>Color scale in bottom-right legend:</b> Circle the legend. Label: <i>"Blue = low risk · Purple = extreme risk"</i></span></li>
+      <li><div class="ann-num">4</div><span><b>Sidebar "Start here" card:</b> Circle the Indigenous Land Restoration card on the left. Label: <i>"This scenario is already active"</i></span></li>
+    </ul>
+  </div>
+
+  <div class="script-block">
+    <div class="timing">⏱ 0:00 – 0:15</div>
+    <div class="script-line">
+      "In March 2026, 236 people were rescued from rooftops on O'ahu's North Shore.
+      <span class="script-pause">pause</span>
+      Every purple square on this map is a neighborhood that the data predicted would flood — before it did."
+    </div>
+    <div class="script-line">
+      "The darker the color, the higher the flood risk. Purple areas like this one
+      <span class="script-cue">point to North Shore</span>
+      flooded catastrophically. The model called it. The question is: what do we do about it?"
+    </div>
+  </div>
+
+  <!-- ── SCREEN 2 ── -->
+  <h2>Screen 2 · The iron oxide factor</h2>
+  <p style="font-size:12px;color:#5a4a7a;margin-bottom:14px">
+    Scroll down in the sidebar to the <b>Iron oxide in soil</b> slider. Do not change it — just point to it while speaking.
+  </p>
+
+  <div class="screenshot-section">
+    <div class="screenshot-wrap">
+      <!-- Replace with: <img src="screenshots/02_iron_oxide_slider.png" alt="Iron oxide slider"> -->
+      <div class="screenshot-placeholder">
+        <div class="cam">📸</div>
+        <strong>SCREENSHOT 2: Sidebar scrolled to show the Iron oxide slider</strong>
+        <p>Scroll the sidebar so the "Iron oxide in soil" factor is visible, with its description text.<br>
+        The map should still be visible in the right panel.<br>
+        Save as: <code>docs/screenshots/02_iron_oxide_slider.png</code></p>
+      </div>
+    </div>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><span><b>Iron oxide slider row:</b> Draw a box around the slider and its label. Label: <i>"Pineapple plantation legacy — still in the soil today"</i></span></li>
+      <li><div class="ann-num orange">2</div><span><b>Description text below the slider:</b> Highlight or underline: <i>"Dole and Del Monte pineapple operations"</i> in the description. Label: <i>"Named in the data"</i></span></li>
+      <li><div class="ann-num">3</div><span><b>The 10% weight label:</b> Circle the percentage. Label: <i>"10% of total flood risk score comes from plantation-era soil damage"</i></span></li>
+    </ul>
+  </div>
+
+  <div class="script-block">
+    <div class="timing">⏱ 0:15 – 0:30</div>
+    <div class="script-line">
+      "Here is something you will not find on FEMA's maps.
+      <span class="script-cue">point to iron oxide slider</span>
+      Dole and Del Monte pineapple operations spent decades compacting North Shore soils into a hardpan layer.
+      Rain that should soak into the ground now moves sideways into streams 30 to 50% faster.
+      The plantations are gone. The flood risk they created is not."
+    </div>
+    <div class="script-line">
+      "This map measures that. It is not an opinion. It is in the soil survey data from the USDA."
+    </div>
+  </div>
+
+  <!-- ── SCREEN 3 ── -->
+  <h2>Screen 3 · Indigenous Land Restoration scenario</h2>
+  <p style="font-size:12px;color:#5a4a7a;margin-bottom:14px">
+    Scroll back up in the sidebar to the <b>Policy Scenarios</b> section.
+    The <b>Indigenous Land Restoration</b> card should already be selected (purple border).
+    Click <b>Recalculate map</b> if the map has not yet updated to show this scenario.
+  </p>
+
+  <div class="screenshot-section">
+    <div class="screenshot-wrap">
+      <!-- Replace with: <img src="screenshots/03_indigenous_scenario_active.png" alt="Indigenous scenario active"> -->
+      <div class="screenshot-placeholder">
+        <div class="cam">📸</div>
+        <strong>SCREENSHOT 3: Indigenous Land Restoration scenario selected, map updated</strong>
+        <p>The "Indigenous land restoration" card should have a purple left border and be visually highlighted.<br>
+        The map should show reduced risk (fewer purple/magenta cells) compared to the baseline.<br>
+        Save as: <code>docs/screenshots/03_indigenous_scenario.png</code></p>
+      </div>
+    </div>
+    <ul class="annotation-list">
+      <li><div class="ann-num green">1</div><span><b>Indigenous Land Restoration card (selected):</b> Draw an arrow to the card. Label: <i>"Restoring loʻi kalo + breaking up hardpan + ahupuaʻa management"</i></span></li>
+      <li><div class="ann-num">2</div><span><b>North Shore area on map (now less purple):</b> Arrow pointing to the same area as Screenshot 1. Label: <i>"Same area — risk reduced under restoration"</i></span></li>
+      <li><div class="ann-num orange">3</div><span><b>Scenario stats below the scenario list:</b> Circle the "Change vs. current" delta number. Label: <i>"Measurable reduction in high-risk land area"</i></span></li>
+    </ul>
+  </div>
+
+  <div class="script-block">
+    <div class="timing">⏱ 0:30 – 0:47</div>
+    <div class="script-line">
+      "Now watch what happens when we model returning this land to how it was managed for a thousand years before the plantations."
+      <span class="script-cue">point to map shift</span>
+    </div>
+    <div class="script-line">
+      "Loʻi kalo — taro wetland agriculture — acts as natural retention basins.
+      Native forest reduces peak stream runoff by 40 to 60%.
+      Restoring ahupuaʻa watershed management routes water the way these islands handled it before concrete and monoculture changed everything.
+      <span class="script-pause">pause</span>
+      The high-risk areas shrink. Not as a theory. Based on measurements at restored sites in Hawaii."
+    </div>
+  </div>
+
+  <!-- ── SCREEN 4 ── -->
+  <h2>Screen 4 · FVI vs FEMA discrepancy layer</h2>
+  <p style="font-size:12px;color:#5a4a7a;margin-bottom:14px">
+    Switch to the <b>Layers tab</b>. Click <b>FVI vs FEMA: discrepancy map</b> to enable it.
+    Wait a moment for it to render (it computes against the downloaded FEMA data).
+  </p>
+
+  <div class="screenshot-section">
+    <div class="screenshot-wrap">
+      <!-- Replace with: <img src="screenshots/04_fvi_vs_fema.png" alt="FVI vs FEMA discrepancy"> -->
+      <div class="screenshot-placeholder">
+        <div class="cam">📸</div>
+        <strong>SCREENSHOT 4: FVI vs FEMA discrepancy layer active</strong>
+        <p>The map should show three colors: magenta (both agree), purple (FVI high but no FEMA zone), blue (FEMA zone but FVI lower).<br>
+        The legend in the bottom-right should show the FVI vs FEMA section.<br>
+        Save as: <code>docs/screenshots/04_fvi_vs_fema.png</code></p>
+      </div>
+    </div>
+    <ul class="annotation-list">
+      <li><div class="ann-num magenta">1</div><span><b>Magenta cells:</b> Circle a cluster. Label: <i>"FEMA and our model both flag as high risk — strong agreement"</i></span></li>
+      <li><div class="ann-num">2</div><span><b>Purple cells (if present):</b> Arrow to any purple area. Label: <i>"Our model flags high risk — FEMA has no designation here. A gap."</i></span></li>
+      <li><div class="ann-num">3</div><span><b>Legend in lower right:</b> Circle the FVI vs FEMA legend section. Label: <i>"Purple = communities not protected by official flood maps"</i></span></li>
+    </ul>
+  </div>
+
+  <div class="script-block">
+    <div class="timing">⏱ 0:47 – 0:58</div>
+    <div class="script-line">
+      "This layer compares our 9-factor analysis against FEMA's official flood zone maps.
+      The purple areas
+      <span class="script-cue">point to purple cells</span>
+      are communities our model flags as high risk — that FEMA has not designated.
+      Those are the gaps where residents cannot get flood insurance, cannot access mitigation grants, and have no official warning system."
+    </div>
+  </div>
+
+  <!-- ── CLOSING ── -->
+  <h2>Closing ask · No screen change needed</h2>
+
+  <div class="script-block">
+    <div class="timing">⏱ 0:58 – 1:05</div>
+    <div class="script-line">
+      "We are asking for two things: funding to repair what the March 2026 storms exposed — the aging dams, the overwhelmed drainage, the communities left out of official flood maps.
+      And sustained investment in Native Hawaiian land stewardship.
+      Not as a cultural program.
+      <span class="script-pause">pause</span>
+      As flood infrastructure. The data is here. The map shows it."
+    </div>
+  </div>
+
+  <!-- ── HOW-TO REFERENCE ── -->
+  <h2>Quick reference · How to navigate the map live</h2>
+
+  <div style="background:#fff;border-radius:8px;padding:20px 24px;box-shadow:0 1px 8px rgba(0,0,0,.07)">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Open the map and wait for the heatmap to load</h3>
+        <p>Open <code>index.html</code> in Chrome or Firefox. Click through the "How to use" modal. The Flood Index tab loads automatically and begins calculating. Wait for colored squares to fill the O'ahu map (5–10 seconds).</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Click any colored square to explain a specific neighborhood</h3>
+        <p>Clicking any cell opens a popup showing all 9 factors for that exact location — elevation, soil type, stream distance, iron oxide content, and more. Useful for answering "what about my district?"</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Switch between scenarios by clicking and hitting Recalculate</h3>
+        <p>The scenario cards are in the Flood Index tab, below the sliders. Click a card, then click <b>Recalculate map</b>. The map updates in a few seconds. Compare Indigenous Land Restoration to Current Conditions or Urban Expansion.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>The Layers tab has FEMA zones and real stream data</h3>
+        <p>Toggle the FEMA Special Flood Hazard Areas layer to show official designations. Toggle the FVI vs FEMA discrepancy map to show coverage gaps. The waterway network layer shows all 787 real USGS-surveyed stream channels.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>The Event tab has the March 2026 timeline and sources</h3>
+        <p>If asked for sourcing, the Event tab cites NASA Earth Observatory, NPR, Hawaii Civil Defense, and UH Mesonet for every statistic shown. All data layers cite their official government sources in the layer panel.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREENSHOT CHECKLIST ── -->
+  <h2>Screenshot checklist</h2>
+  <p style="font-size:12px;color:#5a4a7a;margin-bottom:12px">
+    Take these 4 screenshots from the live map, save them to <code>docs/screenshots/</code>, then replace the placeholder divs in this HTML file with <code>&lt;img&gt;</code> tags pointing to each file.
+  </p>
+  <table style="width:100%;border-collapse:collapse;font-size:12px">
+    <thead>
+      <tr style="background:#4e2a82;color:#fff">
+        <th style="padding:8px 10px;text-align:left;border-radius:4px 0 0 0">File name</th>
+        <th style="padding:8px 10px;text-align:left">What to capture</th>
+        <th style="padding:8px 10px;text-align:left;border-radius:0 4px 0 0">Tab / state</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fff;border-bottom:1px solid #ede8f8">
+        <td style="padding:8px 10px;font-family:monospace">01_heatmap_overview.png</td>
+        <td style="padding:8px 10px">Full map with heatmap showing risk across O'ahu</td>
+        <td style="padding:8px 10px">Flood Index tab · heatmap on</td>
+      </tr>
+      <tr style="background:#f7f5fb;border-bottom:1px solid #ede8f8">
+        <td style="padding:8px 10px;font-family:monospace">02_iron_oxide_slider.png</td>
+        <td style="padding:8px 10px">Sidebar scrolled to show the Iron oxide factor and its description</td>
+        <td style="padding:8px 10px">Flood Index tab · scroll sidebar</td>
+      </tr>
+      <tr style="background:#fff;border-bottom:1px solid #ede8f8">
+        <td style="padding:8px 10px;font-family:monospace">03_indigenous_scenario.png</td>
+        <td style="padding:8px 10px">Indigenous Restoration card selected, map showing reduced risk</td>
+        <td style="padding:8px 10px">Flood Index tab · scenario active</td>
+      </tr>
+      <tr style="background:#f7f5fb">
+        <td style="padding:8px 10px;font-family:monospace">04_fvi_vs_fema.png</td>
+        <td style="padding:8px 10px">Discrepancy layer showing FEMA gaps (purple cells)</td>
+        <td style="padding:8px 10px">Layers tab · FVI vs FEMA on</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#9080b8;margin-top:8px">
+    To add a screenshot: replace the <code>&lt;div class="screenshot-placeholder"&gt;</code> block with<br>
+    <code>&lt;img src="screenshots/01_heatmap_overview.png" alt="..."&gt;</code> inside the <code>.screenshot-wrap</code> div.
+  </p>
+
+  <div class="doc-footer">
+    Ka Moamoa Lab · Hawaii FloodWatch · April 2026<br>
+    Data: FEMA NFHL · USGS NHD+ · USDA SSURGO · NWS HFO · Hawaii Civil Defense · US Census TIGER<br>
+    This is a screening-level planning tool, not a substitute for official FEMA flood insurance rate maps.
+  </div>
+
+</div>
+</body>
+</html>
