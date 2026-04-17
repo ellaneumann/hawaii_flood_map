@@ -8,7 +8,7 @@
 var ISLANDS = [
   {
     name:'Oʻahu', lat:21.45, lng:-157.98, zoom:11,
-    severity:'CRITICAL', color:'#E65100',
+    severity:'CRITICAL', color:'#C62828',
     maxRain:'12"', rescued:236, evacuated:5500, damage:'$800M+',
     desc:"North Shore communities Waialua and Haleiwa were catastrophically flooded March 19–20. Homes and cars were swept away. The 120-year-old Wahiawa Dam threatened failure, triggering 5,500 evacuations. 115,000 residents lost power. National Guard and Honolulu Fire Department conducted aerial rescues, including 72 children and adults airlifted from a youth camp on the west coast. The March 23 'rain bomb' over Mānoa and Pālolo valleys sent Mānoa Stream overflowing into shopping centers and an elementary school.",
     actions:[
@@ -72,7 +72,7 @@ var ISLANDS = [
 
 // ── STATIC NEWS ────────────────────────────────────────────────────────────────
 var STATIC_NEWS = [
-  {y:2026,title:"Back-to-back Kona lows deliver worst Hawaii flooding in 20 years",src:"NASA Earth Observatory",tag:"Event",tc:"#E65100",
+  {y:2026,title:"Back-to-back Kona lows deliver worst Hawaii flooding in 20 years",src:"NASA Earth Observatory",tag:"Event",tc:"#C62828",
    sum:"NASA satellite imagery captured brown floodwater pooling across Waialua and Mokuleia farmland on March 14, with sediment plumes spreading into Kaiaka Bay. NASA's Disasters Response Coordination System was activated.",
    full:"Back-to-back low-pressure systems struck Hawaii in March 2026, delivering some of the worst flooding the state has seen in decades. The kona lows siphoned moisture from the tropics, fueling slow-moving thunderstorms with torrential rains. The NWS reported rainfall totals of 5 to 10 inches throughout the state between March 11 and 15, with some areas seeing more than 30 inches. Weather stations in Honolulu, Hilo, Līhuʻe, and Kahului all broke daily rainfall records. Preliminary assessments indicate that hundreds of homes on Oʻahu sustained damage. The storm produced widespread wind gusts between 60 and 75 mph, with gusts in some places reaching 100 mph. As many as 115,000 Oʻahu residents faced power outages.",
    url:"https://science.nasa.gov/earth/earth-observatory/kona-storms-flood-oahu/"},
@@ -199,7 +199,7 @@ var SLR_AREAS=[
 
 // ── MAJOR STREAMS ─────────────────────────────────────────────────────────────
 var STREAMS=[
-  {name:"Kaukonahua Stream (FLOODED — swept away homes)",c:'#E65100',w:3,pts:[[21.57,-158.09],[21.585,-158.07],[21.60,-158.05],[21.615,-158.04]]},
+  {name:"Kaukonahua Stream (FLOODED — swept away homes)",c:'#C62828',w:3,pts:[[21.57,-158.09],[21.585,-158.07],[21.60,-158.05],[21.615,-158.04]]},
   {name:"Mānoa Stream (FLOODED — rain bomb overflow)",c:'#D81B60',w:3,pts:[[21.333,-157.812],[21.318,-157.815],[21.305,-157.819],[21.295,-157.825]]},
   {name:"Palolo Stream",c:'#1E88E5',w:2,pts:[[21.318,-157.795],[21.308,-157.800],[21.298,-157.808]]},
   {name:"Waimea River — Kauai",c:'#1E88E5',w:2.5,pts:[[22.065,-159.67],[22.055,-159.645],[22.048,-159.623],[22.04,-159.605]]},
@@ -307,8 +307,8 @@ var WATERWAY_NETWORK = [
 ];
 
 // ── COLOR MAPPINGS FOR SEVERITY ──────────────────────────────────────────────
-var colMap={critical:'rgba(230,81,0,.55)',high:'rgba(216,27,96,.45)',moderate:'rgba(249,168,37,.35)'};
-var borderMap={critical:'#E65100',high:'#D81B60',moderate:'#F9A825'};
+var colMap={critical:'rgba(198,40,40,.55)',high:'rgba(216,27,96,.45)',moderate:'rgba(249,168,37,.35)'};
+var borderMap={critical:'#C62828',high:'#D81B60',moderate:'#F9A825'};
 
 // Contamination risk colors
 var contamRiskColor={critical:'#8b0000',high:'#d81b60',moderate:'#f9a825',low:'#fbc02d'};

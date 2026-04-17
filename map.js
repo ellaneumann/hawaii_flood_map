@@ -82,7 +82,7 @@ L.marker([21.503,-158.024],{icon:damIcon})
  .addTo(LG.dam);
 
 // ── RESCUE SITES ──────────────────────────────────────────────────────────────
-var rescueIcon=L.divIcon({html:'<div style="width:18px;height:18px;background:#E65100;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">R</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
+var rescueIcon=L.divIcon({html:'<div style="width:18px;height:18px;background:#C62828;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">R</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
 RESCUES.forEach(function(r){
   L.marker([r.lat,r.lng],{icon:rescueIcon})
    .bindPopup('<div class="pop"><div class="pop-title">'+r.name+'</div><div class="pop-stat"><span>People rescued</span><b>'+r.n+'</b></div><div class="pop-box danger">'+r.desc+'</div></div>',{maxWidth:280})

@@ -35,12 +35,12 @@
     <div class="panel" id="tab-layers">
       <div class="scroll">
         <div class="lg-title">Vulnerability Analysis</div>
-        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}"><div class="lchk" id="chk-fvi-layers"></div><div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#E65100,#D81B60,#4e2a82);border:2px solid #E65100;border-radius:2px"></div></div><div class="linfo"><div class="lname">Flood Vulnerability Heatmap</div><div class="lsub">9-factor FVI: iron oxide, event impact, evac zones &amp; more</div></div></div>
+        <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}"><div class="lchk" id="chk-fvi-layers"></div><div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#C62828,#D81B60,#4e2a82);border:2px solid #C62828;border-radius:2px"></div></div><div class="linfo"><div class="lname">Flood Vulnerability Heatmap</div><div class="lsub">9-factor FVI: iron oxide, event impact, evac zones &amp; more</div></div></div>
         <div class="lrow" onclick="toggleFVIvsFEMA()"><div class="lchk" id="chk-fvivsfema"></div><div class="lico"><div style="display:flex;gap:2px"><div class="li-poly" style="background:rgba(78,42,130,.55);border:2px solid #4e2a82;width:7px;height:12px"></div><div class="li-poly" style="background:rgba(21,101,192,.55);border:2px solid #1565C0;width:7px;height:12px"></div></div></div><div class="linfo"><div class="lname">FVI vs FEMA: discrepancy map</div><div class="lsub">Where the 9-factor model and FEMA zones agree or diverge</div><div id="fvivsfema-note" class="lsrc"></div></div></div>
 
         <div class="lg-title">March 2026 Event: Hardest-Hit Areas</div>
         <div class="layer-note" style="padding:6px 8px;margin-bottom:6px;font-size:8.5px;line-height:1.5"><b>Note:</b> All layers in this section are based on news reports, NWS bulletins, and Hawaii Civil Defense press releases. Not official GIS datasets. Locations are approximate.</div>
-        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(230,81,0,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div><div class="lsrc">Source: NWS HFO, NPR, Hawaii News Now, NASA Earth Observatory</div></div></div>
+        <div class="lrow" onclick="TL('impact')"><div class="lchk on" id="chk-impact">✓</div><div class="lico"><div class="li-poly" style="background:rgba(198,40,40,.5);border:2px solid var(--flood)"></div></div><div class="linfo"><div class="lname">Flood impact zones</div><div class="lsub">Communities with documented flooding, rescues, or damage</div><div class="lsrc">Source: NWS HFO, NPR, Hawaii News Now, NASA Earth Observatory</div></div></div>
         <div class="lrow" onclick="TL('evac')"><div class="lchk on" id="chk-evac">✓</div><div class="lico"><div class="li-poly" style="background:rgba(123,45,139,.4);border:2px solid var(--evac)"></div></div><div class="linfo"><div class="lname">Evacuation zones (March 20 to 22)</div><div class="lsub">Areas under evacuation order or warning</div><div class="lsrc">Source: Hawaii Civil Defense press releases (approximate polygons)</div></div></div>
         <div class="lrow" onclick="TL('dam')"><div class="lchk on" id="chk-dam">✓</div><div class="lico"><div class="li-dot" style="background:var(--dam);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Dam risk site: Wahiawa</div><div class="lsub">120-year-old earthen dam, 5,500 evacuated</div><div class="lsrc">Source: Gov. Green press release, NPR, Hawaii News Now</div></div></div>
         <div class="lrow" onclick="TL('rescue')"><div class="lchk on" id="chk-rescue">✓</div><div class="lico"><div class="li-dot" style="background:#fff;border:2px solid var(--flood);width:10px;height:10px"></div></div><div class="linfo"><div class="lname">Major rescue sites</div><div class="lsub">Documented mass rescue locations</div><div class="lsrc">Source: Honolulu Fire Dept, National Guard (news reports)</div></div></div>
@@ -91,7 +91,7 @@
 
         <div class="lrow" onclick="TL('fvi');if(typeof recalcFVI==='function'&&!window._fviRendered){window._fviRendered=true;recalcFVI();}">
           <div class="lchk" id="chk-fvi"></div>
-          <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#E65100,#D81B60,#4e2a82);border:2px solid #E65100;border-radius:2px"></div></div>
+          <div class="lico"><div class="li-poly" style="background:linear-gradient(90deg,#1E88E5,#FFC107,#C62828,#D81B60,#4e2a82);border:2px solid #C62828;border-radius:2px"></div></div>
           <div class="linfo"><div class="lname">Show flood risk heatmap</div><div class="lsub">Color-coded grid: blue = low risk, purple = extreme risk</div></div>
         </div>
 
@@ -201,7 +201,7 @@
         <div class="fvi-color-scale">
           <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#1E88E5"></div><div><b>0.00 to 0.30 · Low risk</b><br>Higher ground, fast-draining soils, or far from streams. Little flood history. Generally safe under most storm conditions.</div></div>
           <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#FFC107"></div><div><b>0.30 to 0.45 · Moderate risk</b><br>Some combination of risk factors present. Flooding is possible in intense storms. Flood insurance worth considering.</div></div>
-          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#E65100"></div><div><b>0.45 to 0.60 · High risk</b><br>Multiple compounding factors: low elevation, poor soil drainage, and stream proximity. Flood insurance strongly recommended. These areas appear regularly in NWS flood advisories.</div></div>
+          <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#C62828"></div><div><b>0.45 to 0.60 · High risk</b><br>Multiple compounding factors: low elevation, poor soil drainage, and stream proximity. Flood insurance strongly recommended. These areas appear regularly in NWS flood advisories.</div></div>
           <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#D81B60"></div><div><b>0.60 to 0.75 · Very High risk</b><br>Areas with documented flooding history where multiple severe factors stack together. Often former plantation land or dense urban valleys. Active policy intervention is warranted here.</div></div>
           <div class="fvi-cs-row"><div class="fvi-cs-swatch" style="background:#4e2a82"></div><div><b>0.75 to 1.00 · Extreme risk</b><br>Areas that actually flooded in March 2026 and sit inside official evacuation zones. These zones are the strongest case for flood mitigation funding, infrastructure investment, and Indigenous land restoration programs.</div></div>
         </div>
@@ -317,6 +317,7 @@
 
   </div><!-- end .sidebar -->
   <button class="sb-toggle" id="sb-toggle" onclick="toggleSidebar()" title="Toggle sidebar">&#10094;</button>
+  <button class="about-btn" id="about-btn" onclick="openAbout()" title="About this map">?</button>
 
   <!-- MAP -->
   <div class="map-area">
@@ -332,7 +333,7 @@
     <div class="map-legend">
       <div class="leg-ttl">March 2026 Legend</div>
       <div class="leg-sec"><div class="leg-sec-ttl">Event Impact</div>
-        <div class="leg-row"><div class="leg-sq" style="background:rgba(230,81,0,.55);border:2px solid #E65100"></div><span class="leg-lbl">Flood impact zone</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:rgba(198,40,40,.55);border:2px solid #C62828"></div><span class="leg-lbl">Flood impact zone</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:rgba(123,45,139,.4);border:2px solid #7B2D8B"></div><span class="leg-lbl">Evacuation zone</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:rgba(30,136,229,.3);border:2px dashed #1E88E5"></div><span class="leg-lbl">Extreme rainfall area</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:#D81B60;width:10px;height:10px;border-radius:50%"></div><span class="leg-lbl">Dam risk site</span></div>
@@ -351,7 +352,7 @@
       <div class="leg-sec" id="fvi-legend" style="display:none"><div class="leg-sec-ttl">Vulnerability Index</div>
         <div class="leg-row"><div class="leg-sq" style="background:#1E88E5"></div><span class="leg-lbl">Low (0–0.30)</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:#FFC107"></div><span class="leg-lbl">Moderate (0.30–0.45)</span></div>
-        <div class="leg-row"><div class="leg-sq" style="background:#E65100"></div><span class="leg-lbl">High (0.45–0.60)</span></div>
+        <div class="leg-row"><div class="leg-sq" style="background:#C62828"></div><span class="leg-lbl">High (0.45–0.60)</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:#D81B60"></div><span class="leg-lbl">Very high (0.60–0.75)</span></div>
         <div class="leg-row"><div class="leg-sq" style="background:#4e2a82"></div><span class="leg-lbl">Extreme (0.75+)</span></div>
       </div>

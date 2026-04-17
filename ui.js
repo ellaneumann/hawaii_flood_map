@@ -34,6 +34,9 @@ function closeHowTo(){
   document.getElementById('howto-overlay').classList.add('hidden');
   try{localStorage.setItem('hwft_seen','1');}catch(e){}
 }
+function openAbout(){
+  document.getElementById('howto-overlay').classList.remove('hidden');
+}
 // If the user has already seen it, hide immediately without waiting for a click
 (function(){
   try{if(localStorage.getItem('hwft_seen')){document.getElementById('howto-overlay').classList.add('hidden');}}catch(e){}
