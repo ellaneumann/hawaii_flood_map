@@ -806,7 +806,6 @@ header{
 
 /* ── RESPONSIVE — TABLET (768px) ─────────────────────────────────────────────── */
 @media (max-width:768px){
-<<<<<<< HEAD
   .sidebar{width:0;border-right:none;flex-shrink:1;position:fixed;top:0;left:0;height:100vh;z-index:500;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .sidebar.open{width:280px;box-shadow:2px 0 12px rgba(0,0,0,.2)}
   .sidebar>*{display:none}
@@ -814,7 +813,6 @@ header{
   .sb-toggle{position:fixed;right:0;top:0;width:40px;height:56px;background:#fff;border:1px solid var(--g200);z-index:600}
   .sb-toggle:hover{background:var(--g50)}
   
-=======
   .sidebar{width:0;border-right:none}
   .sidebar.open{width:280px;box-shadow:2px 0 12px rgba(0,0,0,.15)}
   .sidebar>*{display:none}
@@ -823,7 +821,6 @@ header{
   .sidebar.open~.sb-toggle{left:280px}
   .about-btn{left:0;bottom:28px}
   .sidebar.open~.about-btn{left:280px}
->>>>>>> d6f55ef99c55deb92fb233b212601154805d92c5
   .main{flex-direction:column}
   .map-area{flex:1;min-width:0}
   header{flex-wrap:wrap;gap:8px;padding:8px 12px;height:auto}
@@ -867,7 +864,6 @@ header{
   .wx-val{font-size:9px}
   .hdr-st{font-size:8px}
   .sdot{width:5px;height:5px}
-<<<<<<< HEAD
   
   .sidebar{width:0;flex-shrink:1;position:fixed;top:0;left:0;height:100vh;z-index:500;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .sidebar.open{width:100vw;max-width:320px;height:100vh;position:fixed;top:0;left:0;z-index:500;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -885,7 +881,6 @@ header{
   .lrow{padding:3px 3px;gap:5px}
   .lchk{width:16px;height:16px}
   .lico{width:22px;height:14px}
-=======
   .sidebar{width:0}
   .sidebar.open{width:100vw;max-width:320px;height:100vh;position:fixed;top:48px;left:0;z-index:500;overflow-y:auto}
   .scroll{padding:6px;max-height:calc(100vh - 150px)}
@@ -900,7 +895,6 @@ header{
   .lg-title{font-size:7.5px;margin:7px 0 3px}
   .lrow{padding:3px;gap:5px}
   .lchk{width:15px;height:15px}
->>>>>>> d6f55ef99c55deb92fb233b212601154805d92c5
   .lname{font-size:9px}
   .lsub{font-size:8px}
   .pop{width:200px!important}
