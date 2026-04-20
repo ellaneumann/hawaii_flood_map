@@ -47,9 +47,14 @@ var LG={
 var LON={impact:true,evac:true,dam:true,rescue:true,rain:true,fema:true,slr:false,waterways:true,watersheds:false,elevation:false,contamination:false,soils:false,atmospheric_rivers:false,census:false,impervious:false};
 function TL(n){
   LON[n]=!LON[n];
-  var el=document.getElementById('chk-'+n);
-  if(el){el.classList.toggle('on',LON[n]);el.innerHTML=LON[n]?'✓':'';}
+  // Update all checkboxes for this layer (handles duplicates across tabs)
+  ['chk-'+n,'chk-'+n+'-layers'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.toggle('on',LON[n]);el.innerHTML=LON[n]?'✓':'';}
+  });
   if(LON[n])map.addLayer(LG[n]);else map.removeLayer(LG[n]);
+  // Show/hide FVI legend
+  if(n==='fvi'){var leg=document.getElementById('fvi-legend');if(leg)leg.style.display=LON[n]?'block':'none';}
 }
 
 // ── IMPACT ZONES ───────────────────────────────────────────────────────────────
@@ -77,7 +82,7 @@ L.marker([21.503,-158.024],{icon:damIcon})
  .addTo(LG.dam);
 
 // ── RESCUE SITES ──────────────────────────────────────────────────────────────
-var rescueIcon=L.divIcon({html:'<div style="width:18px;height:18px;background:#E65100;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">R</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
+var rescueIcon=L.divIcon({html:'<div style="width:18px;height:18px;background:#C62828;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">R</div>',className:'',iconSize:[18,18],iconAnchor:[9,9]});
 RESCUES.forEach(function(r){
   L.marker([r.lat,r.lng],{icon:rescueIcon})
    .bindPopup('<div class="pop"><div class="pop-title">'+r.name+'</div><div class="pop-stat"><span>People rescued</span><b>'+r.n+'</b></div><div class="pop-box danger">'+r.desc+'</div></div>',{maxWidth:280})
@@ -209,7 +214,7 @@ WATERWAY_NETWORK.forEach(function(w){
   // Add flow direction indicator (arrow or annotation)
   var flowLabel=w.flow || 'N/A';
   var tooltip_text=w.name+' [Flow: '+flowLabel+']';
-  if(w.flood_severity) tooltip_text+=' — '+w.flood_severity.toUpperCase()+' FLOOD SEVERITY';
+  if(w.flood_severity) tooltip_text+=' · '+w.flood_severity.toUpperCase()+' FLOOD SEVERITY';
   
   polyline.bindTooltip(tooltip_text,{direction:'top',sticky:true,className:'waterway-tooltip'});
   polyline.bindPopup(
@@ -323,9 +328,389 @@ CONTAMINATION_SOURCES.ust.forEach(function(u){
 // ── WATERSHED BOUNDARIES ───────────────────────────────────────────────────────
 WS_BOUNDS.forEach(function(w){
   L.polygon(w.coords,{fillColor:'rgba(0,77,64,.15)',color:'#004D40',weight:1.5,dashArray:'5,4',fillOpacity:.15})
-   .bindPopup('<div class="pop"><div class="pop-title">'+w.name+'</div><span class="pop-badge" style="background:#004D40">WATERSHED</span><div class="pop-box info">Approximate watershed boundary from Hawaii DLNR Division of Aquatic Resources watershed atlas. Full data at geoportal.hawaii.gov. Watershed boundaries define where rainfall drains — during extreme events, the entire watershed volume routes through stream channels that then overflow.</div></div>',{maxWidth:280})
+   .bindPopup('<div class="pop"><div class="pop-title">'+w.name+'</div><span class="pop-badge" style="background:#004D40">WATERSHED</span><div class="pop-box info">Approximate watershed boundary from Hawaii DLNR Division of Aquatic Resources watershed atlas. Full data at geoportal.hawaii.gov. Watershed boundaries define where rainfall drains. During extreme events, the entire watershed volume routes through stream channels that then overflow.</div></div>',{maxWidth:280})
    .addTo(LG.watersheds);
 });
+
+// ── OFFICIAL GIS DATA LOADER ──────────────────────────────────────────────────
+// Swaps out the simplified placeholder shapes in data.js with three layers
+// downloaded from real U.S. government APIs:
+//   1. FEMA NFHL (National Flood Hazard Layer) — official 1%-annual-chance flood zones
+//   2. USGS NHD+ High Resolution — every named stream channel on O'ahu
+//   3. USGS Watershed Boundary Dataset (WBD HUC-10) — watershed drainage divides
+//
+// To refresh the files:  node fetch_real_data.js
+// If a file is missing the original data.js placeholder stays in place quietly.
+
+function fldZoneStyle(zone) {
+  zone = (zone || '').trim();
+  if (zone.startsWith('V'))   return { color: '#D81B60', fill: 'rgba(216,27,96,.35)' };   // coastal high-hazard (V zone — magenta, colorblind-safe)
+  if (zone === 'AO' || zone === 'AH') return { color: '#1565C0', fill: 'rgba(21,101,192,.35)' };
+  return { color: '#005F73', fill: 'rgba(0,95,115,.35)' };                                 // AE and other A zones
+}
+
+function streamStyle(order) {
+  if (order >= 5) return { color: '#1E88E5', weight: 3.5 };
+  if (order >= 4) return { color: '#1E88E5', weight: 2.5 };
+  if (order >= 3) return { color: '#42A5F5', weight: 2.0 };
+  return           { color: '#90CAF9', weight: 1.5 };
+}
+
+async function loadRealLayers() {
+  const base = 'data/geojson/';
+
+  // Tell the user why the FVI vs FEMA toggle is grayed out before the file arrives
+  var fvsFemaNote = document.getElementById('fvivsfema-note');
+  if (fvsFemaNote) fvsFemaNote.textContent = 'Loading FEMA zones (8.8 MB), available in a moment…';
+
+  // 1. FEMA Special Flood Hazard Areas — replaces 8 hand-drawn rectangles
+  try {
+    const res = await fetch(base + 'fema_areas.geojson');
+    if (!res.ok) throw new Error('file not found');
+    const gj = await res.json();
+    if (typeof setFEMAData === 'function') setFEMAData(gj); // hand to FVI comparison engine
+
+    // Update the note so the user knows the toggle is now usable
+    if (fvsFemaNote) {
+      fvsFemaNote.textContent = 'FEMA zones ready. Click to compare with FVI.';
+      fvsFemaNote.style.color = '#4e2a82';
+    }
+    LG.fema.clearLayers();
+    L.geoJSON(gj, {
+      style: function(feat) {
+        var s = fldZoneStyle(feat.properties.FLD_ZONE);
+        return { fillColor: s.fill, color: s.color, weight: 1.5, dashArray: '4,3', fillOpacity: 0.35, opacity: 0.85 };
+      },
+      onEachFeature: function(feat, layer) {
+        var p   = feat.properties;
+        var z   = (p.FLD_ZONE  || 'Unknown').trim();
+        var sub = p.ZONE_SUBTY ? ' · ' + p.ZONE_SUBTY : '';
+        layer.bindPopup(
+          '<div class="pop">' +
+          '<div class="pop-title">FEMA Flood Zone ' + z + '</div>' +
+          '<span class="pop-badge" style="background:#005F73">FEMA SFHA</span>' +
+          '<div class="pop-stat"><span>Zone</span><b>' + z + sub + '</b></div>' +
+          (p.STUDY_TYP ? '<div class="pop-stat"><span>Study type</span><b>' + p.STUDY_TYP + '</b></div>' : '') +
+          '<div class="pop-box info">1% annual-chance Special Flood Hazard Area. ' +
+          'Source: FEMA NFHL, DFIRM Dec 2025. Mandatory flood insurance applies in this zone.</div>' +
+          '<a href="https://fhat.hawaii.gov/" target="_blank" style="font-size:10px;display:block;margin-top:6px">Open Hawaii Flood Hazard Assessment Tool →</a>' +
+          '</div>',
+          { maxWidth: 290 }
+        );
+      }
+    }).addTo(LG.fema);
+  } catch (_) {
+    // File missing — likely fetch_real_data.js hasn't been run yet
+    if (fvsFemaNote) {
+      fvsFemaNote.textContent = 'FEMA file not found — run: node fetch_real_data.js';
+      fvsFemaNote.style.color = '#c0392b';
+    }
+  }
+
+  // 2. NHD stream flowlines — replaces 12 hand-traced polylines
+  try {
+    const res = await fetch(base + 'waterway_network.geojson');
+    if (!res.ok) throw new Error('file not found');
+    const gj = await res.json();
+    LG.waterways.clearLayers();
+    L.geoJSON(gj, {
+      style: function(feat) {
+        var s = streamStyle(feat.properties.streamorde || feat.properties.StreamOrde || 2);
+        return { color: s.color, weight: s.weight, opacity: 0.8, lineCap: 'round', lineJoin: 'round' };
+      },
+      onEachFeature: function(feat, layer) {
+        var p    = feat.properties;
+        var name = p.GNIS_Name || 'Unnamed stream';
+        var ord  = p.streamorde || p.StreamOrde || 'N/A';
+        var type = p.FTYPE === 460 ? 'Stream / River' : p.FTYPE === 558 ? 'Artificial path' : 'Stream';
+        layer.bindTooltip(name, { direction: 'top', sticky: true, className: 'waterway-tooltip' });
+        layer.bindPopup(
+          '<div class="pop"><div class="pop-title">' + name + '</div>' +
+          '<div class="pop-stat"><span>Stream order</span><b>' + ord + '</b></div>' +
+          '<div class="pop-stat"><span>Type</span><b>' + type + '</b></div>' +
+          '<div class="pop-box info">Source: USGS NHD+ High Resolution (National Hydrography Dataset). ' +
+          'Higher stream order = larger, higher-capacity channel.</div>' +
+          '</div>',
+          { maxWidth: 280 }
+        );
+      }
+    }).addTo(LG.waterways);
+
+    // ── Feed real NHD+ stream geometry into the Flood Vulnerability Index ──────
+    // The FVI calculates a "stream proximity" score for every grid cell — how
+    // close are you to the nearest stream that can flood?
+    //
+    // Before this step, the FVI used 12 hand-drawn approximate stream lines.
+    // Here we extract the real NHD+ channels and hand them to vulnerability.js
+    // so the FVI score is based on actual USGS-surveyed geometry.
+    //
+    // We only include stream order ≥ 3. Stream order is a measure of how large
+    // a stream is: order 1 = tiny headwater trickle, order 6+ = major river.
+    // Order 3 is the first tier that has at least two tributaries flowing in —
+    // these are the channels that can actually overflow into neighborhoods.
+    // Keeping only order ≥ 3 (roughly 200 streams on O'ahu) also keeps the
+    // FVI computation fast — each of 19,000 grid cells checks every stream.
+    //
+    // Each stream is also subsampled to at most 8 coordinate vertices so we
+    // preserve the general shape without multiplying check counts.
+    var fviLines = [];
+    gj.features.forEach(function(feat) {
+      var ord = feat.properties.streamorde || feat.properties.StreamOrde || 1;
+      if (ord < 3) return; // skip tiny headwaters
+      var geom = feat.geometry;
+      if (!geom) return;
+      var segs = geom.type === 'MultiLineString' ? geom.coordinates : [geom.coordinates];
+      segs.forEach(function(seg) {
+        if (seg.length < 2) return;
+        // GeoJSON stores coords as [longitude, latitude]; the FVI uses [latitude, longitude]
+        var step = Math.max(1, Math.floor(seg.length / 8));
+        var pts = [];
+        for (var i = 0; i < seg.length; i += step) {
+          pts.push([seg[i][1], seg[i][0]]);
+        }
+        var last = seg[seg.length - 1];
+        if (pts[pts.length - 1][0] !== last[1] || pts[pts.length - 1][1] !== last[0]) {
+          pts.push([last[1], last[0]]);
+        }
+        fviLines.push(pts);
+      });
+    });
+    if (typeof updateFVIStreams === 'function' && fviLines.length > 0) {
+      updateFVIStreams(fviLines);
+    }
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 3. WBD HUC-10 watershed boundaries — replaces 4 hand-drawn rectangles
+  try {
+    const res = await fetch(base + 'watersheds.geojson');
+    if (!res.ok) throw new Error('file not found');
+    const gj = await res.json();
+    LG.watersheds.clearLayers();
+    L.geoJSON(gj, {
+      style: function() {
+        return { fillColor: 'rgba(0,77,64,.1)', color: '#004D40', weight: 2, dashArray: '8,5', fillOpacity: 0.1, opacity: 0.7 };
+      },
+      onEachFeature: function(feat, layer) {
+        var p = feat.properties;
+        layer.bindPopup(
+          '<div class="pop"><div class="pop-title">' + (p.name || 'Watershed') + '</div>' +
+          '<span class="pop-badge" style="background:#004D40">WBD HUC-10</span>' +
+          '<div class="pop-stat"><span>HUC-10 code</span><b>' + (p.huc10 || p.huc8 || 'N/A') + '</b></div>' +
+          (p.areasqkm ? '<div class="pop-stat"><span>Area</span><b>' + Math.round(p.areasqkm) + ' km²</b></div>' : '') +
+          '<div class="pop-box info">Watershed boundary from USGS Watershed Boundary Dataset (WBD HUC-10). ' +
+          'All rainfall inside this boundary drains to the same stream outlet.</div>' +
+          '</div>',
+          { maxWidth: 270 }
+        );
+      }
+    }).addTo(LG.watersheds);
+  } catch (_) { /* keep data.js placeholder */ }
+}
+
+// Run on page load — falls back silently to data.js layers if files are absent
+loadRealLayers();
+
+// ── COMMUNITY BOUNDARY LOADER ──────────────────────────────────────────────────
+// Replaces rectangular placeholder polygons in IMPACT_ZONES, EVAC_ZONES, and
+// RAIN_AREAS with real US Census CDP (Census Designated Place) boundary shapes.
+//
+// Strategy (two-stage):
+//   1. Try the locally cached file data/geojson/hawaii_places.geojson (fast, offline).
+//      Generate it with:  node fetch_real_data.js
+//   2. If file is absent, query the Census TIGER REST API directly in the browser,
+//      fetching ONLY the specific place names we need (targeted query, ~10–30 KB).
+//
+// ZONE_PLACE_NAMES maps each event zone name to one or more Census CDP names.
+// Multiple CDPs are merged into one multi-polygon for zones spanning communities.
+// Zones with no Census CDP match (e.g. mountain ranges) keep their rectangle.
+//
+// Census source: tigerWMS_Census2020 MapServer layer 16 (Places)
+//   https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/16
+
+var ZONE_PLACE_NAMES = {
+  // ── Impact zones ────────────────────────────────────────────────────────────
+  'Waialua / Haleiwa, Oahu North Shore': ['Waialua', 'Haleiwa'],
+  'Wahiawa / Central Oahu':              ['Wahiawa'],
+  'Pupukea / North Shore Oahu':          ['Pupukea'],
+  'Mānoa / Pālolo, Honolulu':           ['Manoa', 'Palolo'],
+  'Waianae / West Oahu':                 ['Waianae', 'Makaha'],
+  'Lahaina, West Maui':                  ['Lahaina'],
+  'Kula / Upcountry Maui':              ['Kula'],
+  'Pahala, Big Island South':            ['Pahala'],
+  'Hilo, Big Island East':               ['Hilo'],
+  'South Kauai / Kauai Channel':         ['Koloa', 'Lihue'],
+  'Honolimaloo, Molokai':                ['Kaunakakai'],
+  // ── Evacuation zones ────────────────────────────────────────────────────────
+  // North Shore evac spans Waialua, Haleiwa, and Mokuleia (all downstream of dam)
+  'North Shore Oahu Evacuation (Dam Failure Risk)': ['Waialua', 'Haleiwa', 'Mokuleia'],
+  // West side evac: Mokuleia coastal strip + upper Waialua agricultural areas
+  'West Oahu Evacuation (Downstream Risk)':         ['Waialua', 'Mokuleia'],
+  'Manoa/Palolo Evacuation (Stream Flooding)':      ['Manoa', 'Palolo'],
+  // Pearl Harbor area: Aiea Stream floodplain + adjacent residential
+  'Pearl Harbor Area (Aiea Bridge Risk)':            ['Aiea', 'Pearl City'],
+  'Lahaina Evacuation Warning (Maui)':              ['Lahaina'],
+  'Kula/Upcountry Maui (Hospitals & High Ground)': ['Kula'],
+  'Wailua River Basin Evacuation (Kauai)':          ['Kapaa'],
+  'Hanalei Area Evacuation (North Shore Kauai)':    ['Hanalei'],
+  // ── Rainfall areas ──────────────────────────────────────────────────────────
+  'Oahu North Shore (Storm 2 peak)':    ['Waialua', 'Haleiwa', 'Pupukea', 'Kahuku'],
+  'Molokai (all stations)':             ['Kaunakakai', 'Maunaloa'],
+  'Lanai':                              ['Lanai City'],
+  'Hilo / Pahala Big Island':           ['Hilo', 'Pahala', 'Keaau'],
+  'Kauai South / Kauai Channel':        ['Lihue', 'Koloa'],
+};
+
+// ── Helpers shared by both render paths ──────────────────────────────────────
+
+// Normalizes a place name for fuzzy matching: lowercase, strip diacritics
+// (Hawaiian macrons ā/ē/ī/ō/ū), okina, and punctuation variants.
+// Census TIGER 2020 uses mixed conventions — some CDPs have macrons, some don't.
+function _normName(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/[āÄ]/g, 'a').replace(/[ēĒ]/g, 'e')
+    .replace(/[īĪ]/g, 'i').replace(/[ōŌ]/g, 'o')
+    .replace(/[ūŪ]/g, 'u')
+    .replace(/[ʻʼ'''`']/g, '')   // okina and apostrophe variants
+    .replace(/[-\s]+/g, ' ')      // normalize hyphens/spaces
+    .trim();
+}
+
+function _geomToRings(geom) {
+  var rings = [];
+  var polys = geom.type === 'MultiPolygon' ? geom.coordinates : [geom.coordinates];
+  polys.forEach(function(poly) {
+    poly.forEach(function(ring) {
+      rings.push(ring.map(function(c) { return [c[1], c[0]]; }));
+    });
+  });
+  return rings;
+}
+
+function _buildIndex(features) {
+  var idx = {};
+  features.forEach(function(f) {
+    if (!f.geometry) return;
+    var key = _normName(f.properties.NAME || f.properties.name || '');
+    if (!idx[key]) idx[key] = f.geometry;
+  });
+  return idx;
+}
+
+function _getRealCoords(zoneName, byName) {
+  var placeNames = ZONE_PLACE_NAMES[zoneName];
+  if (!placeNames) return null;
+  var allRings = [];
+  placeNames.forEach(function(pname) {
+    var geom = byName[_normName(pname)];
+    if (geom) allRings = allRings.concat(_geomToRings(geom));
+  });
+  return allRings.length > 0 ? allRings : null;
+}
+
+function _renderZones(byName) {
+  // Impact zones
+  LG.impact.clearLayers();
+  IMPACT_ZONES.forEach(function(z) {
+    var coords = _getRealCoords(z.name, byName) || [z.coords];
+    var html = '<div class="pop"><div class="pop-title">' + z.name + '</div>';
+    html += '<span class="pop-badge" style="background:' + borderMap[z.severity] + '">' + z.severity.toUpperCase() + '</span>';
+    html += '<div class="pop-stat"><span>Peak rainfall</span><b>' + z.rain + '</b></div>';
+    if (z.rescued) html += '<div class="pop-stat"><span>People rescued</span><b>' + z.rescued + '</b></div>';
+    html += '<div class="pop-box ' + (z.severity === 'moderate' ? 'warn' : 'danger') + '">' + z.desc + '</div></div>';
+    L.polygon(coords, {
+      fillColor: colMap[z.severity], color: borderMap[z.severity],
+      weight: 2, opacity: .85, fillOpacity: .55
+    }).bindPopup(html, {maxWidth: 290}).addTo(LG.impact);
+  });
+
+  // Evacuation zones
+  LG.evac.clearLayers();
+  EVAC_ZONES.forEach(function(z) {
+    var coords = _getRealCoords(z.name, byName) || [z.coords];
+    var html = '<div class="pop"><div class="pop-title">' + z.name + '</div>' +
+      '<span class="pop-badge" style="background:#7B2D8B">EVACUATION</span>' +
+      '<div class="pop-box warn">' + z.desc + '</div></div>';
+    L.polygon(coords, {
+      fillColor: 'rgba(123,45,139,.35)', color: '#7B2D8B',
+      weight: 2, dashArray: '8,4', opacity: .85, fillOpacity: .35
+    }).bindPopup(html, {maxWidth: 290}).addTo(LG.evac);
+  });
+
+  // Rainfall areas
+  LG.rain.clearLayers();
+  RAIN_AREAS.forEach(function(r) {
+    var coords = _getRealCoords(r.name, byName) || [r.coords];
+    L.polygon(coords, {
+      fillColor: 'rgba(30,136,229,.2)', color: '#1E88E5',
+      weight: 1.5, dashArray: '6,4', fillOpacity: .2
+    }).bindPopup(
+      '<div class="pop"><div class="pop-title">' + r.name + '</div>' +
+      '<div class="pop-stat"><span>Rainfall (event total)</span><b>' + r.rain + '</b></div>' +
+      '<div class="pop-box info">Extreme rainfall area from NWS HFO March 2026 rainfall summaries. Areas shown received more than 10 inches during the combined Kona low event period (March 10 to 24).</div></div>',
+      {maxWidth: 280}
+    ).addTo(LG.rain);
+  });
+}
+
+async function loadPlaceBoundaries() {
+  var features = null;
+
+  // ── Stage 1: try local cached file ──────────────────────────────────────────
+  try {
+    var localRes = await fetch('data/geojson/hawaii_places.geojson');
+    if (localRes.ok) {
+      var gj = await localRes.json();
+      features = gj.features;
+    }
+  } catch(_) {}
+
+  // ── Stage 2: targeted Census TIGER API query ─────────────────────────────────
+  // Only fires if local file is missing. Queries only the specific CDP names we
+  // need instead of all ~200 Hawaii places (saves ~8 MB of download).
+  if (!features) {
+    try {
+      var needed = {};
+      Object.values(ZONE_PLACE_NAMES).forEach(function(names) {
+        names.forEach(function(n) { needed[n] = true; });
+      });
+      var nameClause = Object.keys(needed).map(function(n) {
+        return "NAME='" + n.replace(/'/g, "''") + "'";
+      }).join(' OR ');
+
+      var qs = new URLSearchParams({
+        where:     "STATE='15' AND (" + nameClause + ")",
+        outFields: 'NAME,GEOID',
+        f:         'geojson',
+        outSR:     '4326'
+      });
+      var apiRes = await fetch(
+        'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/16/query?' + qs
+      );
+      if (apiRes.ok) {
+        var apiGJ = await apiRes.json();
+        features = apiGJ.features;
+      }
+    } catch(_) {}
+  }
+
+  if (!features || features.length === 0) {
+    console.warn('FloodWatch: Census boundary fetch returned no features. Zones will use rectangular placeholders.');
+    return;
+  }
+
+  var idx = _buildIndex(features);
+
+  // Debug: log any ZONE_PLACE_NAMES entries that produced no geometry match
+  Object.keys(ZONE_PLACE_NAMES).forEach(function(zone) {
+    var matched = ZONE_PLACE_NAMES[zone].some(function(n) { return !!idx[_normName(n)]; });
+    if (!matched) console.warn('FloodWatch: no Census match for "' + zone + '" (tried: ' + ZONE_PLACE_NAMES[zone].join(', ') + ')');
+  });
+
+  _renderZones(idx);
+}
+
+loadPlaceBoundaries();
 
 // ── ISLAND MARKERS ─────────────────────────────────────────────────────────────
 ISLANDS.forEach(function(isl){

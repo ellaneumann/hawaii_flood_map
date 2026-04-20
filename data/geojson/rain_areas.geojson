@@ -1,0 +1,185 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oahu North Shore (Storm 2 peak)",
+        "rain": "8–12\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.18,
+              21.55
+            ],
+            [
+              -158.18,
+              21.7
+            ],
+            [
+              -157.98,
+              21.7
+            ],
+            [
+              -157.98,
+              21.55
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "West Maui Mountains (Storm 1 peak — 62\" total)",
+        "rain": "19–62\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.72,
+              20.83
+            ],
+            [
+              -156.72,
+              20.98
+            ],
+            [
+              -156.54,
+              20.98
+            ],
+            [
+              -156.54,
+              20.83
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Molokai (all stations)",
+        "rain": "9–22\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.2,
+              21.1
+            ],
+            [
+              -157.2,
+              21.25
+            ],
+            [
+              -156.75,
+              21.25
+            ],
+            [
+              -156.75,
+              21.1
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lanai",
+        "rain": "7–13\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157,
+              20.78
+            ],
+            [
+              -157,
+              20.94
+            ],
+            [
+              -156.8,
+              20.94
+            ],
+            [
+              -156.8,
+              20.78
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hilo / Pahala Big Island",
+        "rain": "15–30\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.62,
+              19.1
+            ],
+            [
+              -155.62,
+              19.8
+            ],
+            [
+              -154.95,
+              19.8
+            ],
+            [
+              -154.95,
+              19.1
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kauai South / Kauai Channel",
+        "rain": "10+\""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -159.65,
+              21.83
+            ],
+            [
+              -159.65,
+              21.95
+            ],
+            [
+              -159.3,
+              21.95
+            ],
+            [
+              -159.3,
+              21.83
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

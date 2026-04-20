@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wahiawa Dam",
+        "type": "dam",
+        "desc": "120-year-old earthen dam, 5,500 evacuated",
+        "source": "Built-in map"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.024,
+          21.503
+        ]
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@
 var ISLANDS = [
   {
     name:'Oʻahu', lat:21.45, lng:-157.98, zoom:11,
-    severity:'CRITICAL', color:'#E65100',
+    severity:'CRITICAL', color:'#C62828',
     maxRain:'12"', rescued:236, evacuated:5500, damage:'$800M+',
     desc:"North Shore communities Waialua and Haleiwa were catastrophically flooded March 19–20. Homes and cars were swept away. The 120-year-old Wahiawa Dam threatened failure, triggering 5,500 evacuations. 115,000 residents lost power. National Guard and Honolulu Fire Department conducted aerial rescues, including 72 children and adults airlifted from a youth camp on the west coast. The March 23 'rain bomb' over Mānoa and Pālolo valleys sent Mānoa Stream overflowing into shopping centers and an elementary school.",
     actions:[
@@ -23,7 +23,7 @@ var ISLANDS = [
     name:'Maui', lat:20.80, lng:-156.33, zoom:11,
     severity:'SEVERE', color:'#D81B60',
     maxRain:'62"', rescued:0, evacuated:0, damage:'$100M+',
-    desc:"The first Kona low dumped up to 62 inches of rain on Maui's West Maui Mountains — among the highest totals recorded anywhere in the state during this event. Lahaina, still recovering from the devastating 2023 wildfire, received an evacuation warning as retention basins neared capacity. Kula Hospital (in upcountry Maui) was damaged. Roads across the island were closed. Farmers reported millions in agricultural damage.",
+    desc:"The first Kona low dumped up to 62 inches of rain on Maui's West Maui Mountains, among the highest totals recorded anywhere in the state during this event. Lahaina, still recovering from the devastating 2023 wildfire, received an evacuation warning as retention basins neared capacity. Kula Hospital (in upcountry Maui) was damaged. Roads across the island were closed. Farmers reported millions in agricultural damage.",
     actions:[
       {t:"Lahaina residents: check the County of Maui's Kona Storm page", b:"Lahaina is still in long-term wildfire recovery. Floodwater mixed with fire debris is a compounding hazard. Visit mauicounty.gov for the latest information on road closures and assistance programs."},
       {t:'Upcountry residents: monitor stream gauges', b:'USGS maintains real-time stream gauges on Maui. Visit waterdata.usgs.gov and search for Maui stream stations to track water levels during subsequent rain events.'},
@@ -44,7 +44,7 @@ var ISLANDS = [
     name:'Hawaiʻi Island', lat:19.59, lng:-155.43, zoom:9,
     severity:'MODERATE', color:'#F9A825',
     maxRain:'30"+', rescued:0, evacuated:0, damage:'$30M+',
-    desc:"Intense thunderstorms containing rainfall rates of up to 4+ inches per hour struck Pahala through Hilo on March 23. Flooding impacts were mainly limited to road closures due to heavy ponding. Wind gusts reached 135.4 mph at higher elevations during the first Kona low — the highest recorded in the state during the event. Hilo rain gauge broke daily records.",
+    desc:"Intense thunderstorms with rainfall rates up to 4+ inches per hour struck Pahala through Hilo on March 23. Flooding was mainly limited to road closures from heavy ponding. Wind gusts reached 135.4 mph at higher elevations during the first Kona low, the highest recorded in the state during the event. Hilo rain gauge broke daily records.",
     actions:[
       {t:'Monitor Saddle Road and highway conditions during rain', b:"Highway 200 (Saddle Road) and saddle routes flood quickly during heavy rain. Check Hawaii DOT's highway conditions at hidot.hawaii.gov before traveling."},
       {t:'Lava field residents: understand your unique flood risk', b:"Parts of lower Puna have very low topographic relief and no natural drainage. Floodwater can pond rapidly with no outlet. Identify your flood zone at FEMA's Flood Map Service Center."},
@@ -72,7 +72,7 @@ var ISLANDS = [
 
 // ── STATIC NEWS ────────────────────────────────────────────────────────────────
 var STATIC_NEWS = [
-  {y:2026,title:"Back-to-back Kona lows deliver worst Hawaii flooding in 20 years",src:"NASA Earth Observatory",tag:"Event",tc:"#E65100",
+  {y:2026,title:"Back-to-back Kona lows deliver worst Hawaii flooding in 20 years",src:"NASA Earth Observatory",tag:"Event",tc:"#C62828",
    sum:"NASA satellite imagery captured brown floodwater pooling across Waialua and Mokuleia farmland on March 14, with sediment plumes spreading into Kaiaka Bay. NASA's Disasters Response Coordination System was activated.",
    full:"Back-to-back low-pressure systems struck Hawaii in March 2026, delivering some of the worst flooding the state has seen in decades. The kona lows siphoned moisture from the tropics, fueling slow-moving thunderstorms with torrential rains. The NWS reported rainfall totals of 5 to 10 inches throughout the state between March 11 and 15, with some areas seeing more than 30 inches. Weather stations in Honolulu, Hilo, Līhuʻe, and Kahului all broke daily rainfall records. Preliminary assessments indicate that hundreds of homes on Oʻahu sustained damage. The storm produced widespread wind gusts between 60 and 75 mph, with gusts in some places reaching 100 mph. As many as 115,000 Oʻahu residents faced power outages.",
    url:"https://science.nasa.gov/earth/earth-observatory/kona-storms-flood-oahu/"},
@@ -96,29 +96,29 @@ var STATIC_NEWS = [
 
 // ── IMPACT ZONES (documented flood areas) ─────────────────────────────────────
 var IMPACT_ZONES = [
-  {name:"Waialua / Haleiwa — Oahu North Shore",coords:[[21.57,-158.10],[21.61,-158.10],[21.61,-158.03],[21.57,-158.03]],
+  {name:"Waialua / Haleiwa, Oahu North Shore",coords:[[21.57,-158.10],[21.61,-158.10],[21.61,-158.03],[21.57,-158.03]],
    rain:"8–12\"",rescued:150,desc:"Worst-hit area. Homes and cars swept away by Kaukonahua Stream overflow. Communities completely inundated.",severity:"critical"},
   {name:"Wahiawa / Central Oahu",coords:[[21.48,-158.04],[21.53,-158.04],[21.53,-157.98],[21.48,-157.98]],
    rain:"8–10\"",rescued:0,desc:"Dam area. 5,500 residents evacuated north of this area due to Wahiawa Dam failure risk.",severity:"critical"},
   {name:"Pupukea / North Shore Oahu",coords:[[21.64,-158.06],[21.67,-158.06],[21.67,-158.01],[21.64,-158.01]],
    rain:"10–12\"",rescued:30,desc:"Vehicle documented completely submerged in Pupukea. Multiple structure rescues.",severity:"high"},
-  {name:"Mānoa / Pālolo — Honolulu",coords:[[21.29,-157.82],[21.32,-157.82],[21.32,-157.78],[21.29,-157.78]],
-   rain:"3.5–6.5\"(3hrs)",rescued:0,desc:"March 23 'rain bomb' — stationary storm cell dropped 2–4 inches per hour. Mānoa Stream overflowed into parking lots, roads, and Mānoa Elementary School.",severity:"high"},
+  {name:"Mānoa / Pālolo, Honolulu",coords:[[21.29,-157.82],[21.32,-157.82],[21.32,-157.78],[21.29,-157.78]],
+   rain:"3.5–6.5\"(3hrs)",rescued:0,desc:"March 23 'rain bomb': a stationary storm cell dropped 2 to 4 inches per hour. Mānoa Stream overflowed into parking lots, roads, and Mānoa Elementary School.",severity:"high"},
   {name:"Waianae / West Oahu",coords:[[21.43,-158.22],[21.48,-158.22],[21.48,-158.15],[21.43,-158.15]],
    rain:"5\"",rescued:72,desc:"72 children and adults airlifted by National Guard from Our Lady of Keaau youth retreat camp on the west coast.",severity:"high"},
-  {name:"Lahaina — West Maui",coords:[[20.86,-156.70],[20.91,-156.70],[20.91,-156.63],[20.86,-156.63]],
+  {name:"Lahaina, West Maui",coords:[[20.86,-156.70],[20.91,-156.70],[20.91,-156.63],[20.86,-156.63]],
    rain:"15+\"",rescued:0,desc:"Evacuation warning issued. Retention basins neared capacity. Still in wildfire recovery from August 2023 disaster.",severity:"high"},
   {name:"West Maui Mountains",coords:[[20.87,-156.66],[20.95,-156.66],[20.95,-156.57],[20.87,-156.57]],
    rain:"62\"",rescued:0,desc:"Highest recorded rainfall in the state during the event. Puu Kukui station (USGS) recorded 19.61 inches in Storm 2 alone.",severity:"high"},
   {name:"Kula / Upcountry Maui",coords:[[20.74,-156.38],[20.80,-156.38],[20.80,-156.30],[20.74,-156.30]],
    rain:"10–18\"",rescued:0,desc:"Kula Hospital damaged. Road closures throughout upcountry Maui. Agricultural losses in millions.",severity:"moderate"},
-  {name:"Pahala — Big Island South",coords:[[19.16,-155.58],[19.21,-155.58],[19.21,-155.48],[19.16,-155.48]],
+  {name:"Pahala, Big Island South",coords:[[19.16,-155.58],[19.21,-155.58],[19.21,-155.48],[19.16,-155.48]],
    rain:"20+\"",rescued:0,desc:"March 23 thunderstorms with 4+ inch/hour rainfall rates. Road closures due to heavy ponding.",severity:"moderate"},
-  {name:"Hilo — Big Island East",coords:[[19.69,-155.10],[19.74,-155.10],[19.74,-155.02],[19.69,-155.02]],
-   rain:"15+\"",rescued:0,desc:"Daily rainfall records broken. Hilo is the wettest city in the US — even so this event was exceptional.",severity:"moderate"},
+  {name:"Hilo, Big Island East",coords:[[19.69,-155.10],[19.74,-155.10],[19.74,-155.02],[19.69,-155.02]],
+   rain:"15+\"",rescued:0,desc:"Daily rainfall records broken. Hilo is the wettest city in the US, and even this event was exceptional.",severity:"moderate"},
   {name:"South Kauai / Kauai Channel",coords:[[21.84,-159.55],[21.91,-159.55],[21.91,-159.43],[21.84,-159.43]],
    rain:"10+\"",rescued:0,desc:"Storm 2 originated over south Kauai before tracking east toward Oahu. Flooding and road closures.",severity:"moderate"},
-  {name:"Honolimaloo — Molokai",coords:[[21.18,-156.96],[21.22,-156.96],[21.22,-156.89],[21.18,-156.89]],
+  {name:"Honolimaloo, Molokai",coords:[[21.18,-156.96],[21.22,-156.96],[21.22,-156.89],[21.18,-156.89]],
    rain:"22.31\"",rescued:0,desc:"Highest rainfall on Molokai (UH Mesonet). Molokai radar was offline throughout the event.",severity:"moderate"},
 ];
 
@@ -168,7 +168,7 @@ var RESCUES=[
 // ── EXTREME RAINFALL AREAS ─────────────────────────────────────────────────────
 var RAIN_AREAS=[
   {name:"Oahu North Shore (Storm 2 peak)",coords:[[21.55,-158.18],[21.70,-158.18],[21.70,-157.98],[21.55,-157.98]],rain:"8–12\""},
-  {name:"West Maui Mountains (Storm 1 peak — 62\" total)",coords:[[20.83,-156.72],[20.98,-156.72],[20.98,-156.54],[20.83,-156.54]],rain:"19–62\""},
+  {name:"West Maui Mountains (Storm 1 peak, 62\" total)",coords:[[20.83,-156.72],[20.98,-156.72],[20.98,-156.54],[20.83,-156.54]],rain:"19–62\""},
   {name:"Molokai (all stations)",coords:[[21.10,-157.20],[21.25,-157.20],[21.25,-156.75],[21.10,-156.75]],rain:"9–22\""},
   {name:"Lanai",coords:[[20.78,-157.00],[20.94,-157.00],[20.94,-156.80],[20.78,-156.80]],rain:"7–13\""},
   {name:"Hilo / Pahala Big Island",coords:[[19.10,-155.62],[19.80,-155.62],[19.80,-154.95],[19.10,-154.95]],rain:"15–30\""},
@@ -199,7 +199,7 @@ var SLR_AREAS=[
 
 // ── MAJOR STREAMS ─────────────────────────────────────────────────────────────
 var STREAMS=[
-  {name:"Kaukonahua Stream (FLOODED — swept away homes)",c:'#E65100',w:3,pts:[[21.57,-158.09],[21.585,-158.07],[21.60,-158.05],[21.615,-158.04]]},
+  {name:"Kaukonahua Stream (FLOODED — swept away homes)",c:'#C62828',w:3,pts:[[21.57,-158.09],[21.585,-158.07],[21.60,-158.05],[21.615,-158.04]]},
   {name:"Mānoa Stream (FLOODED — rain bomb overflow)",c:'#D81B60',w:3,pts:[[21.333,-157.812],[21.318,-157.815],[21.305,-157.819],[21.295,-157.825]]},
   {name:"Palolo Stream",c:'#1E88E5',w:2,pts:[[21.318,-157.795],[21.308,-157.800],[21.298,-157.808]]},
   {name:"Waimea River — Kauai",c:'#1E88E5',w:2.5,pts:[[22.065,-159.67],[22.055,-159.645],[22.048,-159.623],[22.04,-159.605]]},
@@ -307,8 +307,8 @@ var WATERWAY_NETWORK = [
 ];
 
 // ── COLOR MAPPINGS FOR SEVERITY ──────────────────────────────────────────────
-var colMap={critical:'rgba(230,81,0,.55)',high:'rgba(216,27,96,.45)',moderate:'rgba(249,168,37,.35)'};
-var borderMap={critical:'#E65100',high:'#D81B60',moderate:'#F9A825'};
+var colMap={critical:'rgba(198,40,40,.55)',high:'rgba(216,27,96,.45)',moderate:'rgba(249,168,37,.35)'};
+var borderMap={critical:'#C62828',high:'#D81B60',moderate:'#F9A825'};
 
 // Contamination risk colors
 var contamRiskColor={critical:'#8b0000',high:'#d81b60',moderate:'#f9a825',low:'#fbc02d'};

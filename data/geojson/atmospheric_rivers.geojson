@@ -1,0 +1,75 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Atmospheric River Track — March 14-15 Kona Low 1",
+        "ivt_peak": "385 kg m-1 s-1",
+        "ar_classification": "Category 4 (Extreme)",
+        "duration_hours": 36,
+        "rainfall_total": "5-12 inches (Oahu North Shore)",
+        "desc": "First atmospheric river event. Very strong IVT values indicate exceptional moisture transport. Result: Widespread heavy rain across entire state.",
+        "model": "NCEP GFS / ECMWF",
+        "issued": "March 12, 2026",
+        "url": "https://cw3e.ucsd.edu/arscale/"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -158.5,
+            20
+          ],
+          [
+            -158,
+            20.5
+          ],
+          [
+            -157.8,
+            21
+          ],
+          [
+            -157.5,
+            21.5
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Atmospheric River Track — March 22-24 Kona Low 2",
+        "ivt_peak": "412 kg m-1 s-1",
+        "ar_classification": "Category 5 (Exceptional)",
+        "duration_hours": 48,
+        "rainfall_total": "2-4 in/hr (Mānoa/Pālolo 'rain bomb')",
+        "desc": "Second atmospheric river. Produced exceptional IVT values — among highest recorded for Hawaii events. Created stationary cell over Honolulu producing extreme point rainfall.",
+        "model": "NCEP GFS / ECMWF / GEFS Ensemble",
+        "issued": "March 20, 2026",
+        "url": "https://cw3e.ucsd.edu/arscale/"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -160,
+            19.5
+          ],
+          [
+            -159.2,
+            20.2
+          ],
+          [
+            -158.5,
+            20.8
+          ],
+          [
+            -157.8,
+            21.5
+          ]
+        ]
+      }
+    }
+  ]
+}

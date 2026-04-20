@@ -1,0 +1,119 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Impervious Surface — Honolulu Urban Core (60-100%)",
+        "impervious_pct": "75-85%",
+        "land_use": "Dense commercial/residential",
+        "area_sq_miles": 2.3,
+        "flood_risk_increase": "40-60% higher peak flows vs permeable baseline",
+        "runoff_coeff": 0.85,
+        "stormwater_capacity": "Exceeded during 2026 event",
+        "desc": "Downtown Honolulu with extensive pavement, rooftops, and impervious surfaces. 75%+ coverage means virtually all rainfall becomes surface runoff. March 23 rain bomb overwhelmed stormwater infrastructure.",
+        "climate_impact": "Urban heat island effect increases local convection; contributes to stationary rainfall cells over developed areas.",
+        "source_url": "https://www.mrlc.gov/data/type/fractional-impervious-surface"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -157.86,
+              21.29
+            ],
+            [
+              -157.86,
+              21.33
+            ],
+            [
+              -157.8,
+              21.33
+            ],
+            [
+              -157.8,
+              21.29
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Medium Impervious Surface — Waialua Town (30-50%)",
+        "impervious_pct": "40-50%",
+        "land_use": "Rural estate/mixed agriculture",
+        "area_sq_miles": 5.2,
+        "flood_risk_increase": "20-35% higher peak flows",
+        "runoff_coeff": 0.55,
+        "stormwater_capacity": "Rural drainage inadequate for extreme events",
+        "desc": "Waialua-Haleiwa area. Mix of agricultural land with increasing residential development. Inadequate stormwater infrastructure for the scale of 2026 event (8-12 inches in 36 hours).",
+        "satellite_note": "ESA Urbinsule project shows expanding impervious surface in this region since 2010.",
+        "source_url": "https://www.mrlc.gov/data/type/fractional-impervious-surface"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -158.1,
+              21.57
+            ],
+            [
+              -158.1,
+              21.62
+            ],
+            [
+              -158.04,
+              21.62
+            ],
+            [
+              -158.04,
+              21.57
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Low Impervious Surface — West Maui Agricultural (10-25%)",
+        "impervious_pct": "15-20%",
+        "land_use": "Agriculture + scattered homes",
+        "area_sq_miles": 8.5,
+        "flood_risk_increase": "5-15% vs baseline",
+        "runoff_coeff": 0.35,
+        "stormwater_capacity": "Natural infiltration + drainage; overwhelmed by 62 inch total",
+        "desc": "Historic pineapple and agriculture zone. Lower impervious coverage but HIGH erosion risk due to iron-rich pineapple soils and post-wildfire conditions. 62 inches rain mobilized debris flows despite low urban coverage.",
+        "pineapple_soil_note": "Molokai/Mahiki series soils in this zone have 24-30% Fe2O3; iron oxide creates low permeability despite agricultural use.",
+        "source_url": "https://www.mrlc.gov/data/type/fractional-impervious-surface"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -156.68,
+              20.87
+            ],
+            [
+              -156.68,
+              20.95
+            ],
+            [
+              -156.56,
+              20.95
+            ],
+            [
+              -156.56,
+              20.87
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
