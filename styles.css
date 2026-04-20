@@ -179,11 +179,11 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
    RESPONSIVE DESIGN — TABLET (768px and below)
    ──────────────────────────────────────────────────────────────────────────────── */
 @media (max-width:768px){
-  .sidebar{width:0;border-right:none}
+  .sidebar{width:0;border-right:none;flex-shrink:1;position:fixed;top:0;left:0;height:100vh;z-index:500;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .sidebar.open{width:280px;box-shadow:2px 0 12px rgba(0,0,0,.2)}
   .sidebar>*{display:none}
   .sidebar.open>*{display:block}
-  .sb-toggle{right:0;width:40px;height:56px;background:#fff;border:1px solid var(--g200);z-index:600}
+  .sb-toggle{position:fixed;right:0;top:0;width:40px;height:56px;background:#fff;border:1px solid var(--g200);z-index:600}
   .sb-toggle:hover{background:var(--g50)}
   
   .main{flex-direction:column}
@@ -254,14 +254,14 @@ header{background:linear-gradient(135deg,var(--ink),var(--ink2));color:#fff;padd
   .hdr-st{font-size:8px}
   .sdot{width:5px;height:5px}
   
-  .sidebar{width:0}
-  .sidebar.open{width:100vw;max-width:320px;height:100vh;position:fixed;top:48px;left:0;z-index:500;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .scroll{padding:6px;max-height:calc(100vh - 150px)}
+  .sidebar{width:0;flex-shrink:1;position:fixed;top:0;left:0;height:100vh;z-index:500;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .sidebar.open{width:100vw;max-width:320px;height:100vh;position:fixed;top:0;left:0;z-index:500;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .scroll{padding:6px;max-height:calc(100vh - 80px)}
   
-  .sb-toggle{width:36px;height:48px;font-size:11px}
+  .sb-toggle{position:fixed;right:0;top:0;width:36px;height:48px;font-size:11px;z-index:600;background:#fff;border:1px solid var(--g200)}
   
-  .main{flex-direction:column;gap:0}
-  .map-area{flex:1}
+  .main{flex-direction:column;gap:0;position:relative}
+  .map-area{flex:1;width:100%}
   
   .tabs{flex-wrap:nowrap;overflow-x:auto;font-size:7px}
   .tab{font-size:7px;padding:5px 2px}
