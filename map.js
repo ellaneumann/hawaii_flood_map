@@ -339,7 +339,7 @@ WS_BOUNDS.forEach(function(w){
 //   2. USGS NHD+ High Resolution — every named stream channel on O'ahu
 //   3. USGS Watershed Boundary Dataset (WBD HUC-10) — watershed drainage divides
 //
-// To refresh the files:  node fetch_real_data.js
+// To refresh the files:  node fetch_data.js
 // If a file is missing the original data.js placeholder stays in place quietly.
 
 function fldZoneStyle(zone) {
@@ -400,9 +400,9 @@ async function loadRealLayers() {
       }
     }).addTo(LG.fema);
   } catch (_) {
-    // File missing — likely fetch_real_data.js hasn't been run yet
+    // File missing — likely fetch_data.js hasn't been run yet
     if (fvsFemaNote) {
-      fvsFemaNote.textContent = 'FEMA file not found — run: node fetch_real_data.js';
+      fvsFemaNote.textContent = 'FEMA file not found — run: node fetch_data.js';
       fvsFemaNote.style.color = '#c0392b';
     }
   }
@@ -505,6 +505,146 @@ async function loadRealLayers() {
       }
     }).addTo(LG.watersheds);
   } catch (_) { /* keep data.js placeholder */ }
+
+  // 4. Dam locations — replaces single hard-coded Wahiawa Dam marker
+  // Source: Hawaii State GIS / USACE NID (data/geojson/dams.geojson)
+  try {
+    const damRes = await fetch(base + 'dams.geojson');
+    if (!damRes.ok) throw new Error('file not found');
+    const damGJ = await damRes.json();
+    LG.dam.clearLayers();
+    damGJ.features.forEach(function(feat) {
+      if (!feat.geometry) return;
+      var p = feat.properties;
+      var hazard = (p.downstream_hazard_potential || '').trim();
+      var color  = hazard === 'H' ? '#C62828' : hazard === 'S' ? '#F9A825' : '#388E3C';
+      var label  = hazard === 'H' ? 'HIGH HAZARD' : hazard === 'S' ? 'SIGNIFICANT' : 'LOW HAZARD';
+      var coords = feat.geometry.coordinates; // GeoJSON: [lng, lat]
+      var icon = L.divIcon({
+        html: '<div style="width:18px;height:18px;background:' + color + ';border:2px solid #fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">D</div>',
+        className: '', iconSize: [18, 18], iconAnchor: [9, 9]
+      });
+      var html = '<div class="pop">' +
+        '<div class="pop-title">' + (p.dam_name || 'Dam') + '</div>' +
+        '<span class="pop-badge" style="background:' + color + '">' + label + '</span>' +
+        '<div class="pop-stat"><span>Height</span><b>' + (p.dam_height || 'N/A') + ' ft</b></div>' +
+        '<div class="pop-stat"><span>Built</span><b>' + (p.year_completed || 'Unknown') + '</b></div>' +
+        '<div class="pop-stat"><span>Owner</span><b>' + (p.owner_name || 'Unknown') + '</b></div>' +
+        (p.river_or_stream ? '<div class="pop-stat"><span>River / stream</span><b>' + p.river_or_stream + '</b></div>' : '') +
+        '<div class="pop-stat"><span>Condition</span><b>' + (p.condition_assessment || 'Unknown') + '</b></div>' +
+        (p.operational_status ? '<div class="pop-stat"><span>Status</span><b>' + p.operational_status + '</b></div>' : '') +
+        '<div class="pop-box ' + (hazard === 'H' ? 'danger' : 'warn') + '">' +
+        'Source: Hawaii Statewide GIS Program / USACE NID · ID: ' + (p.nid_id || 'N/A') + '</div>' +
+        '</div>';
+      L.marker([coords[1], coords[0]], { icon: icon })
+        .bindPopup(html, { maxWidth: 290 })
+        .addTo(LG.dam);
+    });
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 5. OSDS / cesspool points — individual high-risk systems (risk score >= 4)
+  // Source: Hawaii DOH via Hawaii State GIS (data/geojson/osds.geojson)
+  // Added to the contamination layer alongside the existing zone-level polygons.
+  try {
+    const osdsRes = await fetch(base + 'osds.geojson');
+    if (!osdsRes.ok) throw new Error('file not found');
+    const osdsGJ = await osdsRes.json();
+    osdsGJ.features.forEach(function(feat) {
+      if (!feat.geometry) return;
+      var p      = feat.properties;
+      var score  = p.rsk_score || 4;
+      var color  = score >= 5 ? '#C62828' : '#D81B60';
+      var coords = feat.geometry.coordinates; // GeoJSON: [lng, lat]
+      var html = '<div class="pop">' +
+        '<div class="pop-title">OSDS · ' + (p.towns || 'Oahu') + '</div>' +
+        '<span class="pop-badge" style="background:' + color + '">RISK SCORE ' + score + '/5</span>' +
+        '<div class="pop-stat"><span>System type</span><b>' + (p.type || 'Unknown') + '</b></div>' +
+        '<div class="pop-stat"><span>Class</span><b>' + (p.osds_class || 'Unknown') + '</b></div>' +
+        (p.cp_n  ? '<div class="pop-stat"><span>Nitrogen load</span><b>' + Number(p.cp_n).toFixed(1) + ' lbs/yr</b></div>' : '') +
+        (p.cp_fc ? '<div class="pop-stat"><span>Fecal coliform</span><b>' + Number(p.cp_fc).toLocaleString() + ' MPN/yr</b></div>' : '') +
+        '<div class="pop-box danger">Individual cesspool / septic system. When inundated, releases raw sewage, pathogens, and nutrients directly into floodwater and groundwater. ' +
+        'Source: Hawaii DOH OSDS database via Hawaii Statewide GIS Program.</div>' +
+        '</div>';
+      L.circleMarker([coords[1], coords[0]], {
+        radius: 3, fillColor: color, color: color,
+        weight: 1, opacity: 0.6, fillOpacity: 0.45
+      }).bindPopup(html, { maxWidth: 280 }).addTo(LG.contamination);
+    });
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 6. Real SLR 3.2ft coastal flood zones — replaces 6 hand-drawn rectangles
+  // Source: UH Coastal Geology Group / Hawaii State GIS (data/geojson/slr_real.geojson)
+  try {
+    const slrRes = await fetch(base + 'slr_real.geojson');
+    if (!slrRes.ok) throw new Error('file not found');
+    const slrGJ = await slrRes.json();
+    LG.slr.clearLayers();
+    L.geoJSON(slrGJ, {
+      style: function() {
+        return {
+          fillColor: 'rgba(30,136,229,.25)',
+          color: '#1565C0',
+          weight: 1.5,
+          dashArray: '4,3',
+          fillOpacity: 0.25,
+          opacity: 0.8
+        };
+      },
+      onEachFeature: function(feat, layer) {
+        layer.bindPopup(
+          '<div class="pop">' +
+          '<div class="pop-title">SLR 3.2 ft Coastal Flood Zone</div>' +
+          '<span class="pop-badge" style="background:#1565C0">SLR 3.2 FT SCENARIO</span>' +
+          '<div class="pop-box info">1% annual-chance coastal flood zone with 3.2 feet of sea level rise. ' +
+          'Source: UH Coastal Geology Group (HAZUS model) via Hawaii Statewide GIS Program ' +
+          '(Hazards/MapServer/15). This scenario expands flood exposure well beyond current FEMA FIRM maps. ' +
+          'Full data at fhat.hawaii.gov.</div>' +
+          '</div>',
+          { maxWidth: 290 }
+        );
+      }
+    }).addTo(LG.slr);
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 7. Real SSURGO soil polygons (Oahu) — replaces 9 hand-drawn zones
+  // Source: USDA NRCS SSURGO via Hawaii State GIS (data/geojson/soil_oahu.geojson)
+  // musym field distinguishes real data from gen_geojson.js output (which has iron_oxide_pct).
+  // Note: hydrologic group requires a USDA Soil Data Access (SDA) join on mukey.
+  try {
+    const soilRes = await fetch(base + 'soil_oahu.geojson');
+    if (!soilRes.ok) throw new Error('file not found');
+    const soilGJ = await soilRes.json();
+    LG.soils.clearLayers();
+    L.geoJSON(soilGJ, {
+      style: function() {
+        return {
+          fillColor: 'rgba(139,90,43,.18)',
+          color: '#795548',
+          weight: 0.5,
+          fillOpacity: 0.18,
+          opacity: 0.5
+        };
+      },
+      onEachFeature: function(feat, layer) {
+        var p = feat.properties;
+        layer.bindTooltip(p.musym || 'Soil', { direction: 'top', sticky: true });
+        layer.bindPopup(
+          '<div class="pop">' +
+          '<div class="pop-title">Soil Map Unit: ' + (p.musym || 'Unknown') + '</div>' +
+          '<span class="pop-badge" style="background:#795548">SSURGO</span>' +
+          '<div class="pop-stat"><span>Map unit symbol</span><b>' + (p.musym || 'N/A') + '</b></div>' +
+          '<div class="pop-stat"><span>Survey area</span><b>' + (p.areasymbol || 'N/A') + '</b></div>' +
+          '<div class="pop-stat"><span>USDA mukey</span><b>' + (p.mukey || 'N/A') + '</b></div>' +
+          '<div class="pop-box info">Real USDA NRCS SSURGO soil survey polygon (November 2023). ' +
+          'Source: Hawaii Statewide GIS Program Terrestrial/MapServer/42. ' +
+          'Hydrologic group (A–D) requires a join on mukey at sdmdataaccess.nrcs.usda.gov.</div>' +
+          '<a href="https://websoilsurvey.sc.egov.usda.gov/" target="_blank" style="font-size:9px;color:#0066cc;display:block;margin-top:4px">USDA Web Soil Survey →</a>' +
+          '</div>',
+          { maxWidth: 300 }
+        );
+      }
+    }).addTo(LG.soils);
+  } catch (_) { /* keep data.js placeholder */ }
 }
 
 // Run on page load — falls back silently to data.js layers if files are absent
@@ -516,7 +656,7 @@ loadRealLayers();
 //
 // Strategy (two-stage):
 //   1. Try the locally cached file data/geojson/hawaii_places.geojson (fast, offline).
-//      Generate it with:  node fetch_real_data.js
+//      Generate it with:  node fetch_data.js
 //   2. If file is absent, query the Census TIGER REST API directly in the browser,
 //      fetching ONLY the specific place names we need (targeted query, ~10–30 KB).
 //
