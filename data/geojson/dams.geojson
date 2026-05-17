@@ -1,0 +1,2609 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.80779459659905,
+          21.352629579370554
+        ]
+      },
+      "properties": {
+        "dam_name": "NUUANU DAM NO. 4",
+        "dam_height": "66",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1910,
+        "owner_name": "Honolulu Board of Water Supply",
+        "river_or_stream": "NUUANU STREAM",
+        "operational_status": "Under Remediation",
+        "nid_id": "HI00001"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.67843468204316,
+          22.08833160928098
+        ]
+      },
+      "properties": {
+        "dam_name": "PUU LUA RESERVOIR",
+        "dam_height": "105",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1925,
+        "owner_name": "Hawaii Dept of Land & Natural Resources",
+        "river_or_stream": "TR-HAELELE STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00002"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.72359768338504,
+          22.039026605041908
+        ]
+      },
+      "properties": {
+        "dam_name": "PUU OPAE RESERVOIR",
+        "dam_height": "41",
+        "downstream_hazard_potential": "L",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1930,
+        "owner_name": "Hawaii Dept of Hawaiian Home Lands",
+        "river_or_stream": "TR-NUI STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00003"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.75888868581407,
+          22.031929604093996
+        ]
+      },
+      "properties": {
+        "dam_name": "MANA RESERVOIR",
+        "dam_height": "17",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1905,
+        "owner_name": "Agribusiness Development Corporation (ADC)",
+        "river_or_stream": "KAAWALOA STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00005"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.64924768009732,
+          21.965837600516256
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKAIA RESERVOIR",
+        "dam_height": "26",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1951,
+        "owner_name": "Robinson Family Partners",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00006"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.61751167871898,
+          22.00234860399994
+        ]
+      },
+      "properties": {
+        "dam_name": "KEPANI RESERVOIR",
+        "dam_height": "35",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1954,
+        "owner_name": "Robinson Family Partners",
+        "river_or_stream": "MAKAWELI RIVER OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00007"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.59951067731572,
+          21.97003560110628
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKOLOI RESERVOIR",
+        "dam_height": "64",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1958,
+        "owner_name": "Robinson Family Partners",
+        "river_or_stream": "WAIKOLOI STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00008"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.6252296775718,
+          21.948867599652885
+        ]
+      },
+      "properties": {
+        "dam_name": "KAAWANUI RESERVOIR",
+        "dam_height": "26",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1950,
+        "owner_name": "Robinson Family Partners",
+        "river_or_stream": "KAAWANUI GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00009"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.37383966878122,
+          22.1998106198245
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIAKALUA RESERVOIR",
+        "dam_height": "23",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "Allen, William P Rev Living Trust, Atkin,Thomas R Revocable Living Trust, He Makana Ka Wai, HUNT KILAUEA LLC, Matthew C Miller, Mr. Evan and Mrs. Erica Wollman, Theresa Drake, Victor Mission Trust LLC, William L. Flaherty, Trust",
+        "river_or_stream": "WAIAKALUA STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00010"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.38129666816923,
+          22.019363606062516
+        ]
+      },
+      "properties": {
+        "dam_name": "AII RESERVOIR",
+        "dam_height": "21",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "TR-HANAMAULU STREAM OFFSTREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00011"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.39602566909372,
+          22.016702606511664
+        ]
+      },
+      "properties": {
+        "dam_name": "KAPAIA RESERVOIR",
+        "dam_height": "50",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "HANAMAULU STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00012"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3650406670193,
+          22.006318605207035
+        ]
+      },
+      "properties": {
+        "dam_name": "OKINAWA RESERVOIR",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "UNNAMED GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00014"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3713286685153,
+          22.131114614363675
+        ]
+      },
+      "properties": {
+        "dam_name": "KANEHA RESERVOIR",
+        "dam_height": "46",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "Cornerstone Hawaii Holdings LLC",
+        "river_or_stream": "TR-KEALIA STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00015"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3617736686057,
+          22.1148606138883
+        ]
+      },
+      "properties": {
+        "dam_name": "MIMINO RESERVOIR",
+        "dam_height": "68",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "Mimino Ranch LLC",
+        "river_or_stream": "MIMINO STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00016"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.04913660711892,
+          21.497651584886814
+        ]
+      },
+      "properties": {
+        "dam_name": "WAHIAWA DAM",
+        "dam_height": "88",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1906,
+        "owner_name": "Dole Food Company Hawaii, Sustainable Hawaii, Inc., Wahiawa Water Co., Inc.",
+        "river_or_stream": "KAUKONAHUA STREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00017"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.02797160698145,
+          21.570371589496673
+        ]
+      },
+      "properties": {
+        "dam_name": "OPAEULA 01 RESERVOIR",
+        "dam_height": "66",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1910,
+        "owner_name": "Kamehameha Schools",
+        "river_or_stream": "TR-ANAHULU RIVER",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.10363860970946,
+          21.55607058906619
+        ]
+      },
+      "properties": {
+        "dam_name": "KEMOO 5 RESERVOIR",
+        "dam_height": "21",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "Dole Food Company Hawaii",
+        "river_or_stream": "KAUKONAHUA STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00021"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.02900260661667,
+          21.526726587162923
+        ]
+      },
+      "properties": {
+        "dam_name": "UPPER HELEMANO RESERVOIR",
+        "dam_height": "46",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1912,
+        "owner_name": "Dole Food Company Hawaii",
+        "river_or_stream": "TR-POAMOHO STREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00022"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.06562060866545,
+          21.552773588760775
+        ]
+      },
+      "properties": {
+        "dam_name": "HELEMANO  6 RESERVOIR",
+        "dam_height": "36",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1915,
+        "owner_name": "Dole Food Company Hawaii",
+        "river_or_stream": "NORTH POMOHO STREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.43236367165855,
+          22.187050618282175
+        ]
+      },
+      "properties": {
+        "dam_name": "KALIHIWAI RESERVOIR",
+        "dam_height": "20",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "CG Utilities LLC, Kalihiwai Ridge Community Association, Porter Irrigation",
+        "river_or_stream": "TR-KALIHIWAI RIVER",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00024"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.98109660443328,
+          21.497563586609218
+        ]
+      },
+      "properties": {
+        "dam_name": "KU TREE RESERVOIR",
+        "dam_height": "98",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1925,
+        "owner_name": "U.S. Army, Dept. Of Defense",
+        "river_or_stream": "TR-KAUKONAHUA RIVER",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3797526690084,
+          22.17812861748714
+        ]
+      },
+      "properties": {
+        "dam_name": "KALOKO RESERVOIR",
+        "dam_height": "27",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1890,
+        "owner_name": "Kaloko LLC, Ko'olau Kula LLC",
+        "river_or_stream": "KOLOKO DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00030"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.67245350987005,
+          20.038116541062465
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKOLOA RESERVOIR NO. 1",
+        "dam_height": "44",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1970,
+        "owner_name": "Hawaii County, Dept of Water Supply",
+        "river_or_stream": "WAIKOLOA-OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00040"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.04417956759113,
+          21.154664576601707
+        ]
+      },
+      "properties": {
+        "dam_name": "KUALAPUU RESERVOIR",
+        "dam_height": "57",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1969,
+        "owner_name": "State of Hawaii, Dept of Agriculture",
+        "river_or_stream": "TR-KALUA PEELUA GULCH",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00041"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.62327550892272,
+          20.047134541992975
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIMEA 60 MG RESERVOIR",
+        "dam_height": "50",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1957,
+        "owner_name": "State of Hawaii, Dept of Agriculture",
+        "river_or_stream": "UPPER HAMAKUA DITCH",
+        "operational_status": "Under Remediation",
+        "nid_id": "HI00042"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.63535450812017,
+          20.02332554086207
+        ]
+      },
+      "properties": {
+        "dam_name": "PUUKAPU WATERSHED RETARDING DAM R-1",
+        "dam_height": "12",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1965,
+        "owner_name": "Hawaii Dept of Hawaiian Home Lands, Hawaii Dept of Land & Natural Resources",
+        "river_or_stream": "LANIMAUMAU STREAM OFFSTREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00043"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.23031553819243,
+          20.807810569606087
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKAMOI DAM NO. 2",
+        "dam_height": "34",
+        "downstream_hazard_potential": "L",
+        "condition_assessment": "POOR",
+        "year_completed": 1956,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": "WAIKAMOI STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00046"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.27369653968384,
+          20.830029570560573
+        ]
+      },
+      "properties": {
+        "dam_name": "PIIHOLO 50 MG RESERVOIR",
+        "dam_height": "42",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1971,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": "TR-MILIKO GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00047"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.2749175391264,
+          20.798688567528075
+        ]
+      },
+      "properties": {
+        "dam_name": "OLINDA RESERVOIR",
+        "dam_height": "42",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1918,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": "KAILUA GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00048"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.4998624874375,
+          19.24849550728196
+        ]
+      },
+      "properties": {
+        "dam_name": "KEAIWA RESERVOIR",
+        "dam_height": "32",
+        "downstream_hazard_potential": "L",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1920,
+        "owner_name": "Edmund C. Olson Trust No. II",
+        "river_or_stream": "FED BY IRR. FLUME",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00049"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.64878055247115,
+          20.925218569840776
+        ]
+      },
+      "properties": {
+        "dam_name": "HORNER RESERVOIR",
+        "dam_height": "70",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1926,
+        "owner_name": "Kaanapali Land Management Corp.",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00054"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.64890955204774,
+          20.92870356990994
+        ]
+      },
+      "properties": {
+        "dam_name": "HANAKAOO RESERVOIR",
+        "dam_height": "27",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1918,
+        "owner_name": "Kaanapali Land Management Corp.",
+        "river_or_stream": "HONOKOWAI STREAM OFFSTREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00056"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.64060155151154,
+          20.90187756855544
+        ]
+      },
+      "properties": {
+        "dam_name": "KAHOMA RESERVOIR",
+        "dam_height": "59.7",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1918,
+        "owner_name": "Estate of Bernice Pauahi Bishop",
+        "river_or_stream": "KAHOMA STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00057"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.67258655273906,
+          20.947943569748098
+        ]
+      },
+      "properties": {
+        "dam_name": "HONOKOWAI RESERVOIR",
+        "dam_height": "31",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1918,
+        "owner_name": "Maui County, Dept of Environmental Mgmt",
+        "river_or_stream": "UNNAMED STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00058"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.6571455522238,
+          20.94467657034546
+        ]
+      },
+      "properties": {
+        "dam_name": "RESERVOIR 140",
+        "dam_height": "35",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1926,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": "HONOKOWAI STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00059"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3999696691178,
+          22.06339860986869
+        ]
+      },
+      "properties": {
+        "dam_name": "WAILUA RESERVOIR",
+        "dam_height": "34",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1920,
+        "owner_name": "Hawaii Dept of Land & Natural Resources",
+        "river_or_stream": "WAILUA RIVER-N. FORK OFFSTREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00060"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.35280466822186,
+          22.101587612156624
+        ]
+      },
+      "properties": {
+        "dam_name": "LOWER KAPAHI RESERVOIR",
+        "dam_height": "20",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1861,
+        "owner_name": "County of Kauai - Department of Public Works, Hawaii Dept of Land & Natural Resources",
+        "river_or_stream": "TR-KAPAA STREAM OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00061"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.34884466778473,
+          22.08222361129012
+        ]
+      },
+      "properties": {
+        "dam_name": "TWIN RESERVOIRS",
+        "dam_height": "48.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1920,
+        "owner_name": "County of Kauai - Department of Public Works, Green Aloha Real Estate, LLC, Kapaa 382, Kulana Home Owners Association, Leonard Kaui, Meghan Ornellas, Outbound LLC, Troy & Renee Johnston, Waipouli Manoa, LLC",
+        "river_or_stream": "TR-WAIKAEA CANAL OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00062"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.40236466878736,
+          22.040384607931568
+        ]
+      },
+      "properties": {
+        "dam_name": "AAHOAKA RESERVOIR",
+        "dam_height": "36",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "Agribusiness Development Corporation (ADC)",
+        "river_or_stream": "TR-WAILUA RIVER SOUTH FORK",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00063"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.34879054252744,
+          20.910641572605282
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 14",
+        "dam_height": "30",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1913,
+        "owner_name": "MP East B, LLC",
+        "river_or_stream": "UNNAMED GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00068"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.34744354321631,
+          20.90501957194835
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 15",
+        "dam_height": "39",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP East B, LLC",
+        "river_or_stream": "UNNAMED GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00069"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.3415585418856,
+          20.871175571286386
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 20",
+        "dam_height": "42",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1913,
+        "owner_name": "MP East A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00070"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.34378454283703,
+          20.887856571519926
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 21",
+        "dam_height": "22",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1913,
+        "owner_name": "MP East B, LLC",
+        "river_or_stream": "FED BY IRRIGATION GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00071"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.35101154211122,
+          20.875743571668327
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 22",
+        "dam_height": "30",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1917,
+        "owner_name": "MP East A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00072"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.35537754258792,
+          20.887558571620197
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 24",
+        "dam_height": "39",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP CPR, LLC",
+        "river_or_stream": "PAHOLOI GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00073"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.36887954364144,
+          20.890554571412096
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 25",
+        "dam_height": "20",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP East A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00074"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.34873154190626,
+          20.860057569649502
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 30",
+        "dam_height": "23",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP East A, LLC",
+        "river_or_stream": "KAILUA GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00075"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.36756754254705,
+          20.847443570052384
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 33",
+        "dam_height": "30",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "MP Central B, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00076"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.3680375422035,
+          20.815450567846305
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 40",
+        "dam_height": "42",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1926,
+        "owner_name": "Mahi Pono Holdings, LLC",
+        "river_or_stream": "KALIALINUI GULCH OFFSTREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00077"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.3796295422077,
+          20.825563567976364
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 42",
+        "dam_height": "27",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP Central B, LLC",
+        "river_or_stream": "KALIALINUE GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00078"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.40257054445524,
+          20.859570569757288
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 52",
+        "dam_height": "13",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP Central B, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00079"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.39633554365867,
+          20.89465257126844
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 60",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP East A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00080"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.41224154369354,
+          20.872455569997367
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 61",
+        "dam_height": "20",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP Central B, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00081"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.4351305450113,
+          20.873612569313266
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 70",
+        "dam_height": "16",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP Central B, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00082"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.49559154641324,
+          20.877619569057543
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 73",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1908,
+        "owner_name": "MP CPR, LLC",
+        "river_or_stream": "OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00083"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.49415354662662,
+          20.870248568202015
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 74",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1916,
+        "owner_name": "MP CPR, LLC",
+        "river_or_stream": "IAO & WAIHEE STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00084"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.41242554344768,
+          20.838699568087225
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 80",
+        "dam_height": "27",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1917,
+        "owner_name": "MP Central A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00085"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.41666154291008,
+          20.81445256712832
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 81",
+        "dam_height": "19",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1920,
+        "owner_name": "MP Central A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00086"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.42332054324402,
+          20.810833567134253
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 82",
+        "dam_height": "13",
+        "downstream_hazard_potential": "S",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "MP Central A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00087"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.4250355438707,
+          20.84081156818012
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 84",
+        "dam_height": "29",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1918,
+        "owner_name": "MP Central A, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00088"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.45517654422238,
+          20.821088566908397
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 90",
+        "dam_height": "13",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1917,
+        "owner_name": "Pacific Rim Land, Inc",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00089"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.468812545374,
+          20.83835556706807
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI RESERVOIR 92",
+        "dam_height": "16",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1967,
+        "owner_name": "MP West, LLC",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00090"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.2747815406901,
+          20.919687574385044
+        ]
+      },
+      "properties": {
+        "dam_name": "PEAHI RESERVOIR",
+        "dam_height": "35",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1924,
+        "owner_name": "East Maui Irrigation Company, Mahi Pono Holdings, LLC",
+        "river_or_stream": "UAOA STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00091"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.20641953817207,
+          20.883110572880007
+        ]
+      },
+      "properties": {
+        "dam_name": "PAPAAEA RESERVOIR",
+        "dam_height": "37",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1902,
+        "owner_name": "East Maui Irrigation Company, Mahi Pono Holdings, LLC",
+        "river_or_stream": "NAILIILIHAELE & PUEHU OFFSTRM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00092"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.32557654277005,
+          20.920174573391517
+        ]
+      },
+      "properties": {
+        "dam_name": "HAIKU RESERVOIR",
+        "dam_height": "37",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1904,
+        "owner_name": "East Maui Irrigation Company, Mahi Pono Holdings, LLC",
+        "river_or_stream": "KANEMOEALA GULCH OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00095"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.32254354247976,
+          20.919009573499498
+        ]
+      },
+      "properties": {
+        "dam_name": "PAUWELA RESERVOIR",
+        "dam_height": "47",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1904,
+        "owner_name": "East Maui Irrigation Company, Mahi Pono Holdings, LLC",
+        "river_or_stream": "LIIKOI GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00096"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.52577267373022,
+          21.95712560103403
+        ]
+      },
+      "properties": {
+        "dam_name": "ALEXANDER",
+        "dam_height": "119",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1931,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "WAHIAWA STREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00098"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4530866696275,
+          21.91065759806388
+        ]
+      },
+      "properties": {
+        "dam_name": "WAITA RESERVOIR",
+        "dam_height": "23",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1906,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "WAIHOHONU STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00099"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.57252967628784,
+          21.914940597810904
+        ]
+      },
+      "properties": {
+        "dam_name": "KAPA RESERVOIR",
+        "dam_height": "21",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1901,
+        "owner_name": "BBCP Kauai Operating, LLC, Kauai Coffee",
+        "river_or_stream": "OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00100"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.55910367496185,
+          21.905730597158104
+        ]
+      },
+      "properties": {
+        "dam_name": "HUKIWAI RESERVOIR",
+        "dam_height": "35.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "BBCP Kauai Operating, LLC, Kauai Coffee",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00101"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.5344986730896,
+          21.90002259697462
+        ]
+      },
+      "properties": {
+        "dam_name": "IOLEAU RESERVOIR",
+        "dam_height": "48",
+        "downstream_hazard_potential": "L",
+        "condition_assessment": "POOR",
+        "year_completed": 1902,
+        "owner_name": "BBCP Kauai Operating, LLC, Kauai Coffee",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00102"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4930986717817,
+          21.912683598579576
+        ]
+      },
+      "properties": {
+        "dam_name": "AEPO RESERVOIR",
+        "dam_height": "70",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1901,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "UNNAMED GULCH",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00103"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4967706724098,
+          21.921719599079626
+        ]
+      },
+      "properties": {
+        "dam_name": "HUINAWAI RESERVOIR",
+        "dam_height": "45",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1902,
+        "owner_name": "BBCP Kukui'ula Development, LLC",
+        "river_or_stream": "POELEELE STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00104"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.5316596742298,
+          21.929958599156688
+        ]
+      },
+      "properties": {
+        "dam_name": "ELIMA RESERVOIR",
+        "dam_height": "37",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1901,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "KALAHEO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00105"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.49740667269108,
+          21.900289596914803
+        ]
+      },
+      "properties": {
+        "dam_name": "KUMANO RESERVOIR",
+        "dam_height": "48",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1902,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "LAWAI STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00106"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4709036710707,
+          21.93584160033902
+        ]
+      },
+      "properties": {
+        "dam_name": "PUU O HEWA RESERVOIR",
+        "dam_height": "23",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1915,
+        "owner_name": "Eric A. Knudsen Trust",
+        "river_or_stream": "TR-WAIHOHONU STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00107"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.49571367215344,
+          21.90498859706196
+        ]
+      },
+      "properties": {
+        "dam_name": "KAUPALE RESERVOIR",
+        "dam_height": "49",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "TR-LAWAI STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00108"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.53611067372765,
+          21.92042159832797
+        ]
+      },
+      "properties": {
+        "dam_name": "IPUOLONO RESERVOIR",
+        "dam_height": "45",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "BBCP Kauai Operating, LLC, Kauai Coffee",
+        "river_or_stream": "KALAHEO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00109"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4903376718861,
+          21.910356597960465
+        ]
+      },
+      "properties": {
+        "dam_name": "AEPOALUA RESERVOIR",
+        "dam_height": "33",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1915,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "AEPO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00110"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.48768467179076,
+          21.907987598258618
+        ]
+      },
+      "properties": {
+        "dam_name": "AEPOEKOLU RESERVOIR",
+        "dam_height": "37",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "AEPO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00111"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4889186715939,
+          21.896383597406228
+        ]
+      },
+      "properties": {
+        "dam_name": "AEPOEHA RESERVOIR",
+        "dam_height": "42",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1913,
+        "owner_name": "BBCP Kauai Mauka Lands, LLC",
+        "river_or_stream": "KUKUIULA GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00112"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4903826726105,
+          21.932748599804093
+        ]
+      },
+      "properties": {
+        "dam_name": "PIWAI RESERVOIR",
+        "dam_height": "56",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1916,
+        "owner_name": "Alexander & Baldwin, Inc.",
+        "river_or_stream": "POELELELE STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00114"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4712876713477,
+          21.920670598480353
+        ]
+      },
+      "properties": {
+        "dam_name": "PIA MILL RESERVOIR",
+        "dam_height": "16.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "Eric A. Knudsen Trust",
+        "river_or_stream": "WAIHOHONU STREAM OFFSTREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00115"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.5309576741126,
+          21.927183599078802
+        ]
+      },
+      "properties": {
+        "dam_name": "MAU RESERVOIR",
+        "dam_height": "38",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1901,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "KALAHEO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00116"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.5278406735076,
+          21.927548598954445
+        ]
+      },
+      "properties": {
+        "dam_name": "ELUA RESERVOIR",
+        "dam_height": "34",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1902,
+        "owner_name": "BBCP Kauai Operating, LLC",
+        "river_or_stream": "KALAHEO GULCH",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00117"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4803136707895,
+          21.894481597370945
+        ]
+      },
+      "properties": {
+        "dam_name": "MANUHONUHONU RESERVOIR",
+        "dam_height": "45",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1954,
+        "owner_name": "BBCP Kukui'ula Development, LLC",
+        "river_or_stream": "UNNAMED GULCH",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00118"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.46895367156458,
+          21.94138860070908
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUKA RESERVOIR",
+        "dam_height": "19",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "Eric A. Knudsen Trust",
+        "river_or_stream": "WAIHOHONU STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00119"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.46119467107363,
+          21.971803602410077
+        ]
+      },
+      "properties": {
+        "dam_name": "PAPUAA RESERVOIR",
+        "dam_height": "43",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1914,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "PAPUAA STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00120"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4320686702866,
+          21.96496860229807
+        ]
+      },
+      "properties": {
+        "dam_name": "HALENANAHU RESERVOIR",
+        "dam_height": "35",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1920,
+        "owner_name": "Grove Farm Company",
+        "river_or_stream": "HALENANHU STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00121"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.67518850954863,
+          20.03891354103541
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKOLOA RESERVOIR NO. 2",
+        "dam_height": "30.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1975,
+        "owner_name": "Hawaii County, Dept of Water Supply",
+        "river_or_stream": "Kohakohau Stream",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00122"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.5992835083532,
+          20.03939354201302
+        ]
+      },
+      "properties": {
+        "dam_name": "PUU PULEHU RESERVOIR",
+        "dam_height": "20",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1910,
+        "owner_name": "State of Hawaii, Dept of Agriculture",
+        "river_or_stream": "UPPER HAMAKUA DITCH OFF STREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00123"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.80474159695572,
+          21.391223581628726
+        ]
+      },
+      "properties": {
+        "dam_name": "KANEOHE DAM",
+        "dam_height": "83",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1980,
+        "owner_name": "City & County of Hon, Dept of Facility Maint",
+        "river_or_stream": "KAMOOALII STREAM",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00124"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.67236755333602,
+          20.97604757204961
+        ]
+      },
+      "properties": {
+        "dam_name": "KAHANA NUI  DAM",
+        "dam_height": "49",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1984,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "KAHANA STREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00126"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.6654095536337,
+          20.99257457231925
+        ]
+      },
+      "properties": {
+        "dam_name": "NAPILI 4-5 DESILTING BASIN",
+        "dam_height": "14",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1985,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "NAPILI 4-5",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00127"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.66255655335448,
+          20.994382572961083
+        ]
+      },
+      "properties": {
+        "dam_name": "NAPILI 2-3 DESILTING BASIN",
+        "dam_height": "39",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1988,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "NAPILI 2-3",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00128"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.73780159415742,
+          21.332173578623603
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIMANALO 60 MG RESERVOIR",
+        "dam_height": "65",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1993,
+        "owner_name": "State of Hawaii, Dept of Agriculture",
+        "river_or_stream": "FED BY IRRIGATION DITCH",
+        "operational_status": "Under Remediation",
+        "nid_id": "HI00129"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.68462555331732,
+          20.946425570484266
+        ]
+      },
+      "properties": {
+        "dam_name": "HONOKOWAI - STRUCTURE #8",
+        "dam_height": "41",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1995,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "HONOKOWAI",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00130"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.38696150293913,
+          20.046962546304407
+        ]
+      },
+      "properties": {
+        "dam_name": "PAAUILO RESERVOIR",
+        "dam_height": "34",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1975,
+        "owner_name": "State of Hawaii, Dept of Agriculture",
+        "river_or_stream": "OFFSTREAM",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00131"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.6369255514847,
+          20.94843557032537
+        ]
+      },
+      "properties": {
+        "dam_name": "UPPER FIELD 14 RESERVOIR",
+        "dam_height": "38",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1985,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00132"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.32264854127558,
+          20.82946956858344
+        ]
+      },
+      "properties": {
+        "dam_name": "PUU KOA RESERVOIR",
+        "dam_height": "37",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1985,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00133"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.6706445535176,
+          20.981992572022765
+        ]
+      },
+      "properties": {
+        "dam_name": "KAOPALA BASIN",
+        "dam_height": "30",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1998,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "Kaopala Gulch",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00134"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.66945950870536,
+          20.03435154084562
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKOLOA RESERVOIR NO. 3",
+        "dam_height": "54",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1985,
+        "owner_name": "Hawaii County, Dept of Water Supply",
+        "river_or_stream": "Waikoloa - Off Stream",
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00136"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.0593136065785,
+          21.40461857914621
+        ]
+      },
+      "properties": {
+        "dam_name": "OAHU RESERVOIR 155",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1916,
+        "owner_name": "Agribusiness Development Corporation (ADC), Bayer U.S. - Crop Science, Monsanto Company, Monsanto Company",
+        "river_or_stream": null,
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00137"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.26524753880273,
+          20.804962568508202
+        ]
+      },
+      "properties": {
+        "dam_name": "KAHAKAPAO RESERVOIRS",
+        "dam_height": "54",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1990,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00138"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.3176225400267,
+          20.8035715677773
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUI FIELD 290 RESERVOIR",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1997,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00139"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.4966725465829,
+          20.85810856785513
+        ]
+      },
+      "properties": {
+        "dam_name": "KEHALANI OFFSITE RETENTION BASIN",
+        "dam_height": "30",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 2003,
+        "owner_name": "Heona Investments LLC, RCFC Kehalani, LLC",
+        "river_or_stream": "Waikapu Stream",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00141"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.64570955190064,
+          20.951970570946653
+        ]
+      },
+      "properties": {
+        "dam_name": "MIDDLE FIELD 14 RESERVOIR",
+        "dam_height": "36",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 2006,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00142"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.27752953994965,
+          20.85160157067407
+        ]
+      },
+      "properties": {
+        "dam_name": "KAILI ILI RESERVOIR",
+        "dam_height": "25",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1984,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": "Awalau",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00143"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.65723955278233,
+          20.949043570811867
+        ]
+      },
+      "properties": {
+        "dam_name": "MAHINAHINA RESERVOIR",
+        "dam_height": "34",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1995,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00144"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.34624466589565,
+          21.9576246031968
+        ]
+      },
+      "properties": {
+        "dam_name": "KAUAI LAGOONS ",
+        "dam_height": "13.4",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1987,
+        "owner_name": "SILVERWEST KAUAI HOTEL PROPERTY LLC, Tower Kauai Lagoons Land LLC",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00145"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3165246658404,
+          22.111660613198335
+        ]
+      },
+      "properties": {
+        "dam_name": "HALAULA RESERVOIR",
+        "dam_height": "25.9",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1905,
+        "owner_name": "Mahi'ai Awawa, LLC",
+        "river_or_stream": "Diversion",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00146"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.77441751437823,
+          20.126257543014614
+        ]
+      },
+      "properties": {
+        "dam_name": "PUNAWAI RESERVOIR",
+        "dam_height": "38",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1970,
+        "owner_name": "Ponoholo Ranch, Ltd.",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00147"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.18993261306,
+          21.486186583229767
+        ]
+      },
+      "properties": {
+        "dam_name": "MAUNAOLU RESERVOIR",
+        "dam_height": "27",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1966,
+        "owner_name": "Honolulu Board of Water Supply",
+        "river_or_stream": "Diversion - Glover Tunnel",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00149"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.50093154693187,
+          20.85638256789633
+        ]
+      },
+      "properties": {
+        "dam_name": "WAILUKU WATER RESERVOIR 6",
+        "dam_height": "33",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1967,
+        "owner_name": "Fieldstone Management LLC, Waikapu Gardens HOA",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00150"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.51277854704867,
+          20.865748568639535
+        ]
+      },
+      "properties": {
+        "dam_name": "WAILUKU WATER RESERVOIR 10",
+        "dam_height": "52",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1951,
+        "owner_name": "Kuikahi Properties LLC",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00151"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.23257953832623,
+          20.809013569340966
+        ]
+      },
+      "properties": {
+        "dam_name": "WAIKAMOI RESERVOIRS",
+        "dam_height": "20",
+        "downstream_hazard_potential": "S",
+        "condition_assessment": "POOR",
+        "year_completed": 1980,
+        "owner_name": "Maui County, Dept of Water Supply",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00152"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.63549055218434,
+          20.9877145725605
+        ]
+      },
+      "properties": {
+        "dam_name": "PLANTATION RESERVOIR",
+        "dam_height": "31",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1989,
+        "owner_name": "Maui Land & Pineapple Co.",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00153"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.83738359698808,
+          21.3396805780515
+        ]
+      },
+      "properties": {
+        "dam_name": "NUUANU RESERVOIR NO. 1",
+        "dam_height": "33.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "POOR",
+        "year_completed": 1905,
+        "owner_name": "Honolulu Board of Water Supply",
+        "river_or_stream": null,
+        "operational_status": "Under Investigation, Planning, Permitting, or Design for Remediation",
+        "nid_id": "HI00154"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3409896677625,
+          22.125996614548917
+        ]
+      },
+      "properties": {
+        "dam_name": "POND NO. 1 AT KAUAI RANCH",
+        "dam_height": "31.5",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 2007,
+        "owner_name": "Cornerstone Hawaii Holdings LLC",
+        "river_or_stream": null,
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00155"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.96998560403767,
+          21.491996585310805
+        ]
+      },
+      "properties": {
+        "dam_name": "KOOLAU RESERVOIR",
+        "dam_height": "70",
+        "downstream_hazard_potential": "L",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1919,
+        "owner_name": "U.S. Army, Dept. Of Defense",
+        "river_or_stream": null,
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.66428050604685,
+          19.897046534734322
+        ]
+      },
+      "properties": {
+        "dam_name": "PA AALII RESERVOIR",
+        "dam_height": "40",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "FAIR",
+        "year_completed": 1940,
+        "owner_name": "PR Mauna Kea, LLC",
+        "river_or_stream": "Kohakohau Stream, three stream diversions",
+        "operational_status": "Normal Operations",
+        "nid_id": "HI00157"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.4884558723804,
+          21.924696199538662
+        ]
+      },
+      "properties": {
+        "dam_name": "PINAU RESERVOIR",
+        "dam_height": "28",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": "UNSATISFACTORY",
+        "year_completed": 1916,
+        "owner_name": "County of Kauai - Department of Public Works, Department of Water, County of Kauai, Dylan James, Holly Van Every, Joseph Allen, Melvin Willis III",
+        "river_or_stream": "POELEELE STREAM",
+        "operational_status": "Enforcement Pending/Ongoing",
+        "nid_id": "HI00158"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.51391854712642,
+          20.895570569150465
+        ]
+      },
+      "properties": {
+        "dam_name": "HAPPY VALLEY FLOOD PREVENTION (Undersized 2014)",
+        "dam_height": "16",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": null,
+        "year_completed": 1980,
+        "owner_name": "Maui County, Dept of Public Works",
+        "river_or_stream": "Iao Stream",
+        "operational_status": null,
+        "nid_id": "HI00125"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.3454926661453,
+          22.060009609699133
+        ]
+      },
+      "properties": {
+        "dam_name": "WAILUA HOUSELOTS RESERVOIR",
+        "dam_height": "24",
+        "downstream_hazard_potential": "H",
+        "condition_assessment": null,
+        "year_completed": 0,
+        "owner_name": "Hawaii Dept of Land & Natural Resources",
+        "river_or_stream": null,
+        "operational_status": null,
+        "nid_id": "N/A"
+      }
+    }
+  ]
+}

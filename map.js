@@ -515,15 +515,26 @@ async function loadRealLayers() {
     LG.dam.clearLayers();
     damGJ.features.forEach(function(feat) {
       if (!feat.geometry) return;
-      var p = feat.properties;
-      var hazard = (p.downstream_hazard_potential || '').trim();
-      var color  = hazard === 'H' ? '#C62828' : hazard === 'S' ? '#F9A825' : '#388E3C';
-      var label  = hazard === 'H' ? 'HIGH HAZARD' : hazard === 'S' ? 'SIGNIFICANT' : 'LOW HAZARD';
-      var coords = feat.geometry.coordinates; // GeoJSON: [lng, lat]
-      var icon = L.divIcon({
-        html: '<div style="width:18px;height:18px;background:' + color + ';border:2px solid #fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)">D</div>',
-        className: '', iconSize: [18, 18], iconAnchor: [9, 9]
-      });
+      var p       = feat.properties;
+      var hazard  = (p.downstream_hazard_potential || '').trim();
+      var coords  = feat.geometry.coordinates; // GeoJSON: [lng, lat]
+      var isWahiawa = (p.dam_name || '').toUpperCase().indexOf('WAHIAWA') !== -1;
+
+      // Wahiawa Dam: distinct orange ring — same hazard class as other H dams
+      // but highlighted for its documented role in the March 2026 event
+      var color, label, iconHtml;
+      if (isWahiawa) {
+        color    = '#E65100'; // deep orange — distinguishes March 2026 impact
+        label    = 'MARCH 2026 EVENT DAM';
+        iconHtml = '<div style="width:24px;height:24px;background:' + color + ';border:3px solid #fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.5)">D</div>';
+      } else {
+        color    = hazard === 'H' ? '#C62828' : hazard === 'S' ? '#F9A825' : '#388E3C';
+        label    = hazard === 'H' ? 'HIGH HAZARD' : hazard === 'S' ? 'SIGNIFICANT' : 'LOW HAZARD';
+        iconHtml = '<div style="width:16px;height:16px;background:' + color + ';border:2px solid #fff;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold;color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.3)">D</div>';
+      }
+
+      var icon = L.divIcon({ html: iconHtml, className: '', iconSize: isWahiawa ? [24,24] : [16,16], iconAnchor: isWahiawa ? [12,12] : [8,8] });
+
       var html = '<div class="pop">' +
         '<div class="pop-title">' + (p.dam_name || 'Dam') + '</div>' +
         '<span class="pop-badge" style="background:' + color + '">' + label + '</span>' +
@@ -533,11 +544,13 @@ async function loadRealLayers() {
         (p.river_or_stream ? '<div class="pop-stat"><span>River / stream</span><b>' + p.river_or_stream + '</b></div>' : '') +
         '<div class="pop-stat"><span>Condition</span><b>' + (p.condition_assessment || 'Unknown') + '</b></div>' +
         (p.operational_status ? '<div class="pop-stat"><span>Status</span><b>' + p.operational_status + '</b></div>' : '') +
+        (isWahiawa ? '<div class="pop-box danger"><b>March 2026 event:</b> Officials warned this 1906 earthen dam could overtop during the March 20 storm. 5,500 residents downstream were evacuated. Water levels eventually stabilized but the event exposed the risk of aging infrastructure in flood-prone watersheds.</div>' : '') +
         '<div class="pop-box ' + (hazard === 'H' ? 'danger' : 'warn') + '">' +
-        'Source: Hawaii Statewide GIS Program / USACE NID · ID: ' + (p.nid_id || 'N/A') + '</div>' +
+        'All dams shown from USACE National Inventory of Dams (NID) via Hawaii Statewide GIS Program. · NID ID: ' + (p.nid_id || 'N/A') + '</div>' +
         '</div>';
-      L.marker([coords[1], coords[0]], { icon: icon })
-        .bindPopup(html, { maxWidth: 290 })
+
+      L.marker([coords[1], coords[0]], { icon: icon, zIndexOffset: isWahiawa ? 1000 : 0 })
+        .bindPopup(html, { maxWidth: 300 })
         .addTo(LG.dam);
     });
   } catch (_) { /* keep data.js placeholder */ }
@@ -606,44 +619,136 @@ async function loadRealLayers() {
     }).addTo(LG.slr);
   } catch (_) { /* keep data.js placeholder */ }
 
-  // 7. Real SSURGO soil polygons (Oahu) — replaces 9 hand-drawn zones
-  // Source: USDA NRCS SSURGO via Hawaii State GIS (data/geojson/soil_oahu.geojson)
-  // musym field distinguishes real data from gen_geojson.js output (which has iron_oxide_pct).
-  // Note: hydrologic group requires a USDA Soil Data Access (SDA) join on mukey.
+  // 7. Real SSURGO soil polygons (Oahu) — colored by hydrologic soil group (HSG)
+  // Source: Soil Survey Staff, NRCS, USDA. SSURGO Database.
+  //   Geometry: Hawaii Statewide GIS Program Terrestrial/MapServer/42
+  //   HSG (hydgrp): USDA SDA muaggatt table — sdmdataaccess.nrcs.usda.gov
+  //   Iron oxide (iron_score): USDA SDA chchemical.freeiron, normalized to 35% max
+  var hsgFill  = { A:'rgba(56,142,60,.30)',  B:'rgba(249,168,37,.30)',
+                   C:'rgba(230,81,0,.30)',   D:'rgba(183,28,28,.35)',
+                   'A/D':'rgba(183,28,28,.35)', 'B/D':'rgba(183,28,28,.35)',
+                   'C/D':'rgba(183,28,28,.35)' };
+  var hsgBorder= { A:'#388E3C', B:'#F9A825', C:'#E65100', D:'#B71C1C',
+                   'A/D':'#B71C1C', 'B/D':'#B71C1C', 'C/D':'#B71C1C' };
+  var hsgLabel = { A:'Class A — high infiltration', B:'Class B — moderate infiltration',
+                   C:'Class C — slow infiltration', D:'Class D — very slow / high runoff',
+                   'A/D':'Class A/D — undrained: D', 'B/D':'Class B/D — undrained: D',
+                   'C/D':'Class C/D — undrained: D' };
   try {
     const soilRes = await fetch(base + 'soil_oahu.geojson');
     if (!soilRes.ok) throw new Error('file not found');
     const soilGJ = await soilRes.json();
     LG.soils.clearLayers();
     L.geoJSON(soilGJ, {
-      style: function() {
+      style: function(feat) {
+        var hsg = (feat.properties.hydgrp || '').trim();
         return {
-          fillColor: 'rgba(139,90,43,.18)',
-          color: '#795548',
-          weight: 0.5,
-          fillOpacity: 0.18,
-          opacity: 0.5
+          fillColor: hsgFill[hsg]   || 'rgba(139,90,43,.18)',
+          color:     hsgBorder[hsg] || '#795548',
+          weight: 0.5, fillOpacity: 0.35, opacity: 0.6
         };
       },
       onEachFeature: function(feat, layer) {
-        var p = feat.properties;
-        layer.bindTooltip(p.musym || 'Soil', { direction: 'top', sticky: true });
+        var p   = feat.properties;
+        var hsg = (p.hydgrp || '').trim();
+        var ironPct = p.iron_score != null ? (p.iron_score * 35).toFixed(1) + '% Fe₂O₃' : 'No data';
+        var tooltip = (p.musym || 'Soil') + (hsg ? ' · HSG ' + hsg : '');
+        layer.bindTooltip(tooltip, { direction: 'top', sticky: true });
         layer.bindPopup(
           '<div class="pop">' +
           '<div class="pop-title">Soil Map Unit: ' + (p.musym || 'Unknown') + '</div>' +
-          '<span class="pop-badge" style="background:#795548">SSURGO</span>' +
+          '<span class="pop-badge" style="background:' + (hsgBorder[hsg] || '#795548') + '">SSURGO · HSG ' + (hsg || 'N/A') + '</span>' +
+          '<div class="pop-stat"><span>Hydrologic group</span><b>' + (hsgLabel[hsg] || 'Unknown') + '</b></div>' +
+          '<div class="pop-stat"><span>Free iron oxide</span><b>' + ironPct + '</b></div>' +
           '<div class="pop-stat"><span>Map unit symbol</span><b>' + (p.musym || 'N/A') + '</b></div>' +
           '<div class="pop-stat"><span>Survey area</span><b>' + (p.areasymbol || 'N/A') + '</b></div>' +
           '<div class="pop-stat"><span>USDA mukey</span><b>' + (p.mukey || 'N/A') + '</b></div>' +
-          '<div class="pop-box info">Real USDA NRCS SSURGO soil survey polygon (November 2023). ' +
-          'Source: Hawaii Statewide GIS Program Terrestrial/MapServer/42. ' +
-          'Hydrologic group (A–D) requires a join on mukey at sdmdataaccess.nrcs.usda.gov.</div>' +
+          '<div class="pop-box info">USDA NRCS SSURGO (Nov 2023). HSG from muaggatt table; ' +
+          'free iron oxide from chchemical table, averaged across dominant component horizons. ' +
+          'Source: sdmdataaccess.nrcs.usda.gov</div>' +
           '<a href="https://websoilsurvey.sc.egov.usda.gov/" target="_blank" style="font-size:9px;color:#0066cc;display:block;margin-top:4px">USDA Web Soil Survey →</a>' +
           '</div>',
-          { maxWidth: 300 }
+          { maxWidth: 310 }
         );
       }
     }).addTo(LG.soils);
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 8. Elevation Range Zones — Oahu
+  // Source: Hawaii Statewide GIS Program — Elevation/MapServer/10
+  //   Hawaii Statewide GIS Program, 2024. Elevation Ranges (ft). geodata.hawaii.gov.
+  try {
+    const elevRes = await fetch(base + 'elevation_zones_oahu.geojson');
+    if (!elevRes.ok) throw new Error('file not found');
+    const elevGJ = await elevRes.json();
+
+    function elevColor(low) {
+      if (low >= 3000) return { fill:'rgba(26,35,126,.25)',  border:'#1a237e' };
+      if (low >= 1000) return { fill:'rgba(63,81,181,.18)',  border:'#3f51b5' };
+      if (low >= 300)  return { fill:'rgba(100,130,200,.15)',border:'#5c6bc0' };
+      if (low >= 100)  return { fill:'rgba(144,202,249,.20)',border:'#42a5f5' };
+      return                  { fill:'rgba(187,222,251,.25)',border:'#90caf9' };
+    }
+    function elevLabel(low, high) {
+      if (low >= 3000) return 'High elevation source zone (≥3,000 ft) — rainfall origin, steep runoff';
+      if (low >= 1000) return 'Upper transition zone (1,000–3,000 ft) — runoff accelerates into channels';
+      if (low >= 300)  return 'Mid-elevation zone (300–1,000 ft) — watershed transition';
+      if (low >= 100)  return 'Low elevation zone (100–300 ft) — flood-prone valley floors';
+      return                  'Low-lying accumulation zone (<100 ft) — highest flood exposure';
+    }
+
+    LG.elevation.clearLayers();
+    L.geoJSON(elevGJ, {
+      style: function(feat) {
+        var c = elevColor(feat.properties.lowelev || 0);
+        return { fillColor: c.fill, color: c.border, weight: 0.5, fillOpacity: 0.3, opacity: 0.5 };
+      },
+      onEachFeature: function(feat, layer) {
+        var low  = feat.properties.lowelev  || 0;
+        var high = feat.properties.highelev || 0;
+        layer.bindPopup(
+          '<div class="pop">' +
+          '<div class="pop-title">Elevation Zone: ' + low + '–' + high + ' ft</div>' +
+          '<div class="pop-box info">' + elevLabel(low, high) + '</div>' +
+          '<div class="pop-box info" style="font-size:8.5px">Source: Hawaii Statewide GIS Program. Elevation Ranges (ft), Elevation/MapServer/10. geodata.hawaii.gov.</div>' +
+          '</div>',
+          { maxWidth: 280 }
+        );
+      }
+    }).addTo(LG.elevation);
+  } catch (_) { /* keep data.js placeholder */ }
+
+  // 9. Official Civil Defense Evacuation Zones — Oahu
+  // Source: Hawaii Emergency Management Agency (HI-EMA) / City and County of Honolulu
+  //   Hawaii Statewide GIS Program — Hazards/MapServer/2 (updated April 2025)
+  try {
+    const evacRes = await fetch(base + 'evac_zones_oahu.geojson');
+    if (!evacRes.ok) throw new Error('file not found');
+    const evacGJ = await evacRes.json();
+
+    var evacColor = { 1:'#7B2D8B', 2:'#C62828' };
+
+    LG.evac.clearLayers();
+    L.geoJSON(evacGJ, {
+      filter: function(feat) { return feat.properties.zone_code !== 3; }, // exclude safe zones
+      style: function(feat) {
+        var col = evacColor[feat.properties.zone_code] || '#7B2D8B';
+        return { fillColor: col, color: col, weight: 1.5, dashArray: '8,4', opacity: 0.85, fillOpacity: 0.25 };
+      },
+      onEachFeature: function(feat, layer) {
+        var p = feat.properties;
+        var col = evacColor[p.zone_code] || '#7B2D8B';
+        layer.bindPopup(
+          '<div class="pop">' +
+          '<div class="pop-title">' + (p.zone_type || 'Evacuation Zone') + '</div>' +
+          '<span class="pop-badge" style="background:' + col + '">EVACUATION</span>' +
+          '<div class="pop-stat"><span>Description</span><b>' + (p.zone_desc || 'N/A') + '</b></div>' +
+          '<div class="pop-box warn">Official civil defense evacuation zone. Source: Hawaii Emergency Management Agency (HI-EMA) / City and County of Honolulu via Hawaii Statewide GIS Program, Hazards/MapServer/11. Updated April 2025.</div>' +
+          '</div>',
+          { maxWidth: 290 }
+        );
+      }
+    }).addTo(LG.evac);
   } catch (_) { /* keep data.js placeholder */ }
 }
 
@@ -752,16 +857,21 @@ function _renderZones(byName) {
   // Impact zones
   LG.impact.clearLayers();
   IMPACT_ZONES.forEach(function(z) {
-    var coords = _getRealCoords(z.name, byName) || [z.coords];
+    var realCoords = _getRealCoords(z.name, byName);
+    var coords     = realCoords || [z.coords];
+    var boundaryNote = realCoords
+      ? 'Boundary: US Census TIGER 2020 Census Designated Place (CDP). Impact data: Hawaii Civil Defense, NWS HFO March 2026 event summaries, and corroborated news reports. No official GIS flood-extent dataset for this event is publicly available.'
+      : 'Boundary: researcher-drawn approximation (Census CDP boundary not available for this location). Impact data: Hawaii Civil Defense, NWS HFO March 2026 event summaries.';
     var html = '<div class="pop"><div class="pop-title">' + z.name + '</div>';
     html += '<span class="pop-badge" style="background:' + borderMap[z.severity] + '">' + z.severity.toUpperCase() + '</span>';
     html += '<div class="pop-stat"><span>Peak rainfall</span><b>' + z.rain + '</b></div>';
     if (z.rescued) html += '<div class="pop-stat"><span>People rescued</span><b>' + z.rescued + '</b></div>';
-    html += '<div class="pop-box ' + (z.severity === 'moderate' ? 'warn' : 'danger') + '">' + z.desc + '</div></div>';
+    html += '<div class="pop-box ' + (z.severity === 'moderate' ? 'warn' : 'danger') + '">' + z.desc + '</div>';
+    html += '<div class="pop-box info" style="font-size:8.5px">' + boundaryNote + '</div></div>';
     L.polygon(coords, {
       fillColor: colMap[z.severity], color: borderMap[z.severity],
       weight: 2, opacity: .85, fillOpacity: .55
-    }).bindPopup(html, {maxWidth: 290}).addTo(LG.impact);
+    }).bindPopup(html, {maxWidth: 300}).addTo(LG.impact);
   });
 
   // Evacuation zones

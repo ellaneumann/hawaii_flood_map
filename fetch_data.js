@@ -28,13 +28,14 @@ const OUT   = path.join(__dirname, 'data', 'geojson');
 
 // ── HTTP helper ────────────────────────────────────────────────────────────────
 
-function getJSON(url, redirects) {
+function getJSON(url, redirects, retries) {
   redirects = redirects === undefined ? 3 : redirects;
+  retries   = retries   === undefined ? 4 : retries;
   return new Promise(function(resolve, reject) {
     https.get(url, { headers: { 'User-Agent': 'Hawaii-FloodWatch/1.0' } }, function(res) {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         if (redirects === 0) return reject(new Error('Too many redirects'));
-        return resolve(getJSON(res.headers.location, redirects - 1));
+        return resolve(getJSON(res.headers.location, redirects - 1, retries));
       }
       if (res.statusCode !== 200) {
         return reject(new Error('HTTP ' + res.statusCode + ' from ' + url));
@@ -45,7 +46,46 @@ function getJSON(url, redirects) {
         try { resolve(JSON.parse(body)); }
         catch (e) { reject(new Error('JSON parse error: ' + e.message)); }
       });
-    }).on('error', reject);
+    }).on('error', function(err) {
+      if (retries > 0) {
+        var delay = (5 - retries) * 2000; // 2s, 4s, 6s, 8s back-off
+        process.stdout.write('\r  [retry in ' + (delay/1000) + 's after ' + err.code + '] ');
+        setTimeout(function() { resolve(getJSON(url, redirects, retries - 1)); }, delay);
+      } else {
+        reject(err);
+      }
+    });
+  });
+}
+
+// ── USDA Soil Data Access (SDA) tabular POST query ────────────────────────────
+// Used to join hydrologic soil group (HSG) onto SSURGO map unit polygons.
+// Endpoint: sdmdataaccess.nrcs.usda.gov/tabular/post.rest
+
+function sdaQuery(sql) {
+  return new Promise(function(resolve, reject) {
+    var body = 'query=' + encodeURIComponent(sql) + '&format=JSON';
+    var opts = {
+      hostname: 'sdmdataaccess.nrcs.usda.gov',
+      path:     '/tabular/post.rest',
+      method:   'POST',
+      headers: {
+        'Content-Type':   'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(body),
+        'User-Agent':     'Hawaii-FloodWatch/1.0'
+      }
+    };
+    var req = https.request(opts, function(res) {
+      var data = '';
+      res.on('data', function(c) { data += c; });
+      res.on('end', function() {
+        try { resolve(JSON.parse(data)); }
+        catch(e) { reject(new Error('SDA JSON parse error: ' + e.message)); }
+      });
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
   });
 }
 
@@ -180,9 +220,8 @@ async function main() {
   var places = await arcgisQuery(
     'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2020/MapServer/16',
     {
-      where:              "STATE='15'",
-      outFields:          'NAME,GEOID,NAMELSAD',
-      maxAllowableOffset: '0.0003',
+      where:     "STATE='15'",
+      outFields: 'NAME,GEOID',
     },
     'Census Places'
   );
@@ -282,7 +321,7 @@ async function main() {
     'https://geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/15',
     {
       outFields:          '*',
-      maxAllowableOffset: '0.0003',
+      maxAllowableOffset: '0.003', // ~333m — keeps file under 5MB; 0.0003 produces 143MB
     },
     'SLR 3.2ft'
   );
@@ -326,10 +365,129 @@ async function main() {
     },
     'SSURGO Soils'
   );
+  // Join hydrologic soil group (HSG) from USDA Soil Data Access (SDA)
+  // muaggatt.hydgrp = dominant HSG (A/B/C/D) for each map unit
+  // Source: Soil Survey Staff, NRCS — sdmdataaccess.nrcs.usda.gov
+  var mukeys = [];
+  var seen = {};
+  soils.features.forEach(function(f) {
+    var mk = String(f.properties.mukey || '');
+    if (mk && !seen[mk]) { seen[mk] = true; mukeys.push(mk); }
+  });
+
+  console.log('\n  Joining HSG from USDA SDA (' + mukeys.length + ' map units)…');
+  var hsgMap = {};
+  try {
+    // SDA has no URL length limit but batch in 500s to be safe
+    var BATCH = 500;
+    for (var b = 0; b < mukeys.length; b += BATCH) {
+      var chunk = mukeys.slice(b, b + BATCH);
+      var sda = await sdaQuery(
+        'SELECT mukey, hydgrp FROM muaggatt WHERE mukey IN (' + chunk.join(',') + ')'
+      );
+      if (sda && sda.Table) {
+        sda.Table.forEach(function(row) { hsgMap[String(row[0])] = row[1]; });
+      }
+    }
+    soils.features.forEach(function(f) {
+      f.properties.hydgrp = hsgMap[String(f.properties.mukey)] || null;
+    });
+    var matched = soils.features.filter(function(f) { return f.properties.hydgrp; }).length;
+    console.log('  HSG matched: ' + matched + ' of ' + soils.features.length + ' polygons');
+  } catch(e) {
+    console.warn('  SDA HSG join failed (' + e.message + ') — file saved without hydgrp');
+  }
+
+  // Join free iron oxide content (chchemical.freeiron) from USDA SDA
+  // freeiron = free iron oxides, % by weight, averaged across all horizons of the dominant component
+  // Normalized to 0–1 using 35% as max (observed ceiling for Hawaiian Oxisols/pineapple soils)
+  // Source: Soil Survey Staff, NRCS, USDA. SSURGO chchemical table.
+  //   sdmdataaccess.nrcs.usda.gov
+  console.log('\n  Joining free iron oxide from USDA SDA chchemical…');
+  var ironMap = {};
+  try {
+    for (var bi = 0; bi < mukeys.length; bi += BATCH) {
+      var ichunk = mukeys.slice(bi, bi + BATCH);
+      var ironSda = await sdaQuery(
+        'SELECT mu.mukey, AVG(cc.freeiron) AS freeiron ' +
+        'FROM mapunit mu ' +
+        'INNER JOIN component co ON mu.mukey = co.mukey AND co.majcompflag = \'Yes\' ' +
+        'INNER JOIN chorizon ch ON co.cokey = ch.cokey ' +
+        'INNER JOIN chchemical cc ON ch.chkey = cc.chkey ' +
+        'WHERE mu.mukey IN (' + ichunk.join(',') + ') ' +
+        'AND cc.freeiron IS NOT NULL ' +
+        'GROUP BY mu.mukey'
+      );
+      if (ironSda && ironSda.Table) {
+        ironSda.Table.forEach(function(row) {
+          ironMap[String(row[0])] = parseFloat(row[1]) || 0;
+        });
+      }
+    }
+    soils.features.forEach(function(f) {
+      var fe = ironMap[String(f.properties.mukey)];
+      f.properties.iron_score = (fe != null) ? Math.min(1, fe / 35) : null;
+    });
+    var ironMatched = soils.features.filter(function(f) { return f.properties.iron_score != null; }).length;
+    console.log('  Iron oxide matched: ' + ironMatched + ' of ' + soils.features.length + ' polygons');
+  } catch(e) {
+    console.warn('  SDA iron oxide join failed (' + e.message + ') — file saved without iron_score');
+  }
   save('soil_oahu.geojson', soils);
 
+  // 9. Official Civil Defense Evacuation Zones — Oahu
+  // ───────────────────────────────────────────────────
+  // Source: Hawaii Emergency Management Agency (HI-EMA) / City and County of Honolulu
+  //   via Hawaii Statewide GIS Program — Hazards/MapServer/2
+  //   Updated April 2025. Multi-hazard zones used for tsunami, hurricane, and flood
+  //   evacuation orders. Zone A = highest risk (lowest elevation, nearest hazard);
+  //   zones B–F = progressively lower risk.
+  //
+  // Key fields:
+  //   evac_zone  — zone designation (A, B, C, D, E, F)
+  //   zone_type  — zone classification description
+  //   zone_code  — numeric zone identifier
+  //   island     — island name
+
+  // 9. Elevation Range Zones — Oahu
+  // ──────────────────────────────────
+  // Source: Hawaii Statewide GIS Program — Elevation/MapServer/10
+  // Polygon zones with lowelev / highelev fields (feet). Used for flood flow
+  // analysis: high zones = rainfall source areas; low zones = accumulation zones.
+  // maxAllowableOffset=0.001 (~111m) simplifies dense geometry for browser delivery.
+
+  console.log('\n[9/10] Elevation range zones — Oahu');
+  console.log('        Source: geodata.hawaii.gov — Elevation/MapServer/10\n');
+
+  var elevZones = await arcgisQuery(
+    'https://geodata.hawaii.gov/arcgis/rest/services/Elevation/MapServer/10',
+    {
+      geometry:           JSON.stringify(OAHU_BOX),
+      geometryType:       'esriGeometryEnvelope',
+      inSR:               '4326',
+      spatialRel:         'esriSpatialRelIntersects',
+      outFields:          'lowelev,highelev',
+      maxAllowableOffset: '0.001',
+    },
+    'Elevation Zones'
+  );
+  save('elevation_zones_oahu.geojson', elevZones);
+
+  console.log('\n[10/10] Civil defense evacuation zones — Oahu');
+  console.log('       Source: geodata.hawaii.gov — Hazards/MapServer/2 (HI-EMA, April 2025)\n');
+
+  var evacZones = await arcgisQuery(
+    'https://geodata.hawaii.gov/arcgis/rest/services/Hazards/MapServer/11',
+    {
+      where:     "island = 'OAHU'",
+      outFields: 'zone_type,zone_code,zone_desc,island',
+    },
+    'Evac Zones'
+  );
+  save('evac_zones_oahu.geojson', evacZones);
+
   console.log('\n─────────────────────────────────────────────────────────────────');
-  console.log('Done!  8 datasets saved to data/geojson/');
+  console.log('Done!  10 datasets saved to data/geojson/');
   console.log('Reload the map in your browser — it will use the real data now.');
   console.log('─────────────────────────────────────────────────────────────────\n');
 }
